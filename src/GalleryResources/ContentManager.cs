@@ -18,7 +18,7 @@ namespace Gallery.MVC.GalleryResources
         private static List<PublicModel> _Metadata;
         static readonly object SyncMetadata = new object();
         private static string _BlobBasePath;
-        private static DateTimeOffset _LastModified = new DateTimeOffset(DateTime.Now, TimeSpan.Zero);
+        private static DateTimeOffset _LastModified = new DateTimeOffset(DateTime.UtcNow, TimeSpan.Zero);
 
         public DateTimeOffset LastModified => _LastModified;
 

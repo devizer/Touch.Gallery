@@ -59,7 +59,8 @@ namespace Gallery.MVC.API
         {
             var stream = _ContentManager.GetBlobAsStream(id);
             var tag = GetSHA1(id + _ContentManager.LastModified);
-            return File(stream, "image/jpeg", _ContentManager.LastModified, new EntityTagHeaderValue(tag));
+            HttpContext.Response.Headers.Add("Cache-control", "max-age=1314000");
+            return File(stream, "image/jpeg", _ContentManager.LastModified, new EntityTagHeaderValue('"' + tag + '"'));
         }
 
         // POST api/values
