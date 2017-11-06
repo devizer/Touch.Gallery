@@ -2,6 +2,7 @@
 using System.Diagnostics;
 using System.IO;
 using System.Linq;
+using System.Runtime.InteropServices;
 using Gallery.MVC.GalleryResources;
 using Microsoft.Extensions.Logging;
 
@@ -22,7 +23,16 @@ namespace Gallery.MVC
 
         public void Perform()
         {
-            _StartUpLogger.LogInformation("HI. I Am Custom Startup");
+            _StartUpLogger.LogInformation(@"Touch Gallery Environment:
+ * Framefork: {0}
+ * OS Architecture: {1}
+ * OS: {2}
+ * CPU Architecture: {3}",
+                RuntimeInformation.FrameworkDescription,
+                RuntimeInformation.OSArchitecture,
+                RuntimeInformation.OSDescription,
+                RuntimeInformation.ProcessArchitecture);
+
             var metaData = _RM.GetMetadata();
             var topics = metaData.SelectMany(x => x.Topics).Select(x => x.Title).Distinct().OrderBy(x => x).ToList();
 
