@@ -52,6 +52,11 @@ namespace Gallery.MVC.Models
             if (!int.TryParse(parts[1], out limit)) throwArg();
             return new PublicLimits(kind, limit);
         }
+
+        public override string ToString()
+        {
+            return $"{Kind}={LimitValue}";
+        }
     }
 
     public enum LimitKind
