@@ -10,7 +10,7 @@ using Microsoft.Extensions.Logging;
 
 namespace Gallery.MVC
 {
-    public class Program
+    public class GalleryProgram
     {
         public static void Main(string[] args)
         {
