@@ -5,7 +5,7 @@ env_variables:
 resources:
   cpu: 1
   memory_gb: 0.9
-  disk_size_gb: 5
+  disk_size_gb: 10
 network:
   forwarded_ports:
     - 80/tcp
