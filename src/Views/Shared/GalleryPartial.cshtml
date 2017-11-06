@@ -1,0 +1,121 @@
+﻿@using Gallery.MVC.Models
+@model Gallery.MVC.Models.PartialGalleryModel
+
+<style>
+    #GalleryRoot {
+        width: 100%;
+        align-content: center !important;
+        text-align: center !important;
+
+/*
+        display: -webkit-box;
+        display: -ms-flexbox;
+        display: -webkit-flex;
+        display: flex;
+        -webkit-box-pack: center;
+        -ms-flex-pack: center;
+        -webkit-justify-content: center;
+        justify-content: center;
+        -webkit-box-align: center;
+        -ms-flex-align: center;
+        -webkit-align-items: center;
+        align-items: center;
+*/
+
+    }
+
+    .swiper-container {
+        height: @((int)(Model.Limits.LimitValue / Model.Ratio))px;
+        /*border: 2px solid red;*/
+        align-content: center;
+        text-align: center;
+    }
+
+    .swiper-slide {
+        text-align: center;
+        font-size: 18px;
+        /* background: #fff; */
+        /* Center slide text vertically */
+        display: -webkit-box;
+        display: -ms-flexbox;
+        display: -webkit-flex;
+        display: flex;
+        -webkit-box-pack: center;
+        -ms-flex-pack: center;
+        -webkit-justify-content: center;
+        justify-content: center;
+        -webkit-box-align: center;
+        -ms-flex-align: center;
+        -webkit-align-items: center;
+        align-items: center;
+    }
+
+    .swiper-container {
+        text-align: center;
+        font-size: 18px;
+        /* background: #fff; */
+        /* Center slide text vertically */
+        display: -webkit-box;
+        display: -ms-flexbox;
+        display: -webkit-flex;
+        display: flex;
+        -webkit-box-pack: center;
+        -ms-flex-pack: center;
+        -webkit-justify-content: center;
+        justify-content: center;
+        -webkit-box-align: center;
+        -ms-flex-align: center;
+        -webkit-align-items: center;
+        align-items: center;
+    }
+
+
+    html, body {
+        position: relative;
+        height: 100%;
+    }
+
+/*
+    html, body, .container, .swiper-container {
+        margin-left: 0px;
+        margin-right: 0px;
+        padding-left: 0px;
+        padding-right: 0px;
+    }
+*/
+</style>
+
+<div class="swiper-container">
+    <div class="swiper-wrapper">
+        @foreach (var photo in Model.Topic.Blobs)
+        {
+            int w = photo.Width, h = photo.Height;
+            if (Model.Limits.Kind == LimitKind.Height && h < Model.Limits.LimitValue)
+            {
+                w = (int)(w * Convert.ToDecimal(Model.Limits.LimitValue) / Convert.ToDecimal(h));
+                h = Model.Limits.LimitValue;
+            }
+            w = (int) (w / Model.Ratio);
+            h = (int) (h / Model.Ratio);
+            <div class="swiper-slide" style="border: 1px solid black; width: @(w)px; height: @(h)px; border: none">
+                <img src="/api/v1/Gallery/@photo.Id" width="@(w)px" height="@(h)px" style="border: 1px solid black"/>
+            </div>
+        }
+        
+    </div>
+</div>
+
+<script>
+    // window.setTimeout(function() {
+            // console.log("Binding swiper .....................................................");
+    var swiper = new Swiper('.swiper-container',
+        {
+            slidesPerView: 'auto',
+            spaceBetween: 20,
+            mousewheel: true,
+            keyboard: {
+                enabled: true,
+            },
+        });
+        // },1);
+</script>
