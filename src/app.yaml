@@ -1,2 +1,13 @@
 runtime: aspnetcore
 env: flex
+env_variables:
+  ASPNETCORE_URLS: 'http://0.0.0.0:80'
+resources:
+  cpu: 1
+  memory_gb: 0.9
+  disk_size_gb: 5
+network:
+  forwarded_ports:
+    - 80/tcp
+manual_scaling:
+  instances: 1
