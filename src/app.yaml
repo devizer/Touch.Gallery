@@ -1,7 +1,7 @@
 runtime: aspnetcore
 env: flex
 env_variables:
-  ASPNETCORE_URLS: 'http://0.0.0.0:5000'
+  ASPNETCORE_URLS: 'http://*:5000'
 resources:
   cpu: 1
   memory_gb: 2
