@@ -8,6 +8,6 @@ resources:
   disk_size_gb: 10
 network:
   forwarded_ports:
-    - 5000:80
+    - 80:5000
 manual_scaling:
   instances: 1
