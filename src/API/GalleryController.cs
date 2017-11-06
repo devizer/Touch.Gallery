@@ -4,11 +4,13 @@ using System.IO;
 using System.Linq;
 using System.Net;
 using System.Net.Http;
-using System.Net.Http.Headers;
+using System.Text;
 using System.Threading.Tasks;
 using Gallery.MVC.GalleryResources;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.Extensions.Logging;
+using Microsoft.Net.Http.Headers;
+using MediaTypeHeaderValue = System.Net.Http.Headers.MediaTypeHeaderValue;
 
 // For more information on enabling Web API for empty projects, visit https://go.microsoft.com/fwlink/?LinkID=397860
 
@@ -41,15 +43,24 @@ namespace Gallery.MVC.API
             // return result;
         }
 
+        private static readonly UTF8Encoding Utf8 = new UTF8Encoding(false);
+        static string GetSHA1(string arg)
+        {
+            if (arg == null)
+                throw new ArgumentNullException("arg");
+
+            var sha1 = System.Security.Cryptography.SHA1.Create();
+            var hash = string.Join("", sha1.ComputeHash(Utf8.GetBytes(arg)).Select(x => x.ToString("X2")));
+            return hash;
+        }
 
         [Route("{id}")]
         public IActionResult GetBlob(string id)
         {
             var stream = _ContentManager.GetBlobAsStream(id);
-            return File(stream, "image/jpeg");
+            var tag = GetSHA1(id + _ContentManager.LastModified);
+            return File(stream, "image/jpeg", _ContentManager.LastModified, new EntityTagHeaderValue(tag));
         }
-
-
 
         // POST api/values
         [HttpPost]

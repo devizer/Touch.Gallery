@@ -18,6 +18,9 @@ namespace Gallery.MVC.GalleryResources
         private static List<PublicModel> _Metadata;
         static readonly object SyncMetadata = new object();
         private static string _BlobBasePath;
+        private static DateTimeOffset _LastModified = new DateTimeOffset(DateTime.Now, TimeSpan.Zero);
+
+        public DateTimeOffset LastModified => _LastModified;
 
         public ContentManager(ILogger<ContentManager> logger)
         {
@@ -77,6 +80,11 @@ namespace Gallery.MVC.GalleryResources
 
         private List<PublicModel> GetMetadata_Impl()
         {
+            var asmLocation = Assembly.GetExecutingAssembly().Location;
+            var lastModified = new FileInfo(asmLocation).LastWriteTimeUtc;
+            _LastModified = new DateTimeOffset(lastModified);
+            _Logger.LogInformation("Global Last Modified: {0}", _LastModified);
+
             var ret = new List<PublicModel>();
             var names = Assembly.GetExecutingAssembly().GetManifestResourceNames();
             _Logger.LogInformation("Embedded Resources: {0}{1}", Environment.NewLine,
