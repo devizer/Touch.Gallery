@@ -1,12 +1,15 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Diagnostics;
+using System.Globalization;
 using System.Linq;
 using System.Threading.Tasks;
 using Gallery.MVC.API;
 using Gallery.MVC.GalleryResources;
 using Microsoft.AspNetCore.Mvc;
 using Gallery.MVC.Models;
+using Gallery.Prepare;
+using Microsoft.AspNetCore.Http;
 using Microsoft.Extensions.Logging;
 
 namespace Gallery.MVC.Controllers
@@ -49,9 +52,9 @@ namespace Gallery.MVC.Controllers
 
 
         [HttpPost]
-        public IActionResult GetSliderHtml([FromForm] string galleryTitle, [FromForm] string limits, string ratio)
+        public IActionResult GetSliderHtml([FromForm] string galleryTitle, [FromForm] string limits, [FromForm] string ratio)
         {
-            
+
             PublicLimits limitsParsed = PublicLimits.Parse(limits);
             List<PublicModel> meta = _ContentManager.GetMetadata();
             IEnumerable<PublicModel> byLimits = meta.Where(x => x.LimitValue == limitsParsed.LimitValue && x.Kind == limitsParsed.Kind);
@@ -66,8 +69,6 @@ namespace Gallery.MVC.Controllers
 
             if (ratioParsed < 1) ratioParsed = 1;
 
-
-
             return PartialView("GalleryPartial", new PartialGalleryModel()
             {
                 Limits = limitsParsed,
@@ -75,6 +76,69 @@ namespace Gallery.MVC.Controllers
                 Ratio = ratioParsed,
             });
         }
+
+        [HttpPost]
+        public IActionResult GetSmartSliderHtml([FromForm] string galleryTitle, [FromForm] string windowHeight, [FromForm] string devicePixelRatio)
+        {
+            var enUs = new CultureInfo("en-US");
+
+            decimal argHeight = 0;
+            decimal.TryParse(windowHeight, NumberStyles.AllowDecimalPoint, enUs, out argHeight);
+
+            decimal argRatio = 0;
+            decimal.TryParse(devicePixelRatio, NumberStyles.AllowDecimalPoint, enUs, out argRatio);
+
+
+            PublicLimits targetLimit = null;
+            decimal targetRatio = 1;
+
+            targetLimit = new PublicLimits(LimitKind.Height, 512);
+            targetRatio = 1.0m;
+
+            var userAgent = HttpContext.Request.Headers["User-Agent"];
+            var uaInfo = new UserAgentInfo(userAgent);
+
+            var reveredLimits = new List<PublicLimits>(TheAppContext.Limits);
+            reveredLimits.Reverse();
+
+            _Logger.LogInformation("Sorted Limits: " + string.Join(" ", reveredLimits));
+
+            targetRatio = argRatio;
+            var pixels = argHeight * argRatio;
+            var found = reveredLimits.FirstOrDefault(x => x.Kind == LimitKind.Height && x.LimitValue <= pixels);
+            var found0 = found; 
+            if (found == null)
+            {
+                if (!uaInfo.IsMobile)
+                {
+                    found = new PublicLimits(LimitKind.Height, 672);
+                }
+                else
+                {
+                    found = new PublicLimits(LimitKind.Height, 288);
+                }
+            }
+
+            _Logger.LogInformation(string.Format(
+                @"         Agent: {0}{1}Family+Version: {2}{1}   Height(arg): {3}{1}    Ratio(arg): {4}{1}        found0: {5}{1}      SELECTED: {6} / {7}",
+                userAgent,
+                Environment.NewLine,
+                uaInfo + ", " + (uaInfo.IsMobile ? "Mobile" : "PC"),
+                argHeight,
+                argRatio,
+                found0 + " / " + targetRatio,
+                found, targetRatio
+            ));
+
+
+            return GetSliderHtml(
+                galleryTitle,
+                found.Serialize(),
+                targetRatio.ToString("f3", enUs)
+            );
+
+        }
+
 
         public IActionResult Debug()
         {
@@ -90,3 +154,4 @@ namespace Gallery.MVC.Controllers
 
 
 }
+

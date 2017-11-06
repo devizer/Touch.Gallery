@@ -57,6 +57,27 @@ namespace Gallery.MVC.Models
         {
             return $"{Kind}={LimitValue}";
         }
+
+        protected bool Equals(PublicLimits other)
+        {
+            return Kind == other.Kind && LimitValue == other.LimitValue;
+        }
+
+        public override bool Equals(object obj)
+        {
+            if (ReferenceEquals(null, obj)) return false;
+            if (ReferenceEquals(this, obj)) return true;
+            if (obj.GetType() != this.GetType()) return false;
+            return Equals((PublicLimits) obj);
+        }
+
+        public override int GetHashCode()
+        {
+            unchecked
+            {
+                return ((int) Kind * 397) ^ LimitValue;
+            }
+        }
     }
 
     public enum LimitKind

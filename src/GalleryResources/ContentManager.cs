@@ -124,4 +124,5 @@ namespace Gallery.MVC.GalleryResources
             return ret;
         }
     }
+
 }

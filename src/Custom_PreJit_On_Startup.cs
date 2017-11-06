@@ -4,6 +4,7 @@ using System.IO;
 using System.Linq;
 using System.Runtime.InteropServices;
 using Gallery.MVC.GalleryResources;
+using Gallery.MVC.Models;
 using Microsoft.Extensions.Logging;
 
 namespace Gallery.MVC
@@ -48,6 +49,10 @@ namespace Gallery.MVC
 
             GC.Collect(); GC.WaitForPendingFinalizers();
             GC.Collect(); GC.WaitForPendingFinalizers();
+
+            TheAppContext.AssignLimits(metaData
+                .Select(x => new PublicLimits() {Kind = x.Kind, LimitValue = x.LimitValue}).Distinct()
+            );
 
 
             _StartUpLogger.LogInformation(

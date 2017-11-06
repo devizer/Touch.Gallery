@@ -74,9 +74,10 @@
         var headerHeight = $("div.navbar-header").height();
         var hFull = $(window).innerHeight();
         var hSwiper = $(".swiper-container").height();
-        var top = (hFull - headerHeight - hSwiper)/2;
+        var top = (hFull - headerHeight - hSwiper) / 2;
+        if (top < 6) top = 6;
         $(".swiper-container").css("margin-top", top + "px");
-        
+
 
     }
 
@@ -84,10 +85,18 @@
 
         ShowLoadProgress();
 
+        var ratio = window.devicePixelRatio;
+        if (ratio === undefined) ratio = 1.0;
+        else if (ratio < 1) ratio = 1.0;
+        console.log("Sending ratio = " + ratio);
+
         $.ajax({
-            url: "/Home/GetSliderHtml",
+            url: "/Home/GetSmartSliderHtml",
             type: "POST",
+/*
             data: $.param({ galleryTitle: "@Model.Topic", limits: "Height=1080", ratio: 5.2 }),
+*/
+            data: $.param({ galleryTitle: "@Model.Topic", windowHeight: $(window).height() - $("div.navbar-header").height(), devicePixelRatio: ratio }),
 
             complete: function() {
             },
