@@ -7,6 +7,7 @@ using System.Net.Http;
 using System.Text;
 using System.Threading.Tasks;
 using Gallery.MVC.GalleryResources;
+using Gallery.MVC.Utils;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.Extensions.Logging;
 using Microsoft.Net.Http.Headers;
@@ -43,22 +44,12 @@ namespace Gallery.MVC.API
             // return result;
         }
 
-        private static readonly UTF8Encoding Utf8 = new UTF8Encoding(false);
-        static string GetSHA1(string arg)
-        {
-            if (arg == null)
-                throw new ArgumentNullException("arg");
-
-            var sha1 = System.Security.Cryptography.SHA1.Create();
-            var hash = string.Join("", sha1.ComputeHash(Utf8.GetBytes(arg)).Select(x => x.ToString("X2")));
-            return hash;
-        }
 
         [Route("{id}")]
         public IActionResult GetBlob(string id)
         {
             var stream = _ContentManager.GetBlobAsStream(id);
-            var tag = GetSHA1(id + _ContentManager.LastModified);
+            var tag = HashExtentions.GetSHA1AsString(id + _ContentManager.LastModified);
             HttpContext.Response.Headers.Add("Cache-control", "max-age=1314000");
             return File(stream, "image/jpeg", _ContentManager.LastModified, new EntityTagHeaderValue('"' + tag + '"'));
         }

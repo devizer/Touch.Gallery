@@ -1,11 +1,10 @@
 ﻿using System;
 using System.IO;
 using System.Text;
-using Gallery.MVC;
 using Newtonsoft.Json;
 using Newtonsoft.Json.Linq;
 
-namespace Gallery.Prepare
+namespace Gallery.MVC.Utils
 {
     public static class JSonExtentions
     {
@@ -107,4 +106,6 @@ namespace Gallery.Prepare
             return ToNewtonJSon(arg, TheAppContext.IsDebug);
         }
     }
+
+
 }

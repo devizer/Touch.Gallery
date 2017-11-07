@@ -8,8 +8,10 @@ using Gallery.MVC.API;
 using Gallery.MVC.GalleryResources;
 using Microsoft.AspNetCore.Mvc;
 using Gallery.MVC.Models;
+using Gallery.MVC.Utils;
 using Gallery.Prepare;
 using Microsoft.AspNetCore.Http;
+using Microsoft.AspNetCore.Http.Features;
 using Microsoft.Extensions.Logging;
 
 namespace Gallery.MVC.Controllers
@@ -69,13 +71,23 @@ namespace Gallery.MVC.Controllers
 
             if (ratioParsed < 1) ratioParsed = 1;
 
+
+            // Shuffle gallery based on remote ip
+            var galleryCopy = new PublicTopic()
+            {
+                Title = foundGallery.Title,
+                Blobs = new List<PublicBlob>(foundGallery.Blobs)
+            };
+            galleryCopy.Blobs.Shuffle(HashExtentions.GetSHA1AsSeed(HttpContext.Connection.RemoteIpAddress.ToString()));
+
             return PartialView("GalleryPartial", new PartialGalleryModel()
             {
                 Limits = limitsParsed,
-                Topic = foundGallery,
+                Topic = galleryCopy,
                 Ratio = ratioParsed,
             });
         }
+
 
         [HttpPost]
         public IActionResult GetSmartSliderHtml([FromForm] string galleryTitle, [FromForm] string windowHeight, [FromForm] string devicePixelRatio)
@@ -120,14 +132,15 @@ namespace Gallery.MVC.Controllers
             }
 
             _Logger.LogInformation(string.Format(
-                @"         Agent: {0}{1}Family+Version: {2}{1}   Height(arg): {3}{1}    Ratio(arg): {4}{1}        found0: {5}{1}      SELECTED: {6} / {7}",
+                @"         Agent: {0}{1}Family+Version: {2}{1}   Height(arg): {3}{1}    Ratio(arg): {4}{1}        found0: {5}{1}      SELECTED: {6} / {7}{1}     Remote IP: {8}",
                 userAgent,
                 Environment.NewLine,
                 uaInfo + ", " + (uaInfo.IsMobile ? "Mobile" : "PC"),
                 argHeight,
                 argRatio,
                 found0 + " / " + targetRatio,
-                found, targetRatio
+                found, targetRatio,
+                HttpContext.Connection.RemoteIpAddress
             ));
 
 
