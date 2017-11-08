@@ -5,7 +5,7 @@ sudo sh -c 'echo "deb [arch=amd64] https://packages.microsoft.com/repos/microsof
 sudo apt-get update && sudo apt-get install -y --allow-unauthenticated iotop mc git htop lsof
 sudo apt-get install dotnet-sdk-2.0.2 -y --allow-unauthenticated
 
-sudo dd if=/dev/zero of=/swap bs=1M count=512
+sudo dd if=/dev/zero of=/swap bs=1M count=768
 sudo mkswap /swap
 sudo swapon /swap
 
