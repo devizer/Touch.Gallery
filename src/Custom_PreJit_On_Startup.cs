@@ -54,11 +54,15 @@ namespace Gallery.MVC
                 .Select(x => new PublicLimits() {Kind = x.Kind, LimitValue = x.LimitValue}).Distinct()
             );
 
+            Func<string, int> getBlobsByTopics = (topic) =>
+            {
+                return metaData.SelectMany(x => x.Topics).First(x => x.Title == topic).Blobs.Count();
+            };
 
             _StartUpLogger.LogInformation(
                 "Metadata: {0} Sizes, {2} Topics [{3}], Mem: {4:f0}",
                 metaData.Count, topics.Count,
-                string.Join(", ", topics),
+                string.Join(", ", topics.Select(x => $"{x}({getBlobsByTopics(x)})")),
                 Process.GetCurrentProcess().WorkingSet64 / 1024 / 1024
             );
 
