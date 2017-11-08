@@ -15,11 +15,13 @@ rm -rf $work
 mkdir -p $work
 cd $work
 git clone https://github.com/devizer/Touch.Gallery
-cd Touch.Gallery/src 
 echo 3 | sudo tee /proc/sys/vm/drop_caches > /dev/null
-dotnet publish -c Release > $HOME/BUILD-Gallery.log 2>&1
+pushd Touch.Gallery/src 
+dotnet publish -c Release -o ../../Touch.Gallery-bin | tee $HOME/BUILD-Touch.Gallery.log 2>&1
+popd
 # sudo swapoff /swap
 
-cd ./bin/Release/netcoreapp2.0/publish
+rm -rf Touch.Gallery
+cd Touch.Gallery-bin
 echo 3 | sudo tee /proc/sys/vm/drop_caches > /dev/null
-sudo bash -c 'ASPNETCORE_URLS=http://0.0.0.0:80\;http://0.0.0.0:8080\;http://0.0.0.0:5000 dotnet Gallery.MVC.dll' | tee $HOME/RUN-Gallery.log
+sudo bash -c 'ASPNETCORE_URLS=http://0.0.0.0:80\;http://0.0.0.0:8080\;http://0.0.0.0:5000 dotnet Gallery.MVC.dll' | tee $HOME/RUN-Touch.Gallery.log
