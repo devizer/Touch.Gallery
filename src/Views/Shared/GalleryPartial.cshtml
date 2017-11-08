@@ -99,33 +99,34 @@
 
 <div class="swiper-container">
 <div class="swiper-wrapper">
-    @foreach (var photo in Model.Topic.Blobs)
+@foreach (var photo in Model.Topic.Blobs)
+{
+    int w = photo.Width, h = photo.Height;
+    if (Model.Limits.Kind == LimitKind.Height && h < Model.Limits.LimitValue)
     {
-        int w = photo.Width, h = photo.Height;
-        if (Model.Limits.Kind == LimitKind.Height && h < Model.Limits.LimitValue)
-        {
-            w = (int) (w * Convert.ToDecimal(Model.Limits.LimitValue) / Convert.ToDecimal(h));
-            h = Model.Limits.LimitValue;
-        }
-        w = (int) (w / Model.Ratio);
-        h = (int) (h / Model.Ratio);
-            <div id="photo_with_buttons" class="swiper-slide" style="position: relative; border: 1 solid red; width: @(w)px; height: @(h + 30)px !important; display: block">
-                <div id="just_a_photo" style="border: 1px solid black; width: @(w)px; height: @(h + 0)px; border: none; display: block">
-                    <img src="/api/v1/Gallery/@photo.Id" width="@(w)px" height="@(h)px" style="border: 1px solid black"/>
-                </div>
-@*
-                <div id="buttons" style="width: @(w)px; font-size: 30px; color: white; height: 30px; border: none; display: block; position: absolute; top: @(h - 30 - 14)px; left: 10px; text-align: left">
-                    &nbsp;<i class="fa fa-star-o photo-button" aria-hidden="true"></i>&nbsp;&nbsp;
-                    <i class="fa fa-thumbs-o-up photo-button" aria-hidden="true"></i>&nbsp;&nbsp;
-                    <i class="fa fa-thumbs-o-down photo-button" aria-hidden="true"></i>&nbsp;&nbsp;
-                    <i class="fa fa-share-square-o photo-button" aria-hidden="true"></i>
-                </div>
-*@
-
-            </div>
-
+        w = (int) (w * Convert.ToDecimal(Model.Limits.LimitValue) / Convert.ToDecimal(h));
+        h = Model.Limits.LimitValue;
     }
+    w = (int) (w / Model.Ratio);
+    h = (int) (h / Model.Ratio);
+    <div id="photo_with_buttons" class="swiper-slide" style="position: relative; border: 1 solid red; width: @(w)px; height: @(h + 30)px !important; display: block">
+        <div id="just_a_photo" style="border: 1px solid black; width: @(w)px; height: @(h + 0)px; border: none; display: block">
+            <img src="/api/v1/Gallery/@photo.Id" width="@(w)px" height="@(h)px" style="border: 1px solid black"/>
+        </div>
+        @if (!Model.IsMobile)
+        {
+            <div id="buttons" style="width: @(w)px; font-size: 30px; color: white; height: 30px; border: none; display: block; position: absolute; top: @(h - 30 - 14)px; left: 10px; text-align: left">
+                &nbsp;<i class="fa fa-star-o photo-button" aria-hidden="true"></i>&nbsp;&nbsp;
+                <i class="fa fa-thumbs-o-up photo-button" aria-hidden="true"></i>&nbsp;&nbsp;
+                <i class="fa fa-thumbs-o-down photo-button" aria-hidden="true"></i>&nbsp;&nbsp;
+                <i class="fa fa-share-square-o photo-button" aria-hidden="true"></i>
+            </div>
+        }
+
     </div>
+
+}
+</div>
 </div>
 
 <script>

@@ -13,10 +13,10 @@ work=$HOME/Touch.Gallery
 rm -rf $work
 mkdir -p $work
 cd $work
-git clone https://github.com/devizer/Touch.Gallery
+git clone https://github.com/devizer/Touch.Gallery Touch.Gallery
 echo 3 | sudo tee /proc/sys/vm/drop_caches > /dev/null
-pushd Touch.Gallery/src 
-dotnet publish -c Release -o ../../Touch.Gallery-bin | tee $HOME/BUILD-Touch.Gallery.log 2>&1
+pushd Touch.Gallery/src
+dotnet publish -c Release -o ../../Touch.Gallery-bin | tee $HOME/BUILD-Touch.Gallery.log
 popd
 # sudo swapoff /swap
 

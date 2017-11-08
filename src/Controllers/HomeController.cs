@@ -80,11 +80,16 @@ namespace Gallery.MVC.Controllers
             };
             galleryCopy.Blobs.Shuffle(HashExtentions.GetSHA1AsSeed(HttpContext.Connection.RemoteIpAddress.ToString()));
 
+            var userAgent = HttpContext.Request.Headers["User-Agent"];
+            var uaInfo = new UserAgentInfo(userAgent);
+
+
             return PartialView("GalleryPartial", new PartialGalleryModel()
             {
                 Limits = limitsParsed,
                 Topic = galleryCopy,
                 Ratio = ratioParsed,
+                IsMobile = uaInfo.IsMobile,
             });
         }
 

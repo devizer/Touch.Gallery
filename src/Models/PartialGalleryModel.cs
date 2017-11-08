@@ -5,5 +5,6 @@
         public PublicTopic Topic;
         public PublicLimits Limits;
         public decimal Ratio;
+        public bool IsMobile;
     }
 }
