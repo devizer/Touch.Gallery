@@ -10,7 +10,6 @@ sudo mkswap /swap
 sudo swapon /swap
 
 work=$HOME/Touch.Gallery
-if [[ -z "$HOME" ]]; then export work=/root/sss; fi;
 rm -rf $work
 mkdir -p $work
 cd $work
