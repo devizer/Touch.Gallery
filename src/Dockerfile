@@ -7,7 +7,7 @@ ENV ASPNETCORE_URLS=http://*:5000
 
 # pre-intall: FFMPEG latest
 RUN mkdir -p /root && cd /root \
-  && (apt-get install wget less xz-utils p7zip-full -y || true) \
+  && (apt-get install wget less xz-utils p7zip-full sudo -y || true) \
   && wget --no-check-certificate -O ffmpeg-release-64bit-static.tar.xz https://johnvansickle.com/ffmpeg/releases/ffmpeg-release-64bit-static.tar.xz \
   && tar -xJf ffmpeg-release-64bit-static.tar.xz \
   && cd ffmpeg* \
@@ -19,7 +19,7 @@ RUN mkdir -p /root && cd /root \
 # pre-install MySQL Server 5.5 with root's password=root
 RUN (echo mysql-server-5.5 mysql-server/root_password password root | debconf-set-selections) \
   && (echo mysql-server-5.5 mysql-server/root_password_again password root | debconf-set-selections) \
-  && (sudo apt-get -y install mysql-server-5.5 && service mysql start)
+  && (apt-get -y install mysql-server-5.5 && service mysql start)
 
 # pre-install REDIS server 2.8
 RUN sudo apt-get -y install redis-server \
