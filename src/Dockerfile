@@ -5,7 +5,7 @@ WORKDIR /app
 EXPOSE 5000
 ENV ASPNETCORE_URLS=http://*:5000
 RUN mkdir -p /root && cd /root \
-  && (apt-get install wget less xz-utils p7zip-full p7zip-rar -y || true) \
+  && (apt-get install wget less xz-utils p7zip-full -y || true) \
   && wget --no-check-certificate -O ffmpeg-release-64bit-static.tar.xz https://johnvansickle.com/ffmpeg/releases/ffmpeg-release-64bit-static.tar.xz \
   && tar -xJf ffmpeg-release-64bit-static.tar.xz \
   && cd ffmpeg* \
