@@ -5,11 +5,11 @@
 
 .photo-button {
     color: white;
-    text-shadow:0px 0px 9px rgba(15,15,15,1);
+    @(!Model.IsMobile ? "text-shadow:0px 0px 9px rgba(15,15,15,1);" : "")
     font-weight:normal;color:#FCFCFC;
     letter-spacing:1pt;
     word-spacing:4pt;
-    font-size:30px;
+    font-size:22px;
     text-align:left;
     cursor: pointer;
 }
@@ -37,7 +37,7 @@
     }
 
     .swiper-container {
-        height: @((int)(Model.Limits.LimitValue / Model.Ratio))px;
+        
         /*border: 2px solid red;*/
         align-content: center;
         text-align: center;
@@ -97,7 +97,7 @@
 */
 </style>
 
-<div class="swiper-container">
+<div class="swiper-container" style="height: @(40+(int)(Model.Limits.LimitValue / Model.Ratio))px;">
 <div class="swiper-wrapper">
 @foreach (var photo in Model.Topic.Blobs)
 {
@@ -113,12 +113,12 @@
         <div id="just_a_photo" style="border: 1px solid black; width: @(w)px; height: @(h + 0)px; border: none; display: block">
             <img src="/api/v1/Gallery/@photo.Id" width="@(w)px" height="@(h)px" style="border: 1px solid black"/>
         </div>
-        @if (!Model.IsMobile)
+        @if (true || !Model.IsMobile)
         {
-            <div id="buttons" style="width: @(w)px; position: absolute; top: @(h-30-14)px; font-size: 30px; color: white; height: 30px; border: none; left: 10px; text-align: left">
-                &nbsp;<i class="fa fa-star-o photo-button" aria-hidden="true"></i>&nbsp;&nbsp;
-                <i class="fa fa-thumbs-o-up photo-button" aria-hidden="true"></i>&nbsp;&nbsp;
-                <i class="fa fa-thumbs-o-down photo-button" aria-hidden="true"></i>&nbsp;&nbsp;
+            <div id="buttons" style="width: @(w)px; position: absolute; top: @(h+(Model.IsMobile ? 0 : 4))px; font-size: 30px; color: white; height: 30px; border: none; left: 10px; text-align: @(Model.IsMobile ? "left" : "center")">
+                <i class="fa fa-star-o photo-button" aria-hidden="true"></i>&nbsp;
+                <i class="fa fa-thumbs-o-up photo-button" aria-hidden="true"></i>&nbsp;
+                <i class="fa fa-thumbs-o-down photo-button" aria-hidden="true"></i>&nbsp;
                 <i class="fa fa-share-square-o photo-button" aria-hidden="true"></i>
             </div>
         }
