@@ -28,8 +28,8 @@ RUN sudo apt-get -y install redis-server \
   && service redis-server restart \
   && echo REDIS $(echo info | redis-cli | grep redis_version)
 
-# pre-install RabbitMQ
-https://github.com/rabbitmq/rabbitmq-server/releases/download/rabbitmq_v3_6_14/
+# pre-install RabbitMQ 3.6.14 from
+# https://github.com/rabbitmq/rabbitmq-server/releases/download/rabbitmq_v3_6_14/
 RUN rabbit_file=rabbitmq-server_3.6.14-1_all.deb \
   && apt-get update && apt-get upgrade -f -y \
   && echo apt-get install -y erlang-nox logrotate socat \
