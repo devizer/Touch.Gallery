@@ -1,3 +1,4 @@
+# about .net custom runtimes: https://cloud.google.com/appengine/docs/flexible/dotnet/customizing-the-dotnet-runtime
 runtime: aspnetcore
 env: flex
 #  this way doesn't forward traffic by docker
@@ -14,5 +15,6 @@ manual_scaling:
   instances: 1
 
 # default: Intel(R) Xeon(R) CPU @ 2.30GHz, 2.3 GHz, 46080 KB Cache
-instance_class: B1
+# it seems this is for standard env
+# instance_class: B1
 
