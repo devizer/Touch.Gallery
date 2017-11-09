@@ -109,13 +109,13 @@
     }
     w = (int) (w / Model.Ratio);
     h = (int) (h / Model.Ratio);
-    <div id="photo_with_buttons" class="swiper-slide" style="border: 1 solid red; width: @(w)px; height: @(h + 30)px !important; display: block; border: 1px solid red">
+    <div id="photo_with_buttons" class="swiper-slide" style="width: @(w)px; height: @(h + 30)px !important; display: block; position: relative">
         <div id="just_a_photo" style="border: 1px solid black; width: @(w)px; height: @(h + 0)px; border: none; display: block">
             <img src="/api/v1/Gallery/@photo.Id" width="@(w)px" height="@(h)px" style="border: 1px solid black"/>
         </div>
-        @if (true || !Model.IsMobile)
+        @if (!Model.IsMobile)
         {
-            <div id="buttons" style="width: @(w)px; font-size: 30px; color: white; height: 30px; border: none; display: block; left: 10px; text-align: left">
+            <div id="buttons" style="width: @(w)px; position: absolute; top: @(h-30-14)px; font-size: 30px; color: white; height: 30px; border: none; left: 10px; text-align: left">
                 &nbsp;<i class="fa fa-star-o photo-button" aria-hidden="true"></i>&nbsp;&nbsp;
                 <i class="fa fa-thumbs-o-up photo-button" aria-hidden="true"></i>&nbsp;&nbsp;
                 <i class="fa fa-thumbs-o-down photo-button" aria-hidden="true"></i>&nbsp;&nbsp;
@@ -128,8 +128,6 @@
 </div>
 
 <script>
-    // window.setTimeout(function() {
-    // console.log("Binding swiper .....................................................");
     var swiper = new Swiper('.swiper-container',
         {
             slidesPerView: 'auto',
@@ -138,6 +136,32 @@
             keyboard: {
                 enabled: true,
             },
+            height: @(Model.Limits.LimitValue+30),
+            autoHeight: false,
         });
-    // },1);
+</script>
+
+<script>
+    // Mobile Safari in standalone mode
+    if (('standalone' in window.navigator) && window.navigator.standalone) {
+
+        window.addEventListener('load', function () {
+
+            var links = document.links,
+                link,
+                i;
+
+            for (i = 0; i < links.length; i++) {
+                // Don't do this for javascript: links
+                if (~(link = links[i]).href.toLowerCase().indexOf('javascript')) {
+                    link.addEventListener('click', function (event) {
+                        top.location.href = this.href;
+                        event.returnValue = false;
+                    }, false);
+                }
+            }
+
+        }, false);
+
+    }
 </script>
