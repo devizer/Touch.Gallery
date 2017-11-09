@@ -32,7 +32,7 @@ RUN sudo apt-get -y install redis-server \
 # https://github.com/rabbitmq/rabbitmq-server/releases/download/rabbitmq_v3_6_14/
 RUN rabbit_file=rabbitmq-server_3.6.14-1_all.deb \
   && apt-get update && apt-get upgrade -f -y \
-  && echo apt-get install -y erlang-nox logrotate socat \
+  && apt-get install -y erlang-nox logrotate socat \
   && rabbit_file=rabbitmq-server_3.6.14-1_all.deb \
   && wget -O $rabbit_file https://github.com/rabbitmq/rabbitmq-server/releases/download/rabbitmq_v3_6_14/$rabbit_file \
   && dpkg -i $rabbit_file \
@@ -41,4 +41,5 @@ RUN rabbit_file=rabbitmq-server_3.6.14-1_all.deb \
   && rabbitmqctl set_vm_memory_high_watermark 0.1 \
   && rabbitmq-plugins enable rabbitmq_management
 
-ENTRYPOINT ["dotnet", "Gallery.MVC.dll"]
+# ENTRYPOINT ["dotnet", "Gallery.MVC.dll"]
+ENTRYPOINT bash -c 'service redis-server start; service mysql start; service rabbitmq-server start; dotnet Gallery.MVC.dll;'
