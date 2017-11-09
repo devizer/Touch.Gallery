@@ -12,3 +12,7 @@ network:
     - 80:5000
 manual_scaling:
   instances: 1
+
+# default: Intel(R) Xeon(R) CPU @ 2.30GHz, 2.3 GHz, 46080 KB Cache
+instance_class: B1
+
