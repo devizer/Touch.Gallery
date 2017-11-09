@@ -12,4 +12,4 @@ RUN mkdir -p /root && cd /root \
   && cp ff* /usr/bin \
   && cd .. \
   && rm -rf "$d" && ffprobe -version
-ENTRYPOINT ["dotnet", "Fallery.MVC.dll"]
+ENTRYPOINT ["dotnet", "Gallery.MVC.dll"]
