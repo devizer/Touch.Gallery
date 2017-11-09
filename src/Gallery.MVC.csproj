@@ -5,6 +5,7 @@
   </PropertyGroup>
 
   <ItemGroup>
+    <None Remove="Dockerfile" />
     <None Remove="GalleryResources\blob\1" />
     <None Remove="GalleryResources\blob\10" />
     <None Remove="GalleryResources\blob\11" />
@@ -75,6 +76,12 @@
     <None Remove="GalleryResources\meta\%28Height=512%29" />
     <None Remove="GalleryResources\meta\%28Height=600%29" />
     <None Remove="GalleryResources\meta\%28Height=672%29" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <Content Include="Dockerfile">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
   </ItemGroup>
 
   <ItemGroup>
