@@ -19,11 +19,26 @@ RUN mkdir -p /root && cd /root \
 # pre-install MySQL Server 5.5 with root's password=root
 RUN (echo mysql-server-5.5 mysql-server/root_password password root | debconf-set-selections) \
   && (echo mysql-server-5.5 mysql-server/root_password_again password root | debconf-set-selections) \
-  && (apt-get -y install mysql-server-5.5 && service mysql start)
+  && (apt-get -y install mysql-server-5.5 && service mysql start) \
+  && echo MySQL VERSION && mysql --user=root --password=root -e 'Show Variables Like "%VERSION%";'
 
 # pre-install REDIS server 2.8
 RUN sudo apt-get -y install redis-server \
   && (echo maxmemory 100M >> /etc/redis/redis.conf) \
   && service redis-server restart
+  && echo REDIS $(echo info | redis-cli | grep redis_version)
+
+# pre-install RabbitMQ
+https://github.com/rabbitmq/rabbitmq-server/releases/download/rabbitmq_v3_6_14/
+RUN rabbit_file=rabbitmq-server_3.6.14-1_all.deb \
+  && apt-get update && apt-get upgrade -f -y \
+  && echo apt-get install -y erlang-nox logrotate socat \
+  && rabbit_file=rabbitmq-server_3.6.14-1_all.deb \
+  && wget -O $rabbit_file https://github.com/rabbitmq/rabbitmq-server/releases/download/rabbitmq_v3_6_14/$rabbit_file \
+  && dpkg -i $rabbit_file \
+  && apt-get -y -f install \
+  && service rabbitmq-server start \
+  && rabbitmqctl set_vm_memory_high_watermark 0.1 \
+  && rabbitmq-plugins enable rabbitmq_management
 
 ENTRYPOINT ["dotnet", "Gallery.MVC.dll"]
