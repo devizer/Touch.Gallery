@@ -1,4 +1,5 @@
-FROM https://cloud.google.com/appengine/docs/flexible/dotnet/customizing-the-dotnet-runtime
+# help: https://cloud.google.com/appengine/docs/flexible/dotnet/customizing-the-dotnet-runtime
+FROM gcr.io/google-appengine/aspnetcore:2.0.0
 COPY . /app
 WORKDIR /app
 EXPOSE 5000
