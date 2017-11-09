@@ -25,7 +25,7 @@ RUN (echo mysql-server-5.5 mysql-server/root_password password root | debconf-se
 # pre-install REDIS server 2.8
 RUN sudo apt-get -y install redis-server \
   && (echo maxmemory 100M >> /etc/redis/redis.conf) \
-  && service redis-server restart
+  && service redis-server restart \
   && echo REDIS $(echo info | redis-cli | grep redis_version)
 
 # pre-install RabbitMQ
