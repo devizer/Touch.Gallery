@@ -3,7 +3,7 @@ FROM gcr.io/google-appengine/aspnetcore:2.0.0
 COPY . /app
 WORKDIR /app
 EXPOSE 5000
-ENV ASPNETCORE_URLS=http://*:5000
+# ENV ASPNETCORE_URLS=http://*:5000
 
 # pre-intall: FFMPEG latest
 RUN mkdir -p /root && cd /root \
@@ -43,3 +43,4 @@ RUN rabbit_file=rabbitmq-server_3.6.14-1_all.deb \
 
 # ENTRYPOINT ["dotnet", "Gallery.MVC.dll"]
 ENTRYPOINT bash -c 'service redis-server start; service mysql start; service rabbitmq-server start; dotnet Gallery.MVC.dll;'
+# ENTRYPOINT bash -c 'dotnet Gallery.MVC.dll;'
