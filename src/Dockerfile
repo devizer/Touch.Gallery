@@ -5,6 +5,8 @@ WORKDIR /app
 EXPOSE 5000
 # ENV ASPNETCORE_URLS=http://*:5000
 
+# RUN (echo '#!/bin/bash' > /usr/sbin/policy-rc.d)
+
 # pre-intall: FFMPEG latest
 RUN mkdir -p /root && cd /root \
   && (apt-get install wget less xz-utils p7zip-full sudo -y || true) \
