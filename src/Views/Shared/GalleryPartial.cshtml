@@ -40,6 +40,11 @@
     cursor: pointer;
 }
 
+    .photo-button-hover {
+        color: yellow !important;
+    }
+
+
     #GalleryRoot {
         width: 100%;
         align-content: center !important;
@@ -212,4 +217,10 @@
             .transition({ scale: [3.0, 3.0] }, 300)
             .transition({ opacity: 0}, 600, onFinish);
     }
+
+    $('.photo-button').hover(
+        function() { $(this).addClass('photo-button-hover') },
+        function () { $(this).removeClass('photo-button-hover') }
+    )
+
 </script>
