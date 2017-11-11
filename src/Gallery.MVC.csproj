@@ -67,6 +67,9 @@
     <None Remove="GalleryResources\blob\58" />
     <None Remove="GalleryResources\blob\59" />
     <None Remove="GalleryResources\blob\6" />
+    <None Remove="GalleryResources\blob\60" />
+    <None Remove="GalleryResources\blob\61" />
+    <None Remove="GalleryResources\blob\62" />
     <None Remove="GalleryResources\blob\7" />
     <None Remove="GalleryResources\blob\8" />
     <None Remove="GalleryResources\blob\9" />
@@ -155,6 +158,9 @@
     <EmbeddedResource Include="GalleryResources\blob\58" />
     <EmbeddedResource Include="GalleryResources\blob\59" />
     <EmbeddedResource Include="GalleryResources\blob\6" />
+    <EmbeddedResource Include="GalleryResources\blob\60" />
+    <EmbeddedResource Include="GalleryResources\blob\61" />
+    <EmbeddedResource Include="GalleryResources\blob\62" />
     <EmbeddedResource Include="GalleryResources\blob\7" />
     <EmbeddedResource Include="GalleryResources\blob\8" />
     <EmbeddedResource Include="GalleryResources\blob\9" />
