@@ -5,6 +5,11 @@
   </PropertyGroup>
 
   <ItemGroup>
+    <Content Remove="Icon\Generated\manifest.json" />
+    <Content Remove="Icon\manifest.json" />
+  </ItemGroup>
+
+  <ItemGroup>
     <None Remove="Dockerfile" />
     <None Remove="GalleryResources\blob\1" />
     <None Remove="GalleryResources\blob\10" />
@@ -165,6 +170,11 @@
 
   <ItemGroup>
     <Folder Include="Pages\Home\" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <None Include="Icon\Generated\manifest.json" />
+    <None Include="Icon\manifest.json" />
   </ItemGroup>
 
   <ItemGroup>
