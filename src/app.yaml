@@ -7,14 +7,18 @@ env: flex
 #env_variables:
 #  ASPNETCORE_URLS: 'http://0.0.0.0:5000'
 resources:
-  cpu: 1
-  memory_gb: 1.0
+  cpu: 0.5
+  memory_gb: 0.7
   disk_size_gb: 10
 network:
   forwarded_ports:
     - 80:5000
-manual_scaling:
-  instances: 1
+automatic_scaling:
+  min_num_instances: 1
+  max_num_instances: 2
+  cool_down_period_sec: 120
+  cpu_utilization:
+    target_utilization: 0.7
 
 # default: Intel(R) Xeon(R) CPU @ 2.30GHz, 2.3 GHz, 46080 KB Cache
 # it seems this is for standard env
