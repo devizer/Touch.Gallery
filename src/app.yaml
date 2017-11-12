@@ -1,14 +1,14 @@
 # about .net custom runtimes in comparision to aspnetcore runtime: 
 # - https://cloud.google.com/appengine/docs/flexible/dotnet/customizing-the-dotnet-runtime
 # - https://cloudplatform.googleblog.com/2016/10/how-to-use-Docker-to-run-ASP.NET-Core-apps-on-Google-App-Engine.html
-runtime: custom
+runtime: aspnetcore
 env: flex
 #  this way doesn't forward traffic by docker
 #env_variables:
 #  ASPNETCORE_URLS: 'http://0.0.0.0:5000'
 resources:
-  cpu: 0.5
-  memory_gb: 0.7
+  cpu: 1
+  memory_gb: 1.4
   disk_size_gb: 10
 network:
   forwarded_ports:
@@ -22,5 +22,4 @@ automatic_scaling:
 
 # default: Intel(R) Xeon(R) CPU @ 2.30GHz, 2.3 GHz, 46080 KB Cache
 # it seems this is for standard env
-# instance_class: B1
 
