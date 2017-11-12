@@ -1,7 +1,7 @@
 # about .net custom runtimes in comparision to aspnetcore runtime: 
 # - https://cloud.google.com/appengine/docs/flexible/dotnet/customizing-the-dotnet-runtime
 # - https://cloudplatform.googleblog.com/2016/10/how-to-use-Docker-to-run-ASP.NET-Core-apps-on-Google-App-Engine.html
-runtime: aspnetcore
+runtime: custom
 env: flex
 #  this way doesn't forward traffic by docker
 #env_variables:

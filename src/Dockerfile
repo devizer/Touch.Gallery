@@ -44,5 +44,5 @@ RUN rabbit_file=rabbitmq-server_3.6.14-1_all.deb \
   && rabbitmq-plugins enable rabbitmq_management
 
 # ENTRYPOINT ["dotnet", "Gallery.MVC.dll"]
-ENTRYPOINT bash -c 'service redis-server start; service mysql start; service rabbitmq-server start; dotnet Gallery.MVC.dll;'
+ENTRYPOINT bash -c '(service redis-server start || true); (service mysql start || true); (service rabbitmq-server start || true); dotnet Gallery.MVC.dll;'
 # ENTRYPOINT bash -c 'dotnet Gallery.MVC.dll;'
