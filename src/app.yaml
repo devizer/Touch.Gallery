@@ -5,7 +5,7 @@ runtime: custom
 env: flex
 #  this way doesn't forward traffic by docker
 #env_variables:
-#  ASPNETCORE_URLS: 'http://0.0.0.0:5000'
+ASPNETCORE_URLS: 'http://+:5000'
 resources:
   cpu: 1
   memory_gb: 1.3
