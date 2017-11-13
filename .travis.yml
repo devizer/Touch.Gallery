@@ -15,5 +15,9 @@ script:
     - cd src 
     - dotnet restore
     - dotnet publish -c Release
+    - dotnet run &
+    - sleep 12
+    - killall dotnet
+
     
   
