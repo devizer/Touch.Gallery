@@ -2,8 +2,8 @@
 FROM gcr.io/google-appengine/aspnetcore:2.0.0
 COPY . /app
 WORKDIR /app
-EXPOSE 5000
-# ENV ASPNETCORE_URLS=http://*:5000
+EXPOSE 8080
+ENV ASPNETCORE_URLS=http://+:8080
 
 # RUN (echo '#!/bin/bash' > /usr/sbin/policy-rc.d)
 
