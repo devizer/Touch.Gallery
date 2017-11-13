@@ -17,11 +17,7 @@ namespace Gallery.MVC
         public static void Main(string[] args)
         {
             var host = BuildWebHost(args);
-            // host.Run();
-            host.Start();
-            Console.WriteLine("Start Time: " + StartAt.Elapsed + Environment.NewLine);
-            Console.ReadLine();
-            host.StopAsync().Wait();
+            host.Run();
         }
 
         public static IWebHost BuildWebHost(string[] args)
