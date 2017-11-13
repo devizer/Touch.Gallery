@@ -1,0 +1,16 @@
+language: csharp
+mono: none
+dotnet: 1.0.3
+dist: trusty
+
+os:
+  - linux
+
+script:
+    - bash -c printenv | sort
+    - dotnet --version
+    - cd src 
+    - dotnet restore
+    - dotnet publish -c Release
+    
+  
