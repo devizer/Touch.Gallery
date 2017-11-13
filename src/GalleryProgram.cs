@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Diagnostics;
 using System.IO;
 using System.Linq;
 using System.Threading.Tasks;
@@ -12,9 +13,15 @@ namespace Gallery.MVC
 {
     public class GalleryProgram
     {
+        static readonly Stopwatch StartAt = Stopwatch.StartNew();
         public static void Main(string[] args)
         {
-            BuildWebHost(args).Run();
+            var host = BuildWebHost(args);
+            // host.Run();
+            host.Start();
+            Console.WriteLine("Start Time: " + StartAt.Elapsed + Environment.NewLine);
+            Console.ReadLine();
+            host.StopAsync().Wait();
         }
 
         public static IWebHost BuildWebHost(string[] args)
