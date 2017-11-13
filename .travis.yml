@@ -15,9 +15,10 @@ script:
     - cd src 
     - dotnet restore
     - dotnet publish -c Release
-    - dotnet run &
+    - dotnet run > my.log &
     - sleep 12
     - killall dotnet
+    - cat my.log || true
 
     
   
