@@ -4,6 +4,7 @@ using System.Diagnostics;
 using System.IO;
 using System.Linq;
 using System.Threading.Tasks;
+using Gallery.MVC.Utils;
 using Microsoft.AspNetCore;
 using Microsoft.AspNetCore.Hosting;
 using Microsoft.AspNetCore.Hosting.Server.Features;
@@ -20,15 +21,17 @@ namespace Gallery.MVC
         public static void Main(string[] args)
         {
             var host = BuildWebHost(args);
+            try
+            {
+                var adresses = host.ServerFeatures.Get<IServerAddressesFeature>().Addresses;
+                Addresses.AddRange(adresses.Select(x => x.Replace("://+", "://localhost").Replace("://0.0.0.0", "://localhost")));
+            }
+            catch(Exception ex)
+            {
+                Console.WriteLine("FUCK: " + ex.GetExceptionDigest());
+            }
 
-            var adresses = host.ServerFeatures.Get<IServerAddressesFeature>().Addresses;
-            Addresses.AddRange(adresses.Select(x => x.Replace("://+", "://localhost").Replace("://0.0.0.0", "://localhost")));
-            PreJitControllersAndViews(Addresses);
             host.Run();
-        }
-
-        private static void PreJitControllersAndViews(List<string> addresses)
-        {
         }
 
         public static IWebHost BuildWebHost(string[] args)
