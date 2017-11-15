@@ -2,9 +2,12 @@
 using System.Diagnostics;
 using System.IO;
 using System.Linq;
+using System.Net.Http;
 using System.Runtime.InteropServices;
+using System.Threading;
 using Gallery.MVC.GalleryResources;
 using Gallery.MVC.Models;
+using Gallery.MVC.Utils;
 using Microsoft.Extensions.Logging;
 
 namespace Gallery.MVC
@@ -65,6 +68,27 @@ namespace Gallery.MVC
                 string.Join(", ", topics.Select(x => $"{x}({getBlobsByTopics(x)})")),
                 Process.GetCurrentProcess().WorkingSet64 / 1024 / 1024
             );
+
+            ThreadPool.QueueUserWorkItem(_ =>
+            {
+                Thread.Sleep(1500);
+                var httpHost = "http://localhost:8080";
+                if (GalleryProgram.Addresses.Any()) httpHost = GalleryProgram.Addresses.First();
+
+                Stopwatch startAt = Stopwatch.StartNew();
+                try
+                {
+                    HttpClient c = new HttpClient();
+                    var bytes = c.GetByteArrayAsync(httpHost).Result;
+                    _StartUpLogger.LogInformation($"Pre-JITed [{httpHost}] in {startAt.Elapsed}");
+                }
+                catch(Exception ex)
+                {
+                    _StartUpLogger.LogWarning($"Pre-JIT [{httpHost}] failed. " + ex.GetExceptionDigest());
+                }
+            });
+
+
 
         }
     }
