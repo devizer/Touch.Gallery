@@ -71,8 +71,8 @@ namespace Gallery.MVC
 
             ThreadPool.QueueUserWorkItem(_ =>
             {
-                Thread.Sleep(1500);
-                var httpHost = "http://localhost:8080";
+                Thread.Sleep(2000);
+                var httpHost = "http://localhost:5000";
                 if (GalleryProgram.Addresses.Any()) httpHost = GalleryProgram.Addresses.First();
 
                 Stopwatch startAt = Stopwatch.StartNew();
