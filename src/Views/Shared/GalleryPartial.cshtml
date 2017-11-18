@@ -5,10 +5,10 @@
 
     .buttonHandler {
         width: 100%;
-        height: @(Model.Limits.LimitValue)px;
+        height: @(Model.Limits.LimitValue/3)px;
         background-color: transparent;
-        border: 2px solid transparent;
-        color: white;
+        border: 2px solid red;
+        color: yellow;
         font-size: @(Model.Limits.LimitValue)px;
         line-height: @(Model.Limits.LimitValue)px;
         position: absolute;
@@ -26,6 +26,8 @@
         -ms-flex-align: center;
         -webkit-align-items: center;
         align-items: center;
+
+        text-align: left !important;
 
     }
 
@@ -150,10 +152,10 @@
         @if (true || !Model.IsMobile)
         {
             <div id="buttons" style="width: @(w)px; position: absolute; top: @(h+(Model.IsMobile ? 0 : 4))px; font-size: 30px; color: white; height: 30px; border: none; left: 10px; text-align: @(Model.IsMobile ? "left" : "center")">
-                <i class="fa fa-star-o photo-button" aria-hidden="true" onclick="MyOnClick('fa-star-o')"></i>&nbsp;
-                <i class="fa fa-thumbs-o-up photo-button" aria-hidden="true" onclick="MyOnClick('fa-thumbs-o-up')"></i>&nbsp;
-                <i class="fa fa-thumbs-o-down photo-button" aria-hidden="true" onclick="MyOnClick('fa-thumbs-o-down')"></i>&nbsp;
-                <i class="fa fa-share-square-o photo-button" aria-hidden="true" onclick="MyOnClick('fa-share-square-o')"></i>
+                <i class="fa fa-star-o photo-button" aria-hidden="true" onclick="MyOnClick('fa-star-o', this)"></i>&nbsp;
+                <i class="fa fa-thumbs-o-up photo-button" aria-hidden="true" onclick="MyOnClick('fa-thumbs-o-up', this)"></i>&nbsp;
+                <i class="fa fa-thumbs-o-down photo-button" aria-hidden="true" onclick="MyOnClick('fa-thumbs-o-down', this)"></i>&nbsp;
+                <i class="fa fa-share-square-o photo-button" aria-hidden="true" onclick="MyOnClick('fa-share-square-o', this)"></i>
             </div>
         }
     </div>
@@ -199,28 +201,34 @@
 
     }
 
-    function MyOnClick(argClass) {
+    function MyOnClick(argClass, button) {
+        var centerButton = $(button).position().left + $(button).width() / 2;
+        var h = @(Model.Limits.LimitValue/3);
+        var left = $(button).position().left - 30;
+        var swiperWidth = $(".swiper-container").width();
+        var marginLeft = centerButton - swiperWidth / 2;
+        console.log("swiperWidth " + swiperWidth + ", marginLeft " + marginLeft + ", button.left = " + $(button).position().left + ", width=" + $(button).width());
         $('.buttonHandler').html('<i class="fa ' + argClass + ' photo-button" aria-hidden="true"></i>');
         $('.buttonHandler').show();
         $('.buttonHandler').css({
             opacity: 1,
+            "margin-left": (marginLeft+25) + 'px',
             height: '@(Model.Limits.LimitValue/3)px'
         });
 
-        var onFinish = function(arg) {
+        var onFinish = function (arg) {
             $('.buttonHandler').hide();
         }
 
         $('.buttonHandler')
-            .transition({ scale: [1.0, 1.0] }, 0)
-            .transition({ scale: [3.0, 3.0], y: '-30px' }, 600)
-            .transition({ scale: [3.0, 3.0] }, 300)
-            .transition({ opacity: 0}, 600, onFinish);
+            .transition({ scale: [4.0, 4.0] }, 1)
+            .transition({ opacity: 1, scale: [4.0, 4.0] }, 600)
+            .transition({ opacity: 0 }, 300, onFinish);
     }
 
     $('.photo-button').hover(
-        function() { $(this).addClass('photo-button-hover') },
+        function () { $(this).addClass('photo-button-hover') },
         function () { $(this).removeClass('photo-button-hover') }
-    )
+    );
 
 </script>
