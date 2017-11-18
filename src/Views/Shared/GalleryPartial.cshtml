@@ -28,6 +28,7 @@
         align-items: center;
 
         text-align: left !important;
+        text-shadow:0px 0px 9px rgba(15,15,15,1);
 
     }
 
@@ -118,6 +119,7 @@
     html, body {
         position: relative;
         height: 100%;
+        overflow: hidden;
     }
 
 /*
@@ -175,6 +177,8 @@
             height: @(Model.Limits.LimitValue+30),
             autoHeight: false,
         });
+
+    $(".buttonHandler").hide();
 </script>
 
 <script>
