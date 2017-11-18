@@ -7,7 +7,7 @@
         width: 100%;
         height: @(Model.Limits.LimitValue/3)px;
         background-color: transparent;
-        border: 2px solid red;
+        border: none;
         color: yellow;
         font-size: @(Model.Limits.LimitValue)px;
         line-height: @(Model.Limits.LimitValue)px;
@@ -132,8 +132,8 @@
 </style>
 
 
-<div class="swiper-container" style="height: @(40+(int)(Model.Limits.LimitValue / Model.Ratio))px;">
 <div class="buttonHandler"  ></div>
+<div class="swiper-container" style="height: @(40+(int)(Model.Limits.LimitValue / Model.Ratio))px;">
 <div class="swiper-wrapper">
 @foreach (var photo in Model.Topic.Blobs)
 {
@@ -202,17 +202,18 @@
     }
 
     function MyOnClick(argClass, button) {
-        var centerButton = $(button).position().left + $(button).width() / 2;
+        // var centerButton = $(button).position().left + $(button).width() / 2;
+        var centerButton = $(button).offset().left + $(button).width() / 2;
         var h = @(Model.Limits.LimitValue/3);
         var left = $(button).position().left - 30;
         var swiperWidth = $(".swiper-container").width();
         var marginLeft = centerButton - swiperWidth / 2;
-        console.log("swiperWidth " + swiperWidth + ", marginLeft " + marginLeft + ", button.left = " + $(button).position().left + ", width=" + $(button).width());
+        console.log("button.offset " + $(button).offset().left +  ", swiperWidth " + swiperWidth + ", marginLeft " + marginLeft + ", button.left = " + $(button).position().left + ", width=" + $(button).width());
         $('.buttonHandler').html('<i class="fa ' + argClass + ' photo-button" aria-hidden="true"></i>');
         $('.buttonHandler').show();
         $('.buttonHandler').css({
             opacity: 1,
-            "margin-left": (marginLeft+25) + 'px',
+            "margin-left": (marginLeft-36) + 'px',
             height: '@(Model.Limits.LimitValue/3)px'
         });
 
