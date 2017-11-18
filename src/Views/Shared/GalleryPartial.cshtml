@@ -5,7 +5,7 @@
 
     .buttonHandler {
         width: 100%;
-        height: @(Model.Limits.LimitValue/3)px;
+        height: @(Model.Limits.LimitValue/2)px;
         background-color: transparent;
         border: none;
         color: yellow;
@@ -218,7 +218,7 @@
         $('.buttonHandler').css({
             opacity: 1,
             "margin-left": (marginLeft-36) + 'px',
-            height: '@(Model.Limits.LimitValue/3)px'
+            height: '@((Model.Limits.LimitValue-40)/Model.Ratio)px'
         });
 
         var onFinish = function (arg) {
