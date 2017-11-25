@@ -15,9 +15,9 @@ namespace Gallery.MVC
 {
     public class GalleryProgram
     {
+        public static readonly Stopwatch StartAt = Stopwatch.StartNew();
         public static readonly List<string> Addresses = new List<string>();
 
-        public static readonly Stopwatch StartAt = Stopwatch.StartNew();
         public static void Main(string[] args)
         {
             var host = BuildWebHost(args);
@@ -28,7 +28,7 @@ namespace Gallery.MVC
             }
             catch(Exception ex)
             {
-                Console.WriteLine("FUCK: " + ex.GetExceptionDigest());
+                Console.WriteLine("Oops: " + ex.GetExceptionDigest());
             }
 
             host.Run();
