@@ -31,6 +31,11 @@ namespace Gallery.MVC
                 Console.WriteLine("Oops: " + ex.GetExceptionDigest());
             }
 
+            AppDomain.CurrentDomain.ProcessExit += (sender, eventArgs) =>
+            {
+                Console.WriteLine("Server is shutting down");
+            };
+
             host.Run();
         }
 
