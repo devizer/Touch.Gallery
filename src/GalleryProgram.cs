@@ -23,8 +23,8 @@ namespace Gallery.MVC
             var host = BuildWebHost(args);
             try
             {
-                var adresses = host.ServerFeatures.Get<IServerAddressesFeature>().Addresses;
-                Addresses.AddRange(adresses.Select(x => x.Replace("://+", "://localhost").Replace("://0.0.0.0", "://localhost")));
+                var addresses = host.ServerFeatures.Get<IServerAddressesFeature>().Addresses;
+                Addresses.AddRange(addresses.Select(x => x.Replace("://+", "://localhost").Replace("://0.0.0.0", "://localhost")));
             }
             catch(Exception ex)
             {

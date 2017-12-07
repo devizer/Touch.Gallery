@@ -94,10 +94,11 @@ namespace Gallery.MVC.Models
         public int File;
         public int Position;
         public int Length;
+        public string IdContent;
 
         public override string ToString()
         {
-            return $"{nameof(Id)}: {Id}, {nameof(Width)}: {Width}, {nameof(Height)}: {Height}, {nameof(File)}: {File}, {nameof(Position)}: {Position}, {nameof(Length)}: {Length}";
+            return $"{nameof(Id)}: {Id}, {nameof(Width)}: {Width}, {nameof(Height)}: {Height}, {nameof(File)}: {File}, {nameof(Position)}: {Position}, {nameof(Length)}: {Length}, {nameof(IdContent)}: {IdContent}";
         }
     }
 }
