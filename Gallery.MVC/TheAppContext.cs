@@ -20,6 +20,17 @@ namespace Gallery.MVC
             }
         }
 
+        public static bool IsTravisCI
+        {
+            get
+            {
+                var t = Environment.GetEnvironmentVariable("TRAVIS");
+                return
+                    !string.IsNullOrEmpty(t)
+                    && "true".Equals(t, StringComparison.InvariantCultureIgnoreCase);
+            }
+        }
+
         private static List<PublicLimits> _Limits;
 
         public static void AssignLimits(IEnumerable<PublicLimits> limits)

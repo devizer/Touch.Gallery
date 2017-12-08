@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.Diagnostics;
 using System.Linq;
 using System.Threading.Tasks;
+using Gallery.MVC.Utils;
 using Google.Cloud.Datastore.V1;
 using Microsoft.Extensions.FileProviders;
 
@@ -86,15 +87,18 @@ namespace Gallery.MVC.DataAccess
                     content = new Content() {IdContent = idContent};
 
                 if (!ApplyAction(content, userPhoto, action))
+                {
+                    Console.WriteLine($"NONE: {debug} in {sw.Elapsed}");
                     return;
+                }
 
                 Db.Upsert(content.ToEntity(), userPhoto.ToEntity());
                 Console.WriteLine($"DONE: {debug} in {sw.Elapsed}");
             }
             catch (Exception ex)
             {
-                Console.WriteLine($"FAIL: {debug} in {sw.Elapsed}" + Environment.NewLine + ex + Environment.NewLine);
-                throw new Exception("AddAction " + debug, ex);
+                Console.WriteLine($"FAIL: {debug} in {sw.Elapsed}: " + ex.GetExceptionDigest());
+                throw new Exception("AddAction failed " + debug, ex);
             }
 
         }

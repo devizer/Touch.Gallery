@@ -72,14 +72,29 @@ namespace Gallery.MVC
                 Process.GetCurrentProcess().WorkingSet64 / 1024 / 1024
             );
 
-            PhotosRepository repo = new PhotosRepository();
-            List<PublicTopic> topicsWithBlobs = metaData.First().Topics;
 
+            ThreadPool.QueueUserWorkItem(_ =>
+            {
+                Thread.Sleep(2000);
+                BuiltInPreJIT();
+            });
+
+            ThreadPool.QueueUserWorkItem(_ =>
+            {
+                Thread.Sleep(2000);
+                List<PublicTopic> topicsWithBlobs = metaData.First().Topics;
+                BuiltInStorageTests(topicsWithBlobs);
+            });
+
+        }
+
+        private static void BuiltInStorageTests(List<PublicTopic> firstTopics)
+        {
+            PhotosRepository repo = new PhotosRepository();
+
+            var topicNames = firstTopics.Select(x => x.Title);
             Parallel.Invoke(
-                () =>
-                {
-                    repo.CreateTopics(topics);
-                },
+                () => { repo.CreateTopics(topicNames); },
                 () =>
                 {
 /*
@@ -99,43 +114,51 @@ namespace Gallery.MVC
                 () => repo.AddUserAction("Another Tester", "Liked-content", UserAction.Like),
                 () => repo.AddUserAction("Tester", "Starred-content", UserAction.Star),
                 () => repo.AddUserAction("Tester", "Shared-content", UserAction.Share),
-                () => {
+                () =>
+                {
                     repo.AddUserAction("Tester", "Double-Liked-content", UserAction.Like);
                     repo.AddUserAction("Tester", "Double-Liked-content", UserAction.Like);
                 },
-                () => {
+                () =>
+                {
                     repo.AddUserAction("Tester", "Liked-and-then-Disliked-content", UserAction.Like);
                     repo.AddUserAction("Tester", "Liked-and-then-Disliked-content", UserAction.Dislike);
                 },
-                () => {
+                () =>
+                {
                     repo.AddUserAction("Tester", "Disliked-and-then-Liked-content", UserAction.Dislike);
                     repo.AddUserAction("Tester", "Disliked-and-then-Liked-content", UserAction.Like);
                 },
             };
 
-            Parallel.Invoke(actions);
-
-            ThreadPool.QueueUserWorkItem(_ =>
+            Parallel.ForEach(actions, (a) =>
             {
-                Thread.Sleep(2000);
-                var httpHost = "http://localhost:5000";
-                if (GalleryProgram.Addresses.Any()) httpHost = GalleryProgram.Addresses.First();
-
-                Stopwatch startAt = Stopwatch.StartNew();
                 try
                 {
-                    HttpClient c = new HttpClient();
-                    var bytes = c.GetByteArrayAsync(httpHost).Result;
-                    _StartUpLogger.LogInformation($"Pre-JITed [{httpHost}] in {startAt.Elapsed}");
+                    a();
                 }
-                catch(Exception ex)
+                catch
                 {
-                    _StartUpLogger.LogWarning($"Pre-JIT [{httpHost}] failed. " + ex.GetExceptionDigest());
                 }
             });
+        }
 
+        private void BuiltInPreJIT()
+        {
+            var httpHost = "http://localhost:5000";
+            if (GalleryProgram.Addresses.Any()) httpHost = GalleryProgram.Addresses.First();
 
-
+            Stopwatch startAt = Stopwatch.StartNew();
+            try
+            {
+                HttpClient c = new HttpClient();
+                var bytes = c.GetByteArrayAsync(httpHost).Result;
+                _StartUpLogger.LogInformation($"Pre-JITed [{httpHost}] in {startAt.Elapsed}");
+            }
+            catch (Exception ex)
+            {
+                _StartUpLogger.LogWarning($"Pre-JIT [{httpHost}] failed. " + ex.GetExceptionDigest());
+            }
         }
     }
 }
