@@ -97,7 +97,7 @@ namespace Gallery.MVC.DataAccess
             }
             catch (Exception ex)
             {
-                Console.WriteLine($"FAIL: {debug} in {sw.Elapsed}: " + ex.GetExceptionDigest());
+                Console.WriteLine($"FAIL: {debug} in {sw.Elapsed}:" + Environment.NewLine + "      " + ex.GetExceptionDigest());
                 throw new Exception("AddAction failed " + debug, ex);
             }
 
