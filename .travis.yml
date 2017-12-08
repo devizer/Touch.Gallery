@@ -12,7 +12,7 @@ install:
 script:
     - bash -c printenv | sort
     - dotnet --version
-    - cd src 
+    - cd Gallery.MVC
     - dotnet restore
     - dotnet publish -c Release
     - cd bin/Release/netcoreapp2.0/publish 

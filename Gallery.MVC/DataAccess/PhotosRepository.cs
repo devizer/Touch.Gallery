@@ -23,7 +23,7 @@ namespace Gallery.MVC.DataAccess
         public void CreateTopics(IEnumerable<string> topics)
         {
             string kind = "Topic";
-            var keyFactory = Db.CreateKeyFactory("Topic");
+            var keyFactory = Db.CreateKeyFactory(kind);
             List<Entity> list = new List<Entity>();
             foreach (var topic in topics)
             {
