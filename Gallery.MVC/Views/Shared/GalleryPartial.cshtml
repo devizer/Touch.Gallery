@@ -1,0 +1,243 @@
+﻿@using Gallery.MVC.Models
+@model Gallery.MVC.Models.PartialGalleryModel
+
+<style>
+
+    .buttonHandler {
+        width: 100%;
+        height: @(Model.Limits.LimitValue/2)px;
+        background-color: transparent;
+        border: none;
+        color: yellow;
+        font-size: @(Model.Limits.LimitValue)px;
+        line-height: @(Model.Limits.LimitValue)px;
+        position: absolute;
+        z-index: 9999;
+
+        display: -webkit-box;
+        display: -ms-flexbox;
+        display: -webkit-flex;
+        display: flex;
+        -webkit-box-pack: center;
+        -ms-flex-pack: center;
+        -webkit-justify-content: center;
+        justify-content: center;
+        -webkit-box-align: center;
+        -ms-flex-align: center;
+        -webkit-align-items: center;
+        align-items: center;
+
+        text-align: left !important;
+        text-shadow:0px 0px 9px rgba(15,15,15,1);
+
+    }
+
+.photo-button {
+    color: white;
+    @(!Model.IsMobile ? "text-shadow:0px 0px 9px rgba(15,15,15,1);" : "")
+    font-weight:normal;color:#FCFCFC;
+    letter-spacing:1pt;
+    word-spacing:4pt;
+    font-size:22px;
+    text-align:left;
+    cursor: pointer;
+}
+
+    .photo-button-hover {
+        color: yellow !important;
+    }
+
+
+    #GalleryRoot {
+        width: 100%;
+        align-content: center !important;
+        text-align: center !important;
+
+/*
+        display: -webkit-box;
+        display: -ms-flexbox;
+        display: -webkit-flex;
+        display: flex;
+        -webkit-box-pack: center;
+        -ms-flex-pack: center;
+        -webkit-justify-content: center;
+        justify-content: center;
+        -webkit-box-align: center;
+        -ms-flex-align: center;
+        -webkit-align-items: center;
+        align-items: center;
+*/
+
+    }
+
+    .swiper-container {
+
+        /*border: 2px solid red;*/
+        align-content: center;
+        text-align: center;
+    }
+
+    .swiper-slide {
+        text-align: center;
+        font-size: 18px;
+        /* background: #fff; */
+        /* Center slide text vertically */
+        display: -webkit-box;
+        display: -ms-flexbox;
+        display: -webkit-flex;
+        display: flex;
+        -webkit-box-pack: center;
+        -ms-flex-pack: center;
+        -webkit-justify-content: center;
+        justify-content: center;
+        -webkit-box-align: center;
+        -ms-flex-align: center;
+        -webkit-align-items: center;
+        align-items: center;
+    }
+
+    .swiper-container {
+        text-align: center;
+        font-size: 18px;
+        /* background: #fff; */
+        /* Center slide text vertically */
+        display: -webkit-box;
+        display: -ms-flexbox;
+        display: -webkit-flex;
+        display: flex;
+        -webkit-box-pack: center;
+        -ms-flex-pack: center;
+        -webkit-justify-content: center;
+        justify-content: center;
+        -webkit-box-align: center;
+        -ms-flex-align: center;
+        -webkit-align-items: center;
+        align-items: center;
+    }
+
+
+    html, body {
+        position: relative;
+        height: 100%;
+        overflow: hidden;
+    }
+
+/*
+    html, body, .container, .swiper-container {
+        margin-left: 0px;
+        margin-right: 0px;
+        padding-left: 0px;
+        padding-right: 0px;
+    }
+*/
+
+</style>
+
+
+<div class="buttonHandler"  ></div>
+<div class="swiper-container" style="height: @(40+(int)(Model.Limits.LimitValue / Model.Ratio))px;">
+<div class="swiper-wrapper">
+@foreach (var photo in Model.Topic.Blobs)
+{
+    int w = photo.Width, h = photo.Height;
+    if (Model.Limits.Kind == LimitKind.Height && h < Model.Limits.LimitValue)
+    {
+        w = (int) (w * Convert.ToDecimal(Model.Limits.LimitValue) / Convert.ToDecimal(h));
+        h = Model.Limits.LimitValue;
+    }
+    w = (int) (w / Model.Ratio);
+    h = (int) (h / Model.Ratio);
+    <div id="photo_with_buttons"
+         class="swiper-slide"
+         id-content="@photo.IdContent"
+         style="width: @(w)px; height: @(h + 30)px !important; display: block; position: relative">
+        
+        <div id="just_a_photo" style="border: 1px solid black; width: @(w)px; height: @(h + 0)px; border: none; display: block">
+            <img src="/api/v1/Gallery/@photo.Id" width="@(w)px" height="@(h)px" style="border: 1px solid black"/>
+        </div>
+        @if (true || !Model.IsMobile)
+        {
+            <div id="buttons" style="width: @(w)px; position: absolute; top: @(h + (Model.IsMobile ? 0 : 4))px; font-size: 30px; color: white; height: 30px; border: none; left: 10px; text-align: @(Model.IsMobile ? "left" : "center")">
+                <i class="fa fa-star-o photo-button" aria-hidden="true" onclick="MyOnClick('fa-star-o', this)"></i>&nbsp;
+                <i class="fa fa-thumbs-o-up photo-button" aria-hidden="true" onclick="MyOnClick('fa-thumbs-o-up', this)"></i>&nbsp;
+                <i class="fa fa-thumbs-o-down photo-button" aria-hidden="true" onclick="MyOnClick('fa-thumbs-o-down', this)"></i>&nbsp;
+                <i class="fa fa-share-square-o photo-button" aria-hidden="true" onclick="MyOnClick('fa-share-square-o', this)"></i>
+            </div>
+        }
+    </div>
+}
+</div>
+</div>
+
+<script>
+    var swiper = new Swiper('.swiper-container',
+        {
+            slidesPerView: 'auto',
+            spaceBetween: 20,
+            mousewheel: true,
+            keyboard: {
+                enabled: true,
+            },
+            height: @(Model.Limits.LimitValue+30),
+            autoHeight: false,
+        });
+
+    $(".buttonHandler").hide();
+</script>
+
+<script>
+    // Mobile Safari in standalone mode
+    if (('standalone' in window.navigator) && window.navigator.standalone) {
+
+        window.addEventListener('load', function () {
+
+            var links = document.links,
+                link,
+                i;
+
+            for (i = 0; i < links.length; i++) {
+                // Don't do this for javascript: links
+                if (~(link = links[i]).href.toLowerCase().indexOf('javascript')) {
+                    link.addEventListener('click', function (event) {
+                        top.location.href = this.href;
+                        event.returnValue = false;
+                    }, false);
+                }
+            }
+
+        }, false);
+
+    }
+
+    function MyOnClick(argClass, button) {
+        // var centerButton = $(button).position().left + $(button).width() / 2;
+        var centerButton = $(button).offset().left + $(button).width() / 2;
+        var h = @(Model.Limits.LimitValue/3);
+        var left = $(button).position().left - 30;
+        var swiperWidth = $(".swiper-container").width();
+        var marginLeft = centerButton - swiperWidth / 2;
+        console.log("button.offset " + $(button).offset().left +  ", swiperWidth " + swiperWidth + ", marginLeft " + marginLeft + ", button.left = " + $(button).position().left + ", width=" + $(button).width());
+        $('.buttonHandler').html('<i class="fa ' + argClass + ' photo-button" aria-hidden="true"></i>');
+        $('.buttonHandler').show();
+        $('.buttonHandler').css({
+            opacity: 1,
+            "margin-left": (marginLeft-36) + 'px',
+            height: '@((Model.Limits.LimitValue-40)/Model.Ratio)px'
+        });
+
+        var onFinish = function (arg) {
+            $('.buttonHandler').hide();
+        }
+
+        $('.buttonHandler')
+            .transition({ scale: [4.0, 4.0] }, 1)
+            .transition({ opacity: 1, scale: [4.0, 4.0] }, 600)
+            .transition({ opacity: 0 }, 300, onFinish);
+    }
+
+    $('.photo-button').hover(
+        function () { $(this).addClass('photo-button-hover') },
+        function () { $(this).removeClass('photo-button-hover') }
+    );
+
+</script>

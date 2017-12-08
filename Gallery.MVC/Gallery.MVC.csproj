@@ -1,0 +1,202 @@
+<Project Sdk="Microsoft.NET.Sdk.Web">
+
+  <PropertyGroup>
+    <TargetFramework>netcoreapp2.0</TargetFramework>
+    <MvcRazorCompileOnPublish>true</MvcRazorCompileOnPublish>
+  </PropertyGroup>
+
+  <ItemGroup>
+    <Content Remove="Icon\Generated\manifest.json" />
+    <Content Remove="Icon\manifest.json" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <None Remove="Dockerfile" />
+    <None Remove="GalleryResources\blob\1" />
+    <None Remove="GalleryResources\blob\10" />
+    <None Remove="GalleryResources\blob\11" />
+    <None Remove="GalleryResources\blob\12" />
+    <None Remove="GalleryResources\blob\13" />
+    <None Remove="GalleryResources\blob\14" />
+    <None Remove="GalleryResources\blob\15" />
+    <None Remove="GalleryResources\blob\16" />
+    <None Remove="GalleryResources\blob\17" />
+    <None Remove="GalleryResources\blob\18" />
+    <None Remove="GalleryResources\blob\19" />
+    <None Remove="GalleryResources\blob\2" />
+    <None Remove="GalleryResources\blob\20" />
+    <None Remove="GalleryResources\blob\21" />
+    <None Remove="GalleryResources\blob\22" />
+    <None Remove="GalleryResources\blob\23" />
+    <None Remove="GalleryResources\blob\24" />
+    <None Remove="GalleryResources\blob\25" />
+    <None Remove="GalleryResources\blob\26" />
+    <None Remove="GalleryResources\blob\27" />
+    <None Remove="GalleryResources\blob\28" />
+    <None Remove="GalleryResources\blob\29" />
+    <None Remove="GalleryResources\blob\3" />
+    <None Remove="GalleryResources\blob\30" />
+    <None Remove="GalleryResources\blob\31" />
+    <None Remove="GalleryResources\blob\32" />
+    <None Remove="GalleryResources\blob\33" />
+    <None Remove="GalleryResources\blob\34" />
+    <None Remove="GalleryResources\blob\35" />
+    <None Remove="GalleryResources\blob\36" />
+    <None Remove="GalleryResources\blob\37" />
+    <None Remove="GalleryResources\blob\38" />
+    <None Remove="GalleryResources\blob\39" />
+    <None Remove="GalleryResources\blob\4" />
+    <None Remove="GalleryResources\blob\40" />
+    <None Remove="GalleryResources\blob\41" />
+    <None Remove="GalleryResources\blob\42" />
+    <None Remove="GalleryResources\blob\43" />
+    <None Remove="GalleryResources\blob\44" />
+    <None Remove="GalleryResources\blob\45" />
+    <None Remove="GalleryResources\blob\46" />
+    <None Remove="GalleryResources\blob\47" />
+    <None Remove="GalleryResources\blob\48" />
+    <None Remove="GalleryResources\blob\49" />
+    <None Remove="GalleryResources\blob\5" />
+    <None Remove="GalleryResources\blob\50" />
+    <None Remove="GalleryResources\blob\51" />
+    <None Remove="GalleryResources\blob\52" />
+    <None Remove="GalleryResources\blob\53" />
+    <None Remove="GalleryResources\blob\54" />
+    <None Remove="GalleryResources\blob\55" />
+    <None Remove="GalleryResources\blob\56" />
+    <None Remove="GalleryResources\blob\57" />
+    <None Remove="GalleryResources\blob\58" />
+    <None Remove="GalleryResources\blob\59" />
+    <None Remove="GalleryResources\blob\6" />
+    <None Remove="GalleryResources\blob\60" />
+    <None Remove="GalleryResources\blob\61" />
+    <None Remove="GalleryResources\blob\62" />
+    <None Remove="GalleryResources\blob\63" />
+    <None Remove="GalleryResources\blob\64" />
+    <None Remove="GalleryResources\blob\65" />
+    <None Remove="GalleryResources\blob\66" />
+    <None Remove="GalleryResources\blob\7" />
+    <None Remove="GalleryResources\blob\8" />
+    <None Remove="GalleryResources\blob\9" />
+    <None Remove="GalleryResources\meta\%28Height=1080%29" />
+    <None Remove="GalleryResources\meta\%28Height=1200%29" />
+    <None Remove="GalleryResources\meta\%28Height=1344%29" />
+    <None Remove="GalleryResources\meta\%28Height=144%29" />
+    <None Remove="GalleryResources\meta\%28Height=200%29" />
+    <None Remove="GalleryResources\meta\%28Height=224%29" />
+    <None Remove="GalleryResources\meta\%28Height=288%29" />
+    <None Remove="GalleryResources\meta\%28Height=448%29" />
+    <None Remove="GalleryResources\meta\%28Height=512%29" />
+    <None Remove="GalleryResources\meta\%28Height=600%29" />
+    <None Remove="GalleryResources\meta\%28Height=672%29" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <Content Include="Dockerfile">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+  </ItemGroup>
+
+  <ItemGroup>
+    <PackageReference Include="Microsoft.AspNetCore.All" Version="2.0.0" />
+    <PackageReference Include="Microsoft.AspNetCore.Mvc.Razor.ViewCompilation" Version="2.0.1" />
+    <PackageReference Include="Microsoft.VisualStudio.Web.CodeGeneration.Design" Version="2.0.0" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <DotNetCliToolReference Include="Microsoft.VisualStudio.Web.CodeGeneration.Tools" Version="2.0.0" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <EmbeddedResource Include="GalleryResources\blob\1" />
+    <EmbeddedResource Include="GalleryResources\blob\10" />
+    <EmbeddedResource Include="GalleryResources\blob\11" />
+    <EmbeddedResource Include="GalleryResources\blob\12" />
+    <EmbeddedResource Include="GalleryResources\blob\13" />
+    <EmbeddedResource Include="GalleryResources\blob\14" />
+    <EmbeddedResource Include="GalleryResources\blob\15" />
+    <EmbeddedResource Include="GalleryResources\blob\16" />
+    <EmbeddedResource Include="GalleryResources\blob\17" />
+    <EmbeddedResource Include="GalleryResources\blob\18" />
+    <EmbeddedResource Include="GalleryResources\blob\19" />
+    <EmbeddedResource Include="GalleryResources\blob\2" />
+    <EmbeddedResource Include="GalleryResources\blob\20" />
+    <EmbeddedResource Include="GalleryResources\blob\21" />
+    <EmbeddedResource Include="GalleryResources\blob\22" />
+    <EmbeddedResource Include="GalleryResources\blob\23" />
+    <EmbeddedResource Include="GalleryResources\blob\24" />
+    <EmbeddedResource Include="GalleryResources\blob\25" />
+    <EmbeddedResource Include="GalleryResources\blob\26" />
+    <EmbeddedResource Include="GalleryResources\blob\27" />
+    <EmbeddedResource Include="GalleryResources\blob\28" />
+    <EmbeddedResource Include="GalleryResources\blob\29" />
+    <EmbeddedResource Include="GalleryResources\blob\3" />
+    <EmbeddedResource Include="GalleryResources\blob\30" />
+    <EmbeddedResource Include="GalleryResources\blob\31" />
+    <EmbeddedResource Include="GalleryResources\blob\32" />
+    <EmbeddedResource Include="GalleryResources\blob\33" />
+    <EmbeddedResource Include="GalleryResources\blob\34" />
+    <EmbeddedResource Include="GalleryResources\blob\35" />
+    <EmbeddedResource Include="GalleryResources\blob\36" />
+    <EmbeddedResource Include="GalleryResources\blob\37" />
+    <EmbeddedResource Include="GalleryResources\blob\38" />
+    <EmbeddedResource Include="GalleryResources\blob\39" />
+    <EmbeddedResource Include="GalleryResources\blob\4" />
+    <EmbeddedResource Include="GalleryResources\blob\40" />
+    <EmbeddedResource Include="GalleryResources\blob\41" />
+    <EmbeddedResource Include="GalleryResources\blob\42" />
+    <EmbeddedResource Include="GalleryResources\blob\43" />
+    <EmbeddedResource Include="GalleryResources\blob\44" />
+    <EmbeddedResource Include="GalleryResources\blob\45" />
+    <EmbeddedResource Include="GalleryResources\blob\46" />
+    <EmbeddedResource Include="GalleryResources\blob\47" />
+    <EmbeddedResource Include="GalleryResources\blob\48" />
+    <EmbeddedResource Include="GalleryResources\blob\49" />
+    <EmbeddedResource Include="GalleryResources\blob\5" />
+    <EmbeddedResource Include="GalleryResources\blob\50" />
+    <EmbeddedResource Include="GalleryResources\blob\51" />
+    <EmbeddedResource Include="GalleryResources\blob\52" />
+    <EmbeddedResource Include="GalleryResources\blob\53" />
+    <EmbeddedResource Include="GalleryResources\blob\54" />
+    <EmbeddedResource Include="GalleryResources\blob\55" />
+    <EmbeddedResource Include="GalleryResources\blob\56" />
+    <EmbeddedResource Include="GalleryResources\blob\57" />
+    <EmbeddedResource Include="GalleryResources\blob\58" />
+    <EmbeddedResource Include="GalleryResources\blob\59" />
+    <EmbeddedResource Include="GalleryResources\blob\6" />
+    <EmbeddedResource Include="GalleryResources\blob\60" />
+    <EmbeddedResource Include="GalleryResources\blob\61" />
+    <EmbeddedResource Include="GalleryResources\blob\62" />
+    <EmbeddedResource Include="GalleryResources\blob\63" />
+    <EmbeddedResource Include="GalleryResources\blob\64" />
+    <EmbeddedResource Include="GalleryResources\blob\65" />
+    <EmbeddedResource Include="GalleryResources\blob\66" />
+    <EmbeddedResource Include="GalleryResources\blob\7" />
+    <EmbeddedResource Include="GalleryResources\blob\8" />
+    <EmbeddedResource Include="GalleryResources\blob\9" />
+    <EmbeddedResource Include="GalleryResources\meta\(Height=1080)" />
+    <EmbeddedResource Include="GalleryResources\meta\(Height=1344)" />
+    <EmbeddedResource Include="GalleryResources\meta\(Height=144)" />
+    <EmbeddedResource Include="GalleryResources\meta\(Height=224)" />
+    <EmbeddedResource Include="GalleryResources\meta\(Height=288)" />
+    <EmbeddedResource Include="GalleryResources\meta\(Height=448)" />
+    <EmbeddedResource Include="GalleryResources\meta\(Height=512)" />
+    <EmbeddedResource Include="GalleryResources\meta\(Height=672)" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <Folder Include="Pages\Home\" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <None Include="Icon\Generated\manifest.json" />
+    <None Include="Icon\manifest.json" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <None Update="app.yaml">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </None>
+  </ItemGroup>
+
+</Project>

@@ -1,0 +1,65 @@
+﻿
+@*
+    For more information on enabling MVC for empty projects, visit http://go.microsoft.com/fwlink/?LinkID=397860
+*@
+
+<Script>
+    function GetPartial(title, limits) {
+        
+    }
+</Script>
+
+PC
+<form action="/Home/GetSliderHtml" method="POST">
+    <input type="hidden" name="galleryTitle" value="Kitty" />
+    <input type="hidden" name="limits" value="Height=600" />
+    <input type="submit" value="Kitty 600px" />
+</form>
+
+<form action="/Home/GetSliderHtml" method="POST">
+    <input type="hidden" name="galleryTitle" value="Space" />
+    <input type="hidden" name="limits" value="Height=1200"/>
+    <input type="submit" value="Space 1200px"/>
+</form>
+
+RETINA
+<form action="/Home/GetSliderHtml" method="POST">
+    <input type="hidden" name="galleryTitle" value="Kitty" />
+    <input type="hidden" name="limits" value="Height=600" />
+    <input type="hidden" name="ratio" value="4" />
+    <input type="submit" value="Kitty 600px" />
+</form>
+<form action="/Home/GetSliderHtml" method="POST">
+    <input type="hidden" name="galleryTitle" value="Space" />
+    <input type="hidden" name="limits" value="Height=1200" />
+    <input type="hidden" name="ratio" value="2" />
+    <input type="submit" value="Space 1200px" />
+</form>
+
+<a href="#" onclick="My_call(); return 0;">try dynamo load with script</a>
+<script>
+    function My_call() {
+        $.ajax({
+            url: "/Home/GetSliderHtml",
+            type: "POST",
+            data: $.param({ galleryTitle: "Kitty", limits: "Height=600", ration: 2 }),
+            
+
+            complete: function() {
+                //called when complete
+            },
+
+            success: function(ret) {
+                // alert(ret);
+                $("#inject-here").html(ret);
+            },
+
+            error: function(error) {
+                alert(error);
+            },
+        });
+    }
+
+</script>
+
+<div id="inject-here"></div>
