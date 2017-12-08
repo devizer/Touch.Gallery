@@ -154,12 +154,14 @@ namespace Gallery.MVC
 
             string[] reqs =
             {
-                $"{urlBase}/; Method=Get; Valid Status = 100-299,403",
+                $"{urlBase}/; Method=Get; Valid Status = 100-299",
 
-                $"{urlBase}/api/v1/Gallery/{smallestBlobId}; Method=Get; Valid Status = 100-299,403",
+                $"Uri = {urlBase}/api/v1/Gallery/{smallestBlobId}; Method=Get; Valid Status = 100-299,403",
 
                 $"{urlBase}/Home/GetSmartSliderHtml; Method=Post; Valid Status = 100-299,403;" +
-                $" Payload=galleryTitle=Kitty&windowHeight=200&devicePixelRatio=1;" +
+                $" Payload=galleryTitle=Kitty&windowHeight=666&devicePixelRatio=1;" +
+                $" *Accept = text/html;" +
+                $" *Accept-Language = en-US, en;" +
                 $" *Content-Type = application/x-www-form-urlencoded;" +
                 $" *X-Requested-With = XMLHttpRequest",
             };

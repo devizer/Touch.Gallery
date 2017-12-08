@@ -29,7 +29,9 @@ namespace WaitFor.Common
                 );
 
             if (cs.Payload != null)
-                req.Content = new StringContent(cs.Payload);
+                req.Content = new StringContent(cs.Payload, Encoding.UTF8);
+
+            if (cs.ConnectionString.IndexOf("Smart") >= 0 && Debugger.IsAttached) Debugger.Break();
 
             var copy = new List<HttpConnectionString.Header>(cs.Headers.ToList());
             var contentType = copy.FirstOrDefault(x => "Content-Type".Equals(x.Name, StringComparison.InvariantCultureIgnoreCase));
@@ -40,9 +42,38 @@ namespace WaitFor.Common
             }
 
             foreach (var header in copy)
-                req.Content.Headers.Add(header.Name, header.Values);
+            {
+                bool isOk = false;
+                Exception exception = null;
+                try
+                {
+                    req.Content.Headers.Add(header.Name, header.Values);
+                    isOk = true;
 
-            // if (cs.ConnectionString.IndexOf("Smart") >= 0 && Debugger.IsAttached) Debugger.Break();
+                }
+                catch (Exception ex)
+                {
+                    try
+                    {
+                        exception = ex;
+                        req.Headers.Add(header.Name, header.Values);
+                        isOk = true;
+                    }
+                    catch (Exception ex2)
+                    {
+                        exception = ex2;
+                    }
+                }
+
+                if (!isOk)
+                {
+                    throw new InvalidOperationException(
+                        $"Unable to add header '{header.Name}'", exception);
+                }
+
+            }
+
+            if (cs.ConnectionString.IndexOf("Smart") >= 0 && Debugger.IsAttached) Debugger.Break();
 
             var response = await c.SendAsync(req, cancellationToken);
             var statusCode = response.StatusCode;
