@@ -1,10 +1,13 @@
 ﻿using System;
+using System.Collections.Generic;
 using System.Diagnostics;
 using System.IO;
 using System.Linq;
 using System.Net.Http;
 using System.Runtime.InteropServices;
 using System.Threading;
+using System.Threading.Tasks;
+using Gallery.MVC.DataAccess;
 using Gallery.MVC.GalleryResources;
 using Gallery.MVC.Models;
 using Gallery.MVC.Utils;
@@ -68,6 +71,49 @@ namespace Gallery.MVC
                 string.Join(", ", topics.Select(x => $"{x}({getBlobsByTopics(x)})")),
                 Process.GetCurrentProcess().WorkingSet64 / 1024 / 1024
             );
+
+            PhotosRepository repo = new PhotosRepository();
+            List<PublicTopic> topicsWithBlobs = metaData.First().Topics;
+
+            Parallel.Invoke(
+                () =>
+                {
+                    repo.CreateTopics(topics);
+                },
+                () =>
+                {
+/*
+                    Parallel.ForEach(topicsWithBlobs, (topicWithBlobs) =>
+                    {
+                        var idContentList = topicWithBlobs.Blobs.Select(x => x.IdContent).ToList();
+                        repo.CreateContent(idContentList);
+                        Console.WriteLine($"Saved {idContentList.Count} related blobs of Topic: {topicWithBlobs.Title}");
+                    });
+*/
+                });
+
+            Action[] actions = new Action[]
+            {
+                () => repo.AddUserAction("Tester", "Disliked-content", UserAction.Dislike),
+                () => repo.AddUserAction("Tester", "Liked-content", UserAction.Like),
+                () => repo.AddUserAction("Another Tester", "Liked-content", UserAction.Like),
+                () => repo.AddUserAction("Tester", "Starred-content", UserAction.Star),
+                () => repo.AddUserAction("Tester", "Shared-content", UserAction.Share),
+                () => {
+                    repo.AddUserAction("Tester", "Double-Liked-content", UserAction.Like);
+                    repo.AddUserAction("Tester", "Double-Liked-content", UserAction.Like);
+                },
+                () => {
+                    repo.AddUserAction("Tester", "Liked-and-then-Disliked-content", UserAction.Like);
+                    repo.AddUserAction("Tester", "Liked-and-then-Disliked-content", UserAction.Dislike);
+                },
+                () => {
+                    repo.AddUserAction("Tester", "Disliked-and-then-Liked-content", UserAction.Dislike);
+                    repo.AddUserAction("Tester", "Disliked-and-then-Liked-content", UserAction.Like);
+                },
+            };
+
+            Parallel.Invoke(actions);
 
             ThreadPool.QueueUserWorkItem(_ =>
             {
