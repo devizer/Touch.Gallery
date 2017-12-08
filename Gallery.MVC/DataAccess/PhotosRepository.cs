@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Diagnostics;
 using System.Linq;
 using System.Threading.Tasks;
 using Google.Cloud.Datastore.V1;
@@ -72,18 +73,30 @@ namespace Gallery.MVC.DataAccess
 
         public void AddUserAction(string idUser, string idContent, UserAction action)
         {
-            var userPhoto = Db.Lookup(DataModelExtensions.ToUserPhotoKey(idUser, idContent)).ToUserPhoto();
-            if (userPhoto == null)
-                userPhoto = new UserPhoto() { IdUser = idUser, IdContent = idContent};
+            Stopwatch sw = Stopwatch.StartNew();
+            String debug = $"Action {action} by User '{idUser}' on [{idContent}]";
+            try
+            {
+                var userPhoto = Db.Lookup(DataModelExtensions.ToUserPhotoKey(idUser, idContent)).ToUserPhoto();
+                if (userPhoto == null)
+                    userPhoto = new UserPhoto() {IdUser = idUser, IdContent = idContent};
 
-            var content = Db.Lookup(DataModelExtensions.ToContentKey(idContent)).ToContent();
-            if (content == null)
-                content = new Content() {IdContent = idContent};
+                var content = Db.Lookup(DataModelExtensions.ToContentKey(idContent)).ToContent();
+                if (content == null)
+                    content = new Content() {IdContent = idContent};
 
-            if (!ApplyAction(content, userPhoto, action))
-                return;
+                if (!ApplyAction(content, userPhoto, action))
+                    return;
 
-            Db.Upsert(content.ToEntity(), userPhoto.ToEntity());
+                Db.Upsert(content.ToEntity(), userPhoto.ToEntity());
+                Console.WriteLine($"DONE: {debug} in {sw.Elapsed}");
+            }
+            catch (Exception ex)
+            {
+                Console.WriteLine($"FAIL: {debug} in {sw.Elapsed}" + Environment.NewLine + ex + Environment.NewLine);
+                throw new Exception("AddAction " + debug, ex);
+            }
+
         }
 
 
