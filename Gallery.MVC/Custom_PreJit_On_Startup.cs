@@ -94,7 +94,11 @@ namespace Gallery.MVC
 
             var topicNames = firstTopics.Select(x => x.Title);
             Parallel.Invoke(
-                () => { repo.CreateTopics(topicNames); },
+                () =>
+                {
+                    if (!TheAppContext.IsTravisCI)
+                        repo.CreateTopics(topicNames);
+                },
                 () =>
                 {
 /*

@@ -17,7 +17,7 @@ script:
     - dotnet publish -c Release
     - cd bin/Release/netcoreapp2.0/publish 
     - dotnet Gallery.MVC.dll > my.log &
-    - sleep 12
+    - sleep 30
     - killall dotnet
     - cat my.log || true
 
