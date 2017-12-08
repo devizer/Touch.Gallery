@@ -12,6 +12,7 @@ using Gallery.MVC.GalleryResources;
 using Gallery.MVC.Models;
 using Gallery.MVC.Utils;
 using Microsoft.Extensions.Logging;
+using WaitFor.Common;
 
 namespace Gallery.MVC
 {
@@ -40,11 +41,11 @@ namespace Gallery.MVC
                 RuntimeInformation.OSDescription,
                 RuntimeInformation.ProcessArchitecture);
 
-            var metaData = _RM.GetMetadata();
+            List<PublicModel> metaData = _RM.GetMetadata();
             var topics = metaData.SelectMany(x => x.Topics).Select(x => x.Title).Distinct().OrderBy(x => x).ToList();
 
             // read smallest blob
-            var smallest = metaData.SelectMany(x => x.Topics).SelectMany(x => x.Blobs).OrderBy(x => x.Length).FirstOrDefault();
+            PublicBlob smallest = metaData.SelectMany(x => x.Topics).SelectMany(x => x.Blobs).OrderBy(x => x.Length).FirstOrDefault();
             if (smallest == null)
                 throw new Exception("Any blob is not found");
 
@@ -76,15 +77,13 @@ namespace Gallery.MVC
             ThreadPool.QueueUserWorkItem(_ =>
             {
                 Thread.Sleep(2000);
-                BuiltInPreJIT();
-            });
+                BuiltInPreJIT(smallest.Id);
 
-            ThreadPool.QueueUserWorkItem(_ =>
-            {
-                Thread.Sleep(2000);
+                Thread.Sleep(666);
                 List<PublicTopic> topicsWithBlobs = metaData.First().Topics;
                 BuiltInStorageTests(topicsWithBlobs);
             });
+
 
         }
 
@@ -147,21 +146,53 @@ namespace Gallery.MVC
             });
         }
 
-        private void BuiltInPreJIT()
+        private void BuiltInPreJIT(string smallestBlobId)
         {
-            var httpHost = "http://localhost:5000";
-            if (GalleryProgram.Addresses.Any()) httpHost = GalleryProgram.Addresses.First();
+            var urlBase = "http://localhost:5000";
+            if (GalleryProgram.Addresses.Any()) urlBase = GalleryProgram.Addresses.First();
+            urlBase = urlBase.TrimEnd('/');
 
-            Stopwatch startAt = Stopwatch.StartNew();
-            try
+            string[] reqs =
             {
-                HttpClient c = new HttpClient();
-                var bytes = c.GetByteArrayAsync(httpHost).Result;
-                _StartUpLogger.LogInformation($"Pre-JITed [{httpHost}] in {startAt.Elapsed}");
-            }
-            catch (Exception ex)
+                $"{urlBase}/; Method=Get; Valid Status = 100-299,403",
+
+                $"{urlBase}/api/v1/Gallery/{smallestBlobId}; Method=Get; Valid Status = 100-299,403",
+
+                $"{urlBase}/Home/GetSmartSliderHtml; Method=Post; Valid Status = 100-299,403;" +
+                $" Payload=galleryTitle=Kitty&windowHeight=200&devicePixelRatio=1;" +
+                $" *Content-Type = application/x-www-form-urlencoded;" +
+                $" *X-Requested-With = XMLHttpRequest",
+            };
+
+            Parallel.ForEach(reqs, (req) =>
             {
-                _StartUpLogger.LogWarning($"Pre-JIT [{httpHost}] failed. " + ex.GetExceptionDigest());
+                try
+                {
+                    Stopwatch startAt = Stopwatch.StartNew();
+                    HttpConnectionString cs = new HttpConnectionString(req);
+                    HttpProbe.Go(cs).Wait();
+                    _StartUpLogger.LogInformation($"Pre-JITed [{req}] in {startAt.Elapsed}");
+                }
+                catch(Exception ex)
+                {
+                    _StartUpLogger.LogWarning($"Pre-JIT [{req}] failed. " + ex.GetExceptionDigest());
+                }
+
+            });
+
+            if (false)
+            {
+                Stopwatch startAt = Stopwatch.StartNew();
+                try
+                {
+                    HttpClient c = new HttpClient();
+                    var bytes = c.GetByteArrayAsync(urlBase).Result;
+                    _StartUpLogger.LogInformation($"Pre-JITed [{urlBase}] in {startAt.Elapsed}");
+                }
+                catch (Exception ex)
+                {
+                    _StartUpLogger.LogWarning($"Pre-JIT [{urlBase}] failed. " + ex.GetExceptionDigest());
+                }
             }
         }
     }

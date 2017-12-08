@@ -100,7 +100,6 @@ namespace Gallery.MVC.DataAccess
                 Console.WriteLine($"FAIL: {debug} in {sw.Elapsed}:" + Environment.NewLine + "      " + ex.GetExceptionDigest());
                 throw new Exception("AddAction failed " + debug, ex);
             }
-
         }
 
 

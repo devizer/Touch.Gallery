@@ -22,6 +22,8 @@ namespace Gallery.Prepare
 
         public UserAgentInfo(string userAgent)
         {
+            if (userAgent == null) userAgent = "Undefined";
+
             if (userAgent == null)
                 throw new ArgumentNullException("userAgent");
 

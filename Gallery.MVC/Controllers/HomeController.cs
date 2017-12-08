@@ -63,7 +63,7 @@ namespace Gallery.MVC.Controllers
             IEnumerable<PublicTopic> byTitle = byLimits.SelectMany(x => x.Topics).Where(x => x.Title == galleryTitle);
             PublicTopic foundGallery = byTitle.FirstOrDefault();
             if (foundGallery == null)
-                throw new ArgumentException($"Gallery {galleryTitle} with specified limits ({limitsParsed}) not found");
+                throw new ArgumentException($"Gallery [{galleryTitle}] with specified limits ({limitsParsed}) not found");
 
             decimal ratioParsed;
             if (!decimal.TryParse(ratio, out ratioParsed))
@@ -156,7 +156,6 @@ namespace Gallery.MVC.Controllers
             );
 
         }
-
 
         public IActionResult Debug()
         {
