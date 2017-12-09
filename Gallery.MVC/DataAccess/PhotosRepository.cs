@@ -96,7 +96,7 @@ namespace Gallery.MVC.DataAccess
                 Debugger.Break();
 
             Stopwatch sw = Stopwatch.StartNew();
-            String debug = $"{action,-6} by User '{idUser}' on [{idContent}] topic '{topic}'";
+            String debug = $"{action,-7} by User '{idUser}' on [{idContent}] topic '{topic}'";
             try
             {
 /*
