@@ -110,31 +110,41 @@ namespace Gallery.MVC
 */
                 });
 
-            Action[] actions = new Action[]
+            var topics = new[] {"One Topic", "Another Topic"};
+            var totalActions = new List<Action>();
+            foreach (var topic_ in topics)
             {
-                () => repo.AddUserAction("Tester", "Disliked-content", UserAction.Dislike),
-                () => repo.AddUserAction("Tester", "Liked-content", UserAction.Like),
-                () => repo.AddUserAction("Another Tester", "Liked-content", UserAction.Like),
-                () => repo.AddUserAction("Tester", "Starred-content", UserAction.Star),
-                () => repo.AddUserAction("Tester", "Shared-content", UserAction.Share),
-                () =>
+                var topic = topic_;
+                Action[] actions = new Action[]
                 {
-                    repo.AddUserAction("Tester", "Double-Liked-content", UserAction.Like);
-                    repo.AddUserAction("Tester", "Double-Liked-content", UserAction.Like);
-                },
-                () =>
-                {
-                    repo.AddUserAction("Tester", "Liked-and-then-Disliked-content", UserAction.Like);
-                    repo.AddUserAction("Tester", "Liked-and-then-Disliked-content", UserAction.Dislike);
-                },
-                () =>
-                {
-                    repo.AddUserAction("Tester", "Disliked-and-then-Liked-content", UserAction.Dislike);
-                    repo.AddUserAction("Tester", "Disliked-and-then-Liked-content", UserAction.Like);
-                },
-            };
+                    () => repo.AddUserAction(topic, "Tester", "Disliked-content", UserAction.Dislike),
+                    () => repo.AddUserAction(topic, "Tester", "Liked-content", UserAction.Like),
+                    () => repo.AddUserAction(topic, "Another Tester", "Liked-content", UserAction.Like),
+                    () => repo.AddUserAction(topic, "Tester", "Starred-content", UserAction.Star),
+                    () => repo.AddUserAction(topic, "Tester", "Shared-content", UserAction.Share),
+                    () =>
+                    {
+                        repo.AddUserAction(topic, "Tester", "Double-Liked-content", UserAction.Like);
+                        repo.AddUserAction(topic, "Tester", "Double-Liked-content", UserAction.Like);
+                    },
+                    () =>
+                    {
+                        repo.AddUserAction(topic, "Tester", "Liked-and-then-Disliked-content", UserAction.Like);
+                        repo.AddUserAction(topic, "Tester", "Liked-and-then-Disliked-content", UserAction.Dislike);
+                    },
+                    () =>
+                    {
+                        repo.AddUserAction(topic, "Tester", "Disliked-and-then-Liked-content", UserAction.Dislike);
+                        repo.AddUserAction(topic, "Tester", "Disliked-and-then-Liked-content", UserAction.Like);
+                    },
+                };
 
-            Parallel.ForEach(actions, (a) =>
+                totalActions.AddRange(actions);
+
+            }
+
+            ParallelOptions opts = new ParallelOptions() {MaxDegreeOfParallelism = 1};
+            Parallel.ForEach(totalActions, opts, (a) =>
             {
                 try
                 {
@@ -144,6 +154,16 @@ namespace Gallery.MVC
                 {
                 }
             });
+
+            repo.GetUserPhotosByTopic("One Topic", "Tester");
+            Stopwatch sw = Stopwatch.StartNew();
+            var byUser = repo.GetUserPhotosByTopic("One Topic", "Tester");
+            Console.WriteLine($"Marks retrivied in {sw.Elapsed}:");
+            foreach (var userPhoto in byUser)
+            {
+                Console.WriteLine("  " + userPhoto.Value.ToDebugString());
+            }
+
         }
 
         private void BuiltInPreJIT(string smallestBlobId)

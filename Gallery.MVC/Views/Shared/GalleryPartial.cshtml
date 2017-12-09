@@ -3,45 +3,49 @@
 
 <style>
 
-    .buttonHandler {
-        width: 100%;
-        height: @(Model.Limits.LimitValue/2)px;
-        background-color: transparent;
-        border: none;
-        color: yellow;
-        font-size: @(Model.Limits.LimitValue)px;
-        line-height: @(Model.Limits.LimitValue)px;
-        position: absolute;
-        z-index: 9999;
-
-        display: -webkit-box;
-        display: -ms-flexbox;
-        display: -webkit-flex;
-        display: flex;
-        -webkit-box-pack: center;
-        -ms-flex-pack: center;
-        -webkit-justify-content: center;
-        justify-content: center;
-        -webkit-box-align: center;
-        -ms-flex-align: center;
-        -webkit-align-items: center;
-        align-items: center;
-
-        text-align: left !important;
-        text-shadow:0px 0px 9px rgba(15,15,15,1);
-
+    .my-badge {
+        margin-left: 3px;
     }
 
-.photo-button {
-    color: white;
-    @(!Model.IsMobile ? "text-shadow:0px 0px 9px rgba(15,15,15,1);" : "")
-    font-weight:normal;color:#FCFCFC;
-    letter-spacing:1pt;
-    word-spacing:4pt;
-    font-size:22px;
-    text-align:left;
-    cursor: pointer;
-}
+     .buttonHandler {
+         width: 100%;
+         height: @(Model.Limits.LimitValue/2)px;
+         background-color: transparent;
+         border: none;
+         color: yellow;
+         font-size: @(Model.Limits.LimitValue)px;
+         line-height: @(Model.Limits.LimitValue)px;
+         position: absolute;
+         z-index: 9999;
+
+         display: -webkit-box;
+         display: -ms-flexbox;
+         display: -webkit-flex;
+         display: flex;
+         -webkit-box-pack: center;
+         -ms-flex-pack: center;
+         -webkit-justify-content: center;
+         justify-content: center;
+         -webkit-box-align: center;
+         -ms-flex-align: center;
+         -webkit-align-items: center;
+         align-items: center;
+
+         text-align: left !important;
+         text-shadow:0px 0px 9px rgba(15,15,15,1);
+
+     }
+
+    .photo-button {
+        color: white;
+        @(!Model.IsMobile ? "text-shadow:0px 0px 9px rgba(15,15,15,1);" : "")
+        font-weight:normal;color:#FCFCFC;
+        letter-spacing:1pt;
+        word-spacing:4pt;
+        font-size:22px;
+        text-align:left;
+        cursor: pointer;
+    }
 
     .photo-button-hover {
         color: yellow !important;
@@ -53,7 +57,7 @@
         align-content: center !important;
         text-align: center !important;
 
-/*
+        /*
         display: -webkit-box;
         display: -ms-flexbox;
         display: -webkit-flex;
@@ -158,10 +162,10 @@
         @if (true || !Model.IsMobile)
         {
             <div id="buttons" style="width: @(w)px; position: absolute; top: @(h + (Model.IsMobile ? 0 : 4))px; font-size: 30px; color: white; height: 30px; border: none; left: 10px; text-align: @(Model.IsMobile ? "left" : "center")">
-                <i class="fa fa-star-o photo-button" aria-hidden="true" onclick="MyOnClick('fa-star-o', this)"></i>&nbsp;
-                <i class="fa fa-thumbs-o-up photo-button" aria-hidden="true" onclick="MyOnClick('fa-thumbs-o-up', this)"></i>&nbsp;
-                <i class="fa fa-thumbs-o-down photo-button" aria-hidden="true" onclick="MyOnClick('fa-thumbs-o-down', this)"></i>&nbsp;
-                <i class="fa fa-share-square-o photo-button" aria-hidden="true" onclick="MyOnClick('fa-share-square-o', this)"></i>
+                <i class="fa fa-star-o photo-button" aria-hidden="true" onclick="MyOnClick('fa-star-o', this)"></i><span class="badge badge-secondary my-badge">146</span>&nbsp;&nbsp;
+                <i class="fa fa-thumbs-o-up photo-button" aria-hidden="true" onclick="MyOnClick('fa-thumbs-o-up', this)"></i><span class="badge badge-secondary my-badge">234.5 K</span>&nbsp;&nbsp;
+                <i class="fa fa-thumbs-o-down photo-button" aria-hidden="true" onclick="MyOnClick('fa-thumbs-o-down', this)"></i><span class="badge badge-secondary my-badge" style="display: none">&nbsp;&nbsp;&nbsp;</span>&nbsp;&nbsp;
+                <i class="fa fa-share-square-o photo-button" aria-hidden="true" onclick="MyOnClick('fa-share-square-o', this)"></i><span class="badge badge-secondary my-badge">34.5 M</span>
             </div>
         }
     </div>

@@ -31,7 +31,7 @@ namespace WaitFor.Common
             if (cs.Payload != null)
                 req.Content = new StringContent(cs.Payload, Encoding.UTF8);
 
-            if (cs.ConnectionString.IndexOf("Smart") >= 0 && Debugger.IsAttached) Debugger.Break();
+            // if (cs.ConnectionString.IndexOf("Smart") >= 0 && Debugger.IsAttached) Debugger.Break();
 
             var copy = new List<HttpConnectionString.Header>(cs.Headers.ToList());
             var contentType = copy.FirstOrDefault(x => "Content-Type".Equals(x.Name, StringComparison.InvariantCultureIgnoreCase));
@@ -73,7 +73,7 @@ namespace WaitFor.Common
 
             }
 
-            if (cs.ConnectionString.IndexOf("Smart") >= 0 && Debugger.IsAttached) Debugger.Break();
+            // if (cs.ConnectionString.IndexOf("Smart") >= 0 && Debugger.IsAttached) Debugger.Break();
 
             var response = await c.SendAsync(req, cancellationToken);
             var statusCode = response.StatusCode;

@@ -13,6 +13,21 @@ namespace Gallery.MVC.DataAccess
     {
         DatastoreDb Db = DatastoreDb.Create("touch-galleries");
 
+        public IDictionary<string, UserPhoto> GetUserPhotosByTopic(string topic, string idUser)
+        {
+            // select All UserPhoto, where 
+            var keyTopic = new Key().WithElement("Topic", topic);
+            var keyTopicAndUser = new KeyFactory(keyTopic, "User").CreateKey(idUser);
+            Query query = new Query("UserPhoto")
+            {
+                Filter = Filter.HasAncestor(keyTopicAndUser)
+            };
+
+            DatastoreQueryResults results = Db.RunQuery(query, ReadOptions.Types.ReadConsistency.Strong);
+            var userPhotos = results.Entities.Select(x => x.ToUserPhoto());
+            return userPhotos.ToDictionary(x => x.IdContent, x => x);
+        }
+
         static PhotosRepository()
         {
             var creds = Environment.GetEnvironmentVariable("TOUCH_GALLERIES_CREDENTIALS");
@@ -44,6 +59,7 @@ namespace Gallery.MVC.DataAccess
             Console.WriteLine($"Saved Topics: {string.Join(", ", keys)}");
         }
 
+        [Obsolete("Useless method", true)]
         public void CreateContent(IEnumerable<string> idContentList)
         {
             var list = idContentList
@@ -53,18 +69,19 @@ namespace Gallery.MVC.DataAccess
             Db.Upsert(list);
         }
 
-        public UserPhoto GetUserPhoto(string idUser, string idContent)
+        public UserPhoto GetUserPhoto(string topic, string idUser, string idContent)
         {
-            var userPhoto = Db.Lookup(DataModelExtensions.ToUserPhotoKey(idUser, idContent)).ToUserPhoto();
+            var userPhoto = Db.Lookup(DataModelExtensions.ToUserPhotoKey(topic, idUser, idContent)).ToUserPhoto();
             if (userPhoto == null)
                 userPhoto = new UserPhoto() { IdUser = idUser, IdContent = idContent };
 
             return userPhoto;
         }
 
-        public Content GetContent(string idContent)
+
+        public Content GetContent(string topic, string idContent)
         {
-            var content = Db.Lookup(DataModelExtensions.ToContentKey(idContent)).ToContent();
+            var content = Db.Lookup(DataModelExtensions.ToContentKey(topic, idContent)).ToContent();
             if (content == null)
                 content = new Content() { IdContent = idContent };
 
@@ -72,27 +89,46 @@ namespace Gallery.MVC.DataAccess
         }
 
 
-        public void AddUserAction(string idUser, string idContent, UserAction action)
+        public void AddUserAction(string topic, string idUser, string idContent, UserAction action)
         {
+            // User 'Tester' on [Liked-content] topic 'One Topic'
+            if (Debugger.IsAttached && topic == "One Topic" && idUser == "Tester" && idContent == "Liked-content")
+                Debugger.Break();
+
             Stopwatch sw = Stopwatch.StartNew();
-            String debug = $"Action {action} by User '{idUser}' on [{idContent}]";
+            String debug = $"{action,-6} by User '{idUser}' on [{idContent}] topic '{topic}'";
             try
             {
-                var userPhoto = Db.Lookup(DataModelExtensions.ToUserPhotoKey(idUser, idContent)).ToUserPhoto();
-                if (userPhoto == null)
-                    userPhoto = new UserPhoto() {IdUser = idUser, IdContent = idContent};
+/*
+                var userPhotoKey = DataModelExtensions.ToUserPhotoKey(topic, idContent);
+                var contentIs = Filter.Equal("__key__", userPhotoKey);
+                var userIs = Filter.Equal("IdUser", idUser);
+                Query querySingleUserPhoto = new Query("UserPhoto")
+                {
+                    Filter = Filter.And(contentIs, userIs)
+                };
+                var userPhoto = Db.RunQuery(querySingleUserPhoto).Entities.FirstOrDefault().ToUserPhoto();
+*/
+                var userPhoto = Db.Lookup(DataModelExtensions.ToUserPhotoKey(topic, idUser, idContent)).ToUserPhoto();
+                bool isUserPhotoNew = userPhoto == null;
 
-                var content = Db.Lookup(DataModelExtensions.ToContentKey(idContent)).ToContent();
+                if (userPhoto == null)
+                    userPhoto = new UserPhoto() {Topic = topic, IdUser = idUser, IdContent = idContent};
+
+                var contentKey = DataModelExtensions.ToContentKey(topic, idContent);
+                var content = Db.Lookup(contentKey).ToContent();
                 if (content == null)
-                    content = new Content() {IdContent = idContent};
+                    content = new Content() {Topic = topic, IdContent = idContent};
 
                 if (!ApplyAction(content, userPhoto, action))
                 {
-                    Console.WriteLine($"NONE: {debug} in {sw.Elapsed}");
+                    Console.WriteLine($"None: {debug} in {sw.Elapsed}");
                     return;
                 }
 
-                Db.Upsert(content.ToEntity(), userPhoto.ToEntity());
+                var entityContent = content.ToEntity();
+                var entityUserPhoto = userPhoto.ToEntity();
+                Db.Upsert(entityContent, entityUserPhoto);
                 Console.WriteLine($"DONE: {debug} in {sw.Elapsed}");
             }
             catch (Exception ex)
@@ -146,7 +182,7 @@ namespace Gallery.MVC.DataAccess
                     break;
 
                 case UserAction.Share:
-                    deltaShare++;
+                    deltaShare = 1;
                     userPhoto.Shares = true;
                     break;
 
