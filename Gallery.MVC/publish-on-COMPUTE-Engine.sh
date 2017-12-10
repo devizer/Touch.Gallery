@@ -29,19 +29,19 @@ rm -rf Touch.Gallery
 # sudo swapoff /swap
 
 target=/Touch-Galleries.App
-mkdir -p $target
+sudo mkdir -p $target
 ver=$(date +"%Y-%m-%d-%H-%M-%S")
 echo NEW VERSION is: $target/$ver
-time (cp -r Touch.Gallery-bin $target/$ver)
+time (sudo cp -r Touch.Gallery-bin $target/$ver)
 for prev in $(ls -1 $target | grep -v $ver); do
   echo REMOVING PREV version: $prev
-  rm -rf $target/$prev
+  sudo rm -rf $target/$prev
 done
 
-kill $(cat /var/run/touch-galleries.pid)
+sudo kill $(cat /var/run/touch-galleries.pid)
 cd $target/$ver
 echo 3 | sudo tee /proc/sys/vm/drop_caches > /dev/null
 echo "Starting the App at $(date)" >> $HOME/RESTART.log
 # sudo bash -c 'ASPNETCORE_URLS=http://0.0.0.0:80\;http://0.0.0.0:8080\;http://0.0.0.0:5000 dotnet Gallery.MVC.dll' | tee $HOME/RUN-Touch.Gallery.log 2>&1
 export ASPNETCORE_URLS=http://0.0.0.0:80\;http://0.0.0.0:8080\;http://0.0.0.0:5000
-(nohup dotnet Gallery.MVC.dll | tee $HOME/RUN-Touch.Gallery.log 2>&1) &
+(sudo nohup dotnet Gallery.MVC.dll | tee $HOME/RUN-Touch.Gallery.log 2>&1) &
