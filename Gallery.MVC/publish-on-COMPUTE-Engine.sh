@@ -13,6 +13,7 @@ fi
 if [ ! -f "/swap" ]; then
   sudo bash -c 'dd if=/dev/zero of=/swap bs=1M count=1700 && mkswap /swap && swapon /swap'
 fi
+sudo swapon /swap >/dev/null 2>&1 || true
 
 work=$HOME/Touch.Gallery
 rm -rf $work
@@ -43,5 +44,4 @@ cd $target/$ver
 echo 3 | sudo tee /proc/sys/vm/drop_caches > /dev/null
 echo "Starting the App at $(date)" >> $HOME/RESTART.log
 # sudo bash -c 'ASPNETCORE_URLS=http://0.0.0.0:80\;http://0.0.0.0:8080\;http://0.0.0.0:5000 dotnet Gallery.MVC.dll' | tee $HOME/RUN-Touch.Gallery.log 2>&1
-export ASPNETCORE_URLS=http://0.0.0.0:80\;http://0.0.0.0:8080\;http://0.0.0.0:5000
-(sudo nohup dotnet Gallery.MVC.dll | tee $HOME/RUN-Touch.Gallery.log 2>&1) &
+(sudo nohup bash -c 'ASPNETCORE_URLS=http://0.0.0.0:80\;http://0.0.0.0:8080\;http://0.0.0.0:5000 dotnet Gallery.MVC.dll' | sudo tee $HOME/RUN-Touch.Gallery.log 2>&1) &
