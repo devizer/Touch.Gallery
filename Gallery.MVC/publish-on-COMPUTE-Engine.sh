@@ -1,4 +1,4 @@
-﻿#!/bin/bash
+#!/bin/bash
 if [[ -z "$HOME" ]]; then export HOME=/root; fi; mkdir -p "$HOME"
 echo "Booted at $(date)" >> $HOME/RESTART.log
 
@@ -31,7 +31,7 @@ echo "Src downloaded $(date)" >> $HOME/RESTART.log
 pushd Touch.Gallery
 rm -rf .git
 cd Gallery.MVC
-dotnet publish -c Release -o ../../Touch.Gallery-bin | tee $HOME/BUILD-Touch.Gallery.log
+dotnet publish -c Release -r linux-x64 -o ../../Touch.Gallery-bin | tee $HOME/BUILD-Touch.Gallery.log
 popd
 rm -rf Touch.Gallery
 echo "Src builded $(date)" >> $HOME/RESTART.log
