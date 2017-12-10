@@ -156,13 +156,21 @@ namespace Gallery.MVC
                 }
             });
 
-            repo.GetUserPhotosByTopic("One Topic", "Tester");
-            Stopwatch sw = Stopwatch.StartNew();
-            var byUser = repo.GetUserPhotosByTopic("One Topic", "Tester");
-            Console.WriteLine($"Marks retrieved in {sw.Elapsed}:");
-            foreach (var userPhoto in byUser)
+            try
             {
-                Console.WriteLine("  " + userPhoto.Value.ToDebugString());
+                repo.GetUserPhotosByTopic("One Topic", "Tester");
+                Stopwatch sw = Stopwatch.StartNew();
+                var byUser = repo.GetUserPhotosByTopic("One Topic", "Tester");
+                Console.WriteLine($"Marks retrieved in {sw.Elapsed}:");
+                foreach (var userPhoto in byUser)
+                {
+                    Console.WriteLine("  " + userPhoto.Value.ToDebugString());
+                }
+            }
+            catch (Exception ex)
+            {
+                Console.WriteLine("TEST FAILED: repo.GetUserPhotosByTopic(\"One Topic\", \"Tester\");");
+                Console.WriteLine(ex);
             }
 
         }
