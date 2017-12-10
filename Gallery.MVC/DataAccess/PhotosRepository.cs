@@ -20,7 +20,16 @@ namespace Gallery.MVC.DataAccess
             var keyTopicAndUser = new KeyFactory(keyTopic, "User").CreateKey(idUser);
             Query query = new Query("UserPhoto")
             {
-                Filter = Filter.HasAncestor(keyTopicAndUser)
+                Filter = Filter.HasAncestor(keyTopicAndUser),
+/*
+                Projection =
+                {
+                    "Stars",
+                    "Likes",
+                    "Dislikes",
+                    "Shares",
+                }
+*/
             };
 
             DatastoreQueryResults results = Db.RunQuery(query, ReadOptions.Types.ReadConsistency.Strong);
@@ -83,7 +92,7 @@ namespace Gallery.MVC.DataAccess
         {
             var content = Db.Lookup(DataModelExtensions.ToContentKey(topic, idContent)).ToContent();
             if (content == null)
-                content = new Content() { IdContent = idContent };
+                content = new Content() { Topic = topic, IdContent = idContent };
 
             return content;
         }

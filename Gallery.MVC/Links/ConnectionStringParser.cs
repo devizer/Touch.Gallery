@@ -1,11 +1,18 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Linq;
+using System.Text;
 using JetBrains.Annotations;
 
 namespace WaitFor.Common
 {
     // Valid Status=200,403,100-499; Uri=http://mywebapi:80/get-status; Method=POST; *Accept=application/json, text/javascript; Payload={'verbosity':'normal'}"
+    /*
+     * Built-in System.Data.Common.DbConnectionStringBuilder has limitation:
+     * All the keys are lower-cased
+     * Same keys are ignored, only one wins
+     * Empty key is not supported
+     */
     public class ConnectionStringParser
     {
         [NotNull]
@@ -19,8 +26,11 @@ namespace WaitFor.Common
         public class Pair
         {
 
-            [NotNull] public string Key { get; set; }
-            [NotNull] public string Value { get; set; }
+            [NotNull]
+            public string Key { get; set; }
+
+            [NotNull]
+            public string Value { get; set; }
 
             public bool HasKey { get; set; }
 
@@ -54,12 +64,46 @@ namespace WaitFor.Common
             ConnectionString = connectionString ?? throw new ArgumentNullException(nameof(connectionString));
         }
 
+        internal IEnumerable<string> GetSegments()
+        {
+            StringBuilder buffer = new StringBuilder();
+            var arg = ConnectionString;
+            var len = arg.Length;
+            bool isQuote = false;
+            for(int i = 0; i < len; i++)
+            {
+                var ch = arg[i];
+                if (i < len - 1 && ch == '\\' && arg[i + 1] == '\'')
+                {
+                    buffer.Append('\'');
+                    i++;
+                }
+
+                else if (!isQuote && ch == ';')
+                {
+                    yield return buffer.ToString();
+                    buffer.Clear();
+                }
+
+                else if (ch == '\'')
+                {
+                    isQuote = !isQuote;
+                }
+
+                else
+                    buffer.Append(ch);
+            }
+
+            if (buffer.Length > 0)
+                yield return buffer.ToString();
+
+        }
 
         List<Pair> Parse_Impl()
         {
             List<Pair> ret = new List<Pair>();
             var vars = this.
-                ConnectionString.Split(';')
+                GetSegments()
                 .Select(x => x.Trim())
                 .Where(x => x.Length > 0);
 
@@ -86,9 +130,18 @@ namespace WaitFor.Common
             return ret;
         }
 
+        public string AsHumanReadable(int intent)
+        {
+            Func<Pair, string> keyDescription = pair => pair.HasKey ? $"[{pair.Key}]" : "Main";
+            string pre = intent > 0 ? new string(' ', intent) : "";
+            return string.Join(Environment.NewLine, Pairs.Select(x =>
+                    string.Format("{0}{1}: {2}", pre, keyDescription(x), x.Value)
+            ));
+        }
+
     }
 
-    public static class ConnectionStringBuilderExtensions
+    public static class ConnectionStringParserExtensions
     {
         const StringComparison Ignore = StringComparison.InvariantCultureIgnoreCase;
 

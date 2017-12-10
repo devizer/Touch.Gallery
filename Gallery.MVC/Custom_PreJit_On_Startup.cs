@@ -143,7 +143,8 @@ namespace Gallery.MVC
 
             }
 
-            ParallelOptions opts = new ParallelOptions() {MaxDegreeOfParallelism = 1};
+            var numThreads = totalActions.Count;
+            ParallelOptions opts = new ParallelOptions() {MaxDegreeOfParallelism = numThreads };
             Parallel.ForEach(totalActions, opts, (a) =>
             {
                 try
@@ -158,7 +159,7 @@ namespace Gallery.MVC
             repo.GetUserPhotosByTopic("One Topic", "Tester");
             Stopwatch sw = Stopwatch.StartNew();
             var byUser = repo.GetUserPhotosByTopic("One Topic", "Tester");
-            Console.WriteLine($"Marks retrivied in {sw.Elapsed}:");
+            Console.WriteLine($"Marks retrieved in {sw.Elapsed}:");
             foreach (var userPhoto in byUser)
             {
                 Console.WriteLine("  " + userPhoto.Value.ToDebugString());

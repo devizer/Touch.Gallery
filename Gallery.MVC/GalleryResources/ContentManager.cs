@@ -70,11 +70,10 @@ namespace Gallery.MVC.GalleryResources
             if (_Metadata != null) return _Metadata;
             lock (SyncMetadata)
             {
-                if (_Metadata != null) return _Metadata;
+                if (_Metadata == null)
+                    _Metadata = GetMetadata_Impl();
 
-                var ret = GetMetadata_Impl();
-                _Metadata = ret;
-                return ret;
+                return GetMetadata_Impl();
             }
         }
 
