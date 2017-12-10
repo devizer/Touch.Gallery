@@ -1,4 +1,5 @@
 #!/bin/bash
+set -e 
 if [[ -z "$HOME" ]]; then export HOME=/root; fi; mkdir -p "$HOME"
 echo "Booted at $(date)" >> $HOME/RESTART.log
 
@@ -21,33 +22,42 @@ sudo mkswap /swap >/dev/null 2>&1 || true
 sudo swapon /swap >/dev/null 2>&1 || true
 sudo sync
 
-work=$HOME/Touch.Gallery
-rm -rf $work
-mkdir -p $work
-cd $work
-git clone https://github.com/devizer/Touch.Gallery Touch.Gallery
-echo 3 | sudo tee /proc/sys/vm/drop_caches > /dev/null
-echo "Src downloaded $(date)" >> $HOME/RESTART.log
-pushd Touch.Gallery
-rm -rf .git
-cd Gallery.MVC
-dotnet publish -c Release -r linux-x64 -o ../../Touch.Gallery-bin | tee $HOME/BUILD-Touch.Gallery.log
-popd
-rm -rf Touch.Gallery
-echo "Src builded $(date)" >> $HOME/RESTART.log
-
-
 target=/Touch-Galleries.App
-sudo mkdir -p $target
-ver=$(date +"%Y-%m-%d-%H-%M-%S")
-echo NEW VERSION is: $target/$ver
-sudo mv Touch.Gallery-bin $target/$ver
-for prev in $(ls -1 $target | grep -v $ver); do
-  echo REMOVING PREV version: $prev
-  sudo rm -rf $target/$prev
-done
+if [ ! -f "$target/.done" ]; then
+  # OPTIONAL BUILD
 
-sudo kill $(cat /var/run/touch-galleries.pid)
+    work=$HOME/Touch.Gallery
+    rm -rf $work
+    mkdir -p $work
+    cd $work
+    git clone https://github.com/devizer/Touch.Gallery Touch.Gallery
+    echo 3 | sudo tee /proc/sys/vm/drop_caches > /dev/null
+    echo "Src downloaded $(date)" >> $HOME/RESTART.log
+    pushd Touch.Gallery
+    rm -rf .git
+    cd Gallery.MVC
+    dotnet publish -c Release -r linux-x64 -o ../../Touch.Gallery-bin | tee $HOME/BUILD-Touch.Gallery.log
+    popd
+    rm -rf Touch.Gallery
+    echo "Src builded $(date)" >> $HOME/RESTART.log
+
+
+    target=/Touch-Galleries.App
+    sudo mkdir -p $target
+    ver=ver-$(date +"%Y-%m-%d-%H-%M-%S")
+    echo NEW VERSION is: $target/$ver
+    sudo mv Touch.Gallery-bin $target/$ver
+    for prev in $(ls -1 $target | grep -v $ver | grep ver); do
+      echo REMOVING PREV version: $prev
+      sudo rm -rf $target/$prev
+    done
+
+    echo $ver > $target/.done
+else
+  echo "App already built. Build skipped at $(date)" >> $HOME/RESTART.log
+fi; 
+
+sudo kill $(sudo cat /var/run/touch-galleries.pid) 2>/dev/null || true
 cd $target/$ver
 echo 3 | sudo tee /proc/sys/vm/drop_caches > /dev/null
 echo "Starting the App at $(date)" >> $HOME/RESTART.log

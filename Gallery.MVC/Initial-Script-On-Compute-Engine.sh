@@ -1,1 +1,1 @@
-export HOME=/root; mkdir -p /root; cd /root; wget --no-check-certificate -O publish-on-COMPUTE-Engine.sh https://github.com/devizer/Touch.Gallery/raw/master/Gallery.MVC/publish-on-COMPUTE-Engine.sh | tee wget.log 2>&1; sudo bash publish-on-COMPUTE-Engine.sh
+export HOME=/root; sudo mkdir -p /root; wget --no-check-certificate -O publish-on-COMPUTE-Engine.sh-tmp https://github.com/devizer/Touch.Gallery/raw/master/Gallery.MVC/publish-on-COMPUTE-Engine.sh | tee wget.log 2>&1; sudo bash publish-on-COMPUTE-Engine.sh-tmp
