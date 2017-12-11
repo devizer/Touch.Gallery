@@ -1,0 +1,220 @@
+
+<script>
+  var galleryModel = {"Gallery":"Trucks","Ratio":1.250,"Limits":{"Kind":2,"LimitValue":672},"Photos":[{"Url":"JaidJGjgMhn0ZuSihkAw461vY4PRSL0i","Width":668,"Height":672,"Id":"VNvQV@zYbjATc$ifKcThQ94f3p2hHudk","MyStars":true,"MyLikes":true,"MyDislikes":true,"MyShares":true,"TotalStars":7777,"TotalLikes":42,"TotalDislikes":1,"TotalShares":2},{"Url":"RFigI@RRJL9tRj1ueR4l7hGMpFmkDEaI","Width":1130,"Height":672,"Id":"JjmZJd@0JGhlWZDg@nwPSAwpqtyKtvWY"},{"Url":"MjKKZl@XZ3NeZAABjQnhJ7qiExYrwcNc","Width":908,"Height":672,"Id":"R4dBRiaoRFF2I72MqDh$Mxrg5eoiM8lb"},{"Url":"JI34Ml6UZrOYZ9nMOyB25jawD5D5Ku1z","Width":940,"Height":672,"Id":"QPeyJmh4JWcLJLy4aM6ngARO6pqm2I8L"},{"Url":"JsncJU6bJNBxMtqcGSDNk3HUlD4WUTGe","Width":1075,"Height":672,"Id":"RyHFRnQ4RKZBI73rVXZRUtraJIitm@r6"},{"Url":"JdF@JDcUMhgbZn$ZS9eKRjFAEe1LWxsA","Width":1003,"Height":672,"Id":"NRSMI2ZmJMN6XjrWHQRBiIolg81CAwhV"},{"Url":"QNOTJgfFJWskJAOQa57F9nn3Ok3y7daS","Width":1010,"Height":672,"Id":"V4AGbsQpcx21R7oEvOaiHrvVTGZnO@3h"},{"Url":"QP9@JggLJYkQJH$eD1yGh2UK55TXXy0g","Width":1010,"Height":672,"Id":"ZLL3N$3lNb$yI5TL672D3NUUam@CGsO7"},{"Url":"JMpPRgYCYa8pc$9VzuyGvvogl2GdmMe3","Width":1263,"Height":672,"Id":"VB0RV8$FbupRc3vwqkoPo6@IC2uOtZ$6"},{"Url":"YXhac4UnIcidJgyRuD2wlZJwCR0oM6s1","Width":1007,"Height":672,"Id":"NZyDI8AdJHl8XpBR7UYPY$RrpUnwE@f7"},{"Url":"NyhjNa39IwRqJD3475lPer7F2fx9UnlO","Width":896,"Height":672,"Id":"MjzVZoOLZ9wzZFQaINop67pM59YgjXkS"},{"Url":"bpNVc31aR0dyRsXT@7KfoFhbuoO7pyvN","Width":908,"Height":672,"Id":"VDuSV2uzbtdEc1P@0Px5Yg1yP8MI7YEo"},{"Url":"Z1kRZCbJN1pZNSo1Qrfa8NBY2VAcwUlw","Width":1020,"Height":672,"Id":"RsCQYb2Yc6xqIUZVfUWYKJCaIYBltZq9"},{"Url":"JJoFXsm3JdMvJPzbKV99s5FkmW3CvieI","Width":1009,"Height":672,"Id":"Z0u3ZAlPNz$fNfswovuDHtgo2FAET6Lp"},{"Url":"JmbIJUzuJDwpMsD5b2MtsmYw@NYSoCBQ","Width":896,"Height":672,"Id":"IddtJtHyJfxTJIHbCAbhI3UaGHt9WOx4"},{"Url":"I@MFJHdZXrB3JVJ5@M5hxwC7us1gDxc1","Width":896,"Height":672,"Id":"JGpzXiFcJbXvJNCSJk4LpHeCwvV9q5jI"},{"Url":"JDRpXvrmJWRRJAbZgbWlLJ80r@djB4jH","Width":921,"Height":672,"Id":"YT@Kc@A5IWxFJrtGDbnVVmjafUdyEESY"},{"Url":"JR9hJBKTQHcGJpPlxatO4uVXVpeP1H2a","Width":1096,"Height":672,"Id":"V2Z7buuRc9ciR5NMfAZbsJiZilpuENCp"},{"Url":"MgM8Zo$7ZxhFZC$K5fEtaUayU0FlyKfS","Width":1008,"Height":672,"Id":"QE1EJuyKJZhTJBHag0tW@JD3435f5B93"},{"Url":"Z39EZEj7N2MINXgqQtpFHNJaSqIhAYWm","Width":890,"Height":672,"Id":"V@x6bh56c9uGRwvHv4NjovQUhhQkN3$M"},{"Url":"RMxMIxVjJJViRpW0yy9uBGDhAJGDvIaB","Width":940,"Height":672,"Id":"ITflJiQcJWZzJOJgs1OfmEMuIZqLli1D"},{"Url":"N21oNf6UI7EqJBmPKgQaKIf55RyAxIf$","Width":1139,"Height":672,"Id":"JQVcJIUWQFUnJglhPUpRQ1$Fnf2Dfvd1"},{"Url":"I$KDJHnPXvdeJXh5qX319rFeERrJ0hcN","Width":1043,"Height":672,"Id":"JXWaJPoxMs6dZvaIJg66Oppa48KTEr06"},{"Url":"VE2JV2FLbreIcx0j3rLK4QvGMtDuR9Ei","Width":1128,"Height":672,"Id":"QEnvJlPGJXgiJJNcniM3GM9l$M5h2APg"},{"Url":"JJe$QE0tJhFrJfvAWzskrhANlZ2iCwDT","Width":1009,"Height":672,"Id":"N8@SNVzXI46aJN$4qwphuPerBRTE9Pem"},{"Url":"ZgF8Z0DWZH46N$CoHGmkPVFkg6@B4Awr","Width":896,"Height":672,"Id":"RGbwI@joJCTURjcTLFPFzOOOSoKbTOyH"},{"Url":"JE71XmgAJXmlJLrzsSZlGnl2IN2nmuK8","Width":1031,"Height":672,"Id":"Iy58JCDuRs17YY3wyfC39Di$U1vuYo5t"},{"Url":"RHoRI4AZJBKtRktdON8AMsimQ82NBYlA","Width":680,"Height":672,"Id":"VzOobszvczt@Rx7MKqptqrVBtQoK$Q90"},{"Url":"c62RIbv@Jp9rJepQTlwupKiFvQ9MAHNu","Width":1008,"Height":672,"Id":"QNpjJsWIJW89JE1fWJ0Q2I0ivl7h60gJ"},{"Url":"JaxnJK5LWRylUjPGAjWlU5k@oevFZmcN","Width":896,"Height":672,"Id":"RllAYYD2c$wfIZbZvQipWty19B04pfNn"},{"Url":"ZE@6N4ZoNUuwI8WPvzfMW5GcnxMuJx6M","Width":902,"Height":672,"Id":"WehmUlloVDXtV9zNUMsxVk@bhyvOCVsy"},{"Url":"cylnR8vFRii9RHoKCK6qGog29NDuT@Pt","Width":896,"Height":672,"Id":"ZObaN55qNfT@Iwh1UEUU4qtmXlSShn3W"},{"Url":"Z3FTZM$MN6VGNaF9MndEJ@bA3ACoBGcB","Width":903,"Height":672,"Id":"XrGXJdXIJGywQDNH9okoN9UiZ96uRiL4"},{"Url":"JPRdRmMQYTYicwylJclvBHQZCrxJarKm","Width":1009,"Height":672,"Id":"c9saR$p0RjYnRALN6J@WVLTR1A0jZS4m"},{"Url":"JeegJPXnWdfoUopdZVJMhzP29j6sQ1d@","Width":1010,"Height":672,"Id":"RPONIwsOJEKBRvCY6belc97zonO6apOK"},{"Url":"RLJ7Iy5MJLDfRsgwKqBfj56tFbNmDrva","Width":976,"Height":672,"Id":"Zil2Zzz5ZC9jNz4JpeMnCQnciiDgcC9Y"},{"Url":"I6wlJCV2RnLlYakTAogq799vX1gfnjg5","Width":487,"Height":672,"Id":"QAdRJiEjJZyyJCU3ySthLAe12XkM73yp"},{"Url":"RGfzI53UJBiGRnF3nUyJ5DLwzcpdsAxd","Width":1176,"Height":672,"Id":"IRIlJko6JfI@JHLHLHjJPh0Y5bPthEeX"},{"Url":"JD3cQMgLJvzpJZHJ@EN7yC9Jw$YYqQXq","Width":1008,"Height":672,"Id":"JXVZJOb0QHcPJlLQH8AUEYCSGoZ$9ByD"},{"Url":"JI17MtneZuhpZ0YfmCFTzKxpkhn0bQBG","Width":1024,"Height":672,"Id":"bjoVc5ydR7lYRmzg5zVUlqY$b6xlAIaH"},{"Url":"N8PcNWi8I2CuJPTANjgLJV$vdJlEhcLN","Width":896,"Height":672,"Id":"Z9dlZKCINyrrNX6JOp@CEyGLIG3qbmAS"},{"Url":"I4NCJPIlRtodYcwWnu8vDUbYmdvGrvSm","Width":1008,"Height":672,"Id":"RLk6IzMaJFH@Rk$ntVruYt4c1osXYo1e"},{"Url":"ZHeKNwG9NZoPI5FBJ6u6KRczzDfm2Gem","Width":1017,"Height":672,"Id":"JDQPMiElZhvBZ6z62xzLm3rdGhPPsLQg"},{"Url":"V2l9bgajc9yAR6jQc3Q4zVCt0fH$0ky7","Width":1349,"Height":672,"Id":"bs92c3UTR@cERrXAbR7Xo4@KQIL1zv76"},{"Url":"JMKhRv0pYRAec9qkr2MKNF8M9jftd6MJ","Width":1010,"Height":672,"Id":"c2WIR2UERorARIo@UaXEMYbjVVYtFjyk"},{"Url":"Zsc1Z49FZDB@N0lqws6Lx1jLFAvIGVAU","Width":934,"Height":672,"Id":"ZzEVZN8zN$WyNdJCRM4G4U9@T@7AeiwL"},{"Url":"RLJ8I@PJJOQORu1UvlpiVMDoN$ydVzzX","Width":1009,"Height":672,"Id":"c3bCIVeKJreJJQoduJIqfCWKCbD47PAK"},{"Url":"JHOhQOyzJrSlJR0TNgEpXk7p$LyVbLGn","Width":907,"Height":672,"Id":"QJL7JtYkJeYyJHP3Xj1itDbQbWXBLYUX"},{"Url":"WcE0UopmVAIqV4@UYe31evYOcVG9oAxf","Width":1194,"Height":672,"Id":"IS8pJhkSJbqOJHmPYZSpF7S8AwkFyvRn"},{"Url":"Yd78c5a6Ifd1JlkE5v7L7lHz36h@hNiH","Width":980,"Height":672,"Id":"Vwhkbm2ic@EBRyrE9Vxmv$ZMZjqWguGm"},{"Url":"JBSEXvvxJTmbJOVyVNWrWmaCLeRJzNyQ","Width":1009,"Height":672,"Id":"ZssrZzbIZA4NN3Ug4zbwvQXbtECcKLj4"},{"Url":"c12QR1vKRvn7RG3JkRlYkaEae4qx4Bfm","Width":1008,"Height":672,"Id":"I$bTJMjbRokkYYEk622KBryw$r@tI3Up"},{"Url":"QEcGJgivJWcQJAul4JHiyeoZsHzPDqH1","Width":883,"Height":672,"Id":"ZwLXZMwJN$qWNXeBjZKNiHxiPwNGe9gh"},{"Url":"bnmsc6ymRxovRvpy77FD6BkfTQmL3$D@","Width":1032,"Height":672,"Id":"Z6@eZBgjNxagNTimE8TIgXy0F6myKipU"},{"Url":"Jp0KJcdSJHNNWdqdB941hYUhsCk7Xz6o","Width":1014,"Height":672,"Id":"bmi1cyinRzDORpRU$uRgKlSFoZIhtAXH"},{"Url":"VDowV6kGbn2acyAj4DdgaRhusYH96awS","Width":896,"Height":672,"Id":"JOF1RlM8YR7Xc$NZSh9M7g1mhs9YMhtL"},{"Url":"IWRNJjbSJervJEaGLWXI1WpR0b6YhqAq","Width":896,"Height":672,"Id":"XmXLJfh6JFbWQBJsGGDYZsKXv7X@APtw"},{"Url":"V2d$bsxZc$gVR3obahhmN9V4fcJkJPV9","Width":1011,"Height":672,"Id":"JJw4XvIzJfafJCozwxkx27tcu1K5rUcw"},{"Url":"RKGEI97VJHgfRmJ2Hrd$6rTD$NXALldz","Width":1200,"Height":672,"Id":"RKfHI6MNJBnORiRQ99r9J1Imz0azjQ6p"},{"Url":"JPUTWSk2UjPuVOMSQLXfbCEdzXSsjiQs","Width":1007,"Height":672,"Id":"JHuMQNr9JhmLJcp2EG7EfcURPM4lYHVy"},{"Url":"N5DLNUAeI$@qJHxvgguMcaBNnM9WAVE$","Width":1007,"Height":672,"Id":"JmCUJVptJC9xMvCV2G$shO@jP9CEJeb0"},{"Url":"JQXZJFh2MhqIZvBnQ4@IehW$ZrbKgutY","Width":1008,"Height":672,"Id":"MkuyZtWTZznJZOJ9aisGXTAkSx9B7Od3"},{"Url":"I0h7JBakRtZDYWL79VMCQcw9D0PGT631","Width":1028,"Height":672,"Id":"c$gtR875Rr6CRDHVaUx$weOSQEJFypVq"},{"Url":"WRNIUjRoVC4RV6cnxukLcS@8sVDLCYhu","Width":1011,"Height":672,"Id":"JK1QWamJUkKaVBQNMCdB$ofdDHsKm$He"},{"Url":"WfH7UigTVHH6V6Eo6ixPouOOcvJj02o6","Width":1008,"Height":672,"Id":"RsYhRMiWIzftJLn2MxX3n7US8kcjFzOO"},{"Url":"JVInJKcXWfv1UvOgi6iEpafkl1lybVoW","Width":1011,"Height":672,"Id":"c3bxIRMNJnVLJfBX3cVFYWDJ$Rdy$sj4"},{"Url":"JpakJabfJGthWRkiLRXWPFkUOVqOl7P3","Width":980,"Height":672,"Id":"c$s@IZZPJloUJRrIothOBhHq1KFK@I$t"},{"Url":"I4bSJPNqRugUYR3SXbdRSTCrWtYyR1j2","Width":679,"Height":672,"Id":"ZnwXZ$YeZBN9N1O28b3QXGueyv5nQUNt"},{"Url":"MqhXZoZiZ50EZG2CiufnDuU6srSQRr1J","Width":1251,"Height":672,"Id":"I$jTJPxhRmU$YQypIz1EaUayEkeNUHzP"},{"Url":"Rv63YRItc0HVIW3fajaq4QqcbD9b7Ztz","Width":1007,"Height":672,"Id":"VCVfVw@FbuV2c5IU0mi6Ge5Ef3VM6rbi"},{"Url":"WSbiUoJlVI$UVwUXSMKq1AglOL6vwVUI","Width":1008,"Height":672,"Id":"VOSlV9dtbjXuc@B3I9aGkLPLJfSM91U8"},{"Url":"RoE2RIebI@PnJOzuDUhzPXqzeU8CpMNw","Width":1344,"Height":672,"Id":"Zk9BZyAlZJ@BN3l5hwIs$kiEAr$dylaw"},{"Url":"RNaFI5tRJBN@RmHYg6MRK0E73588DYYw","Width":679,"Height":672,"Id":"JKT9Mh68ZhaoZxymJYIqWkqKCPb@7KhH"},{"Url":"JU1oJHBSMiNOZr@ji7E3OLG8unwXbnuV","Width":1007,"Height":672,"Id":"JiefJRXfJJyCWadugcGJ8@@xxFo8yJJe"},{"Url":"JLmmRgPuYW5Ac3Lgm1U9ReBIgR4tHoRg","Width":1151,"Height":672,"Id":"VI24Vxk5bh5Vc3Kg13$Ud7iXMleiVRdo"},{"Url":"JKULWVpoUiywVPGINyP3ze6yweRafvC1","Width":954,"Height":672,"Id":"JSKpJB9NWVt6UiG4sTajJ9vOolDhNS64"},{"Url":"ZFGXNx7CNcD2I6QE6SQPtV1g3MT0A2IV","Width":953,"Height":672,"Id":"RgLlRMSJI@ruJDt$UfIaN3zisdTmnioG"},{"Url":"JWW$JKfMMvcSZvCzhoYsDl94QyC@lZmg","Width":1078,"Height":672,"Id":"JQNcJNUzQKk7JjnTOJ2TIRGNffLNnrEK"},{"Url":"QDtwJg2JJW4WJL5Jrfk5vm0VTUoyRlTE","Width":1009,"Height":672,"Id":"JtOeJVt7JLGCWXErIKE$V$gz0cTwLXe4"},{"Url":"Jpb$JdvvJM56Mq1cs@8HN$ix5PA5LZMb","Width":956,"Height":672,"Id":"JHRoQELdJp@nJZ0pgCCyeofY6BI7KXIG"},{"Url":"Z5vEZGUSNzppNbYM0ytzBizXPwm$IOKA","Width":1011,"Height":672,"Id":"c6BAR9ZVRi7URM4in5NdmqgFtoZWkMSW"},{"Url":"RDz8IwDCJEf@Rh3GqccYfyYlXXIMr4jI","Width":978,"Height":672,"Id":"JAq@MtH9ZsTpZy1a8AB3iHDjvC4mcSR5"},{"Url":"VzJEbtVVcx5CR4E6Xr@vYthZq3FbOgTG","Width":1008,"Height":672,"Id":"N7W3NYh6I8nMJCU2J1Nh36aJH3G7xzGe"},{"Url":"Zmu3Z0r8ZB9rNxr1a8Lzu803P$mAnR9Y","Width":896,"Height":672,"Id":"JA9eRtteYQJkc9wAzmcotelKq4cSMOMZ"},{"Url":"ZOfEN2oBNTWFI7LqNlgkRucNl@8AVaWW","Width":1008,"Height":672,"Id":"JlNiJcPtJF7vMlkTJ7ZoGXTALfMHQmJB"},{"Url":"V6Svbgt$c3BjR84tIwZru0XsB2gYhYJk","Width":1063,"Height":672,"Id":"Z@T5ZOi3N4NaNZdjWlrW20g$JHtnkh4S"},{"Url":"JBM8RjUJYYd6c7K0azwELeDLObFREMci","Width":1194,"Height":672,"Id":"ZFgSN9YGNS0MI551NtNgOViCHPElF5Al"},{"Url":"JKBlWYiKUqsAVE1mHCFegbvB2Bddp58T","Width":1009,"Height":672,"Id":"IwE4JFVEXo0LJaE633Dqy7DBTvhpUcD7"},{"Url":"RJ$mIyFWJNyHRvGV5yRuUmBzex9CLepi","Width":1084,"Height":672,"Id":"Ya@FczBqIUfPJtYhsJdvZPeNdyU$dPjj"},{"Url":"VwAzblNnc1PZR@vCaiIUwAXD3hBJtr6e","Width":1075,"Height":672,"Id":"YVuMcy1@IQ@@JkEjRMZ8tiX0pkW83zeb"},{"Url":"JusAJRjKJFaMWegDkcd0xJcwaBqEK2Z8","Width":1009,"Height":672,"Id":"XgDlJSUzJNqGQBeCQUK04pm4J4$F3XGs"},{"Url":"Rj$XYQTgc7eHIZiAvPmLmYr4kRSmIrVn","Width":1009,"Height":672,"Id":"IczVJpYRJSiiJMy51ynu9sxIxHsjWjX7"},{"Url":"bq4Xc6vhRzevRqf23W69iSnL3JbRgCfr","Width":923,"Height":672,"Id":"YSyYc0MgIcqgJgvFYWWAakYxbRm35dKI"},{"Url":"Z9wlZMONN3dqNVz1RVvXpVIXJjgtZxYW","Width":915,"Height":672,"Id":"WYiJUmivVD7YVyFayGQa9QkkN0@honM5"},{"Url":"JKyqWaCMUg7jVIxYLuroDTDlUjuEneBV","Width":953,"Height":672,"Id":"WQ0BUvBLVAYtV2IsSDJaabjI9hD7yBPw"},{"Url":"JOBCXrqGJavyJF@BOsZOno6i3tPMlhuS","Width":980,"Height":672,"Id":"JZ@ZJKASWcybUiz54zfMMgYAcCvkHJ1p"},{"Url":"c8M8ITeSJnh@JQI72Qh9lWEFtKWOtVZ2","Width":896,"Height":672,"Id":"I@z@JGN@RvSTYQLV5Xdg0hx4BfopNVoO"},{"Url":"NTCjI8y$JCCEXrKr@IIPAE6noE@DtC0y","Width":1071,"Height":672,"Id":"JHpiMuT4ZnlzZ0IF42CBqz7eno$I0@dp"},{"Url":"Z1AEZEqINwrCNUDQRVH06tzrggIWxs4h","Width":1008,"Height":672,"Id":"JWuPJMyiWewdUmiJaQTe5U3@8RJ8zSJq"},{"Url":"I3VzJOwgRoM4YdK0BFSPeJEILnfHS93U","Width":1135,"Height":672,"Id":"JPfnWfIdUn0$VAOHLmOWOJV6D$bDfq8o"},{"Url":"RGymI7hjJCOXRkS4PU@mP6v1gNPb6rFJ","Width":919,"Height":672,"Id":"JpUxJZ0HJNSGMgk@4vprMg@m3pIkXSJ$"},{"Url":"JRhWJFQrQKtpJkqpSpuiiD25ra8tJBMr","Width":1201,"Height":672,"Id":"NyoCNRi4I$3cJBe0mxg0wnugQAFMTBWx"},{"Url":"RrA9YV4Bc04rIUtIBsUcV4otCLNjj9kX","Width":1075,"Height":672,"Id":"Xoa$JS1MJMe1QCAvamooNaMGPa9bHA2R"},{"Url":"bsnBc7NJR1QKRrX1zaMfIW5snTJt5xML","Width":1008,"Height":672,"Id":"MpVwZocbZ3JtZCpp$EzhHdfnfZKlp2CK"},{"Url":"JO$7MpjvZopFZ6DB9hLyQGNWOlVzrbyD","Width":1186,"Height":672,"Id":"JFPjMka6ZunEZ@3s$SHMlZOesZ6BQYlo"},{"Url":"NYCcI9K6JDwlXn3PCdDVCOq5hTpVX7lM","Width":1203,"Height":672,"Id":"IztNJNOgXmMlJavuugrofR8rYA$2ofuG"},{"Url":"cyymR@ISRpzXRISLTAQYEMfzZn4e4JGb","Width":1075,"Height":672,"Id":"c@BzIavwJnRbJaaT6VYti0gBpsVFKIJZ"},{"Url":"RlFXYanNcw5@IcT8MhrulrR0cd4rI4ex","Width":1102,"Height":672,"Id":"JT5aJFjQWYeRUglaeNg27PbMYVY2PN$2"},{"Url":"Ju5QJcXyJJ8rWaf3aa8go2nNh90jK52q","Width":1139,"Height":672,"Id":"JFFeMnMrZusqZ42DWbzegwf3HOO1L9UZ"},{"Url":"cwzPITIFJsteJZcF8cotCXu@8B3j8UVh","Width":1063,"Height":672,"Id":"JNXoRgxhYSj1cxB@U7AChHcAr99iS4QY"},{"Url":"ZwvXZBGdN$kMNQ988VT2v8CmI5xVxTga","Width":832,"Height":672,"Id":"Jmq9JSgUJL1MWc$3vOIR3d6xcMusQnt3"},{"Url":"V9s3bl8Qc9W2RyqCkAQpaSlOs5Ai6iOJ","Width":896,"Height":672,"Id":"RqXLREbmI4KlJIam2bn35OrURGZrlolB"},{"Url":"ZrlJZx8@ZNRLN5TioTSdtJcwkXkS17ly","Width":896,"Height":672,"Id":"YfoDc4mrIdjxJtF3$k$sGcZGWDjSzp3T"},{"Url":"ZjGBZ39YZNtVNzeQjsOW@Squ317$bZ3E","Width":1002,"Height":672,"Id":"JK9IMtxUZmX8Z@KJxYpmm6lU25AZwoQl"},{"Url":"VzY4bobzczuxRzqFeexIWNNnTsSLOD8M","Width":1009,"Height":672,"Id":"I$wBJLD7RoDBYWiHdXPn7Xz3AmAX46gU"},{"Url":"N5PnNdRTIw$SJGqQKa4XF9RfefE7CdP@","Width":883,"Height":672,"Id":"JGTgRqazYYHDc5FPDUlLW7AXOQQCgJ4U"},{"Url":"JIVfWc0hUvnVVNiep9DPGb4h@kTB5js5","Width":1007,"Height":672,"Id":"JEIuXjfKJYtyJH@emI3ULZ8HbR9N@qa8"},{"Url":"RpCwRJKbI8zKJP5LuKQotyWZPHZmavoJ","Width":896,"Height":672,"Id":"ZD6wN4pYNaxBI9sWV@zFUQqeCTqtSKkL"},{"Url":"Zp@@Z@@kZL9DNwrHudde6zbOtaXIY5Jf","Width":896,"Height":672,"Id":"ZLlPN5k9NYyvI5M7b7HyzItmjDksFqgD"},{"Url":"WRSpUsqsVHYPV$lXV$JTnrQUNbh94JgP","Width":1012,"Height":672,"Id":"czSmIdCuJgDbJZFa7L5hVU6YJG6SzAUg"},{"Url":"WV4sUikAVDFRV9kR8Fiz29mFSD8LY7cX","Width":996,"Height":672,"Id":"IVxkJp@XJTQBJNXOoo$23sxFBc8@QnIf"},{"Url":"MmvDZg48Z7bkZL9cvUmf@KF1DuFzaOqt","Width":1042,"Height":672,"Id":"ZySGZAtAN3xuNUcr@jHFS@kM1rkFLBC7"},{"Url":"UlK3VFrsV1bmbmKovBMcMmj5uB1wjXoJ","Width":980,"Height":672,"Id":"YQpHc1aOIW6EJgolvBls8k6HK@I6JBcp"},{"Url":"JX@oJFZXWdyyUtwFR162ejFXbN7kqcgX","Width":1314,"Height":672,"Id":"JJAFQGKVJq55Jczip3yZf76DPosgPqyz"},{"Url":"Jbi1JGAPQLjIJt7a4SgGQMmGQr7FJvV3","Width":1008,"Height":672,"Id":"Z3xDZIFoN2KbNc8LsvN7KVV3$j4wCyVw"},{"Url":"RnFGYZRbc6cJIc@vCpYD@eAGhF2Vkb59","Width":996,"Height":672,"Id":"JF5dQI43Jl4kJV6Tbmc7c7jhcG2S8UAt"},{"Url":"JqEHJdx4JHIkWVszZwVgVBf9RIN6p6SE","Width":1003,"Height":672,"Id":"Jnz2JfKLJIwcWWyYlMfQrmxDRbsHl1ZH"},{"Url":"UsAwVIufVz1ebuFvc2HxNpcHxblLdJwE","Width":1091,"Height":672,"Id":"Jd5LJLSuMjuVZqLm97O2FbCgfrTtz8mw"},{"Url":"JSYOJCW$QHEnJif5kJcKhBKsw4twH63N","Width":896,"Height":672,"Id":"c55nIRh7JnIpJcDbSYp$mslGLAeImOtG"},{"Url":"JF05QMbNJhelJRGj@KG3zbcq6DEsDjaQ","Width":896,"Height":672,"Id":"Z8o0ZG2xNzWaNbU$Wrxeoo32d4mImLxz"},{"Url":"JhjdJYLqJLcmWaLRRvdB0$aZ2SdYfEmY","Width":1009,"Height":672,"Id":"Z5lqZEw4N43GNdWec@SIwq@Xocof6pnF"},{"Url":"JS1GJAY@MmraZtlq7Y2hx4opPYPPT$85","Width":924,"Height":672,"Id":"RsyARFJMI54eJDN2pPHCzdSQDq6UMDS@"},{"Url":"JdNNJANdQJWlJty1csEhDzM40JRFxeYB","Width":896,"Height":672,"Id":"Rid7RPlnI$ppJAZanTmBigNQ72wfbcXI"},{"Url":"ZKn3N616NUmvI7WcLCizHNEixTcsXhJg","Width":938,"Height":672,"Id":"JjS1JQAHJETeMulANTRSN0oi2QVwAFS9"},{"Url":"IxCLJGhbXndcJbgQ7UeuZ3rYrW4r4@YM","Width":896,"Height":672,"Id":"JsAWJW$@JHC@WYWCxO7Wm5@RJ0m@W5lB"},{"Url":"V4@sbvtoc7E9R6Bp5sBaukia8mbkWFCQ","Width":896,"Height":672,"Id":"JVaMJKHRMgm@Zpgag9To4rB4HC2bNIg@"},{"Url":"ZFczN@KkNYw9I@wy1uVTwz76xlwGT1TB","Width":1010,"Height":672,"Id":"V@xGbp84cxCmR4KGX8gOw$sX8slYMTVQ"},{"Url":"YYBkc5YPIZeqJopKyCne9GikFV5XVyVx","Width":1006,"Height":672,"Id":"RzEMRlOGRLSpI602ISy9tuNxgsf0YOFp"},{"Url":"JUPHJHbcWRyrUnntryg$1t@AnwYsbu0x","Width":838,"Height":672,"Id":"JBKiMjp6Zs5xZ$9hALDrimIqOUN9bwYW"},{"Url":"JQueJDW5MsjvZsjOjWidgJzLwCIA@ZyV","Width":1008,"Height":672,"Id":"XmRrJUZ3JDF@QPjJHBkBf@fdN06PTjYt"},{"Url":"c@IHR9tRRsoIRPPp56ePxI@@nrVTurYk","Width":1327,"Height":672,"Id":"JB3YXivdJb4zJNHmrx9WZmQkbqVnr3jV"},{"Url":"NaY$I2WEJMn4Xg6bGjyowmm8ohPArPSQ","Width":896,"Height":672,"Id":"bt8pc2vgR9iBRum2q4PzRUbd1Y1oR3MU"},{"Url":"JcDUJMfDQCv9JqA@IoA8XGa$4f4lPhP0","Width":1051,"Height":672,"Id":"bl7gc$sPRxcSRh$@1tfcH4lS09AGSs8r"},{"Url":"YceGcyqXITL3Jk05P@lmhqMldrG2cEUl","Width":896,"Height":672,"Id":"JHdqMsbHZlp2Z$XZyHhNme7gNCFVVUnC"}]};
+</script>
+
+<style>
+
+    .my-badge {
+        margin-left: 3px;
+    }
+
+     .buttonHandler {
+         width: 100%;
+         height: 336px;
+         background-color: transparent;
+         border: none;
+         color: yellow;
+         font-size: 672px;
+         line-height: 672px;
+         position: absolute;
+         z-index: 9999;
+
+         display: -webkit-box;
+         display: -ms-flexbox;
+         display: -webkit-flex;
+         display: flex;
+         -webkit-box-pack: center;
+         -ms-flex-pack: center;
+         -webkit-justify-content: center;
+         justify-content: center;
+         -webkit-box-align: center;
+         -ms-flex-align: center;
+         -webkit-align-items: center;
+         align-items: center;
+
+         text-align: left !important;
+         text-shadow:0px 0px 9px rgba(15,15,15,1);
+
+     }
+
+    .photo-button {
+        color: white;
+        text-shadow:0px 0px 9px rgba(15,15,15,1);
+        font-weight:normal;color:#FCFCFC;
+        letter-spacing:1pt;
+        word-spacing:4pt;
+        font-size:22px;
+        text-align:left;
+        cursor: pointer;
+    }
+
+    .photo-button-hover {
+        color: yellow !important;
+    }
+
+
+    #GalleryRoot {
+        width: 100%;
+        align-content: center !important;
+        text-align: center !important;
+
+        /*
+        display: -webkit-box;
+        display: -ms-flexbox;
+        display: -webkit-flex;
+        display: flex;
+        -webkit-box-pack: center;
+        -ms-flex-pack: center;
+        -webkit-justify-content: center;
+        justify-content: center;
+        -webkit-box-align: center;
+        -ms-flex-align: center;
+        -webkit-align-items: center;
+        align-items: center;
+*/
+
+    }
+
+    .swiper-container {
+
+        /*border: 2px solid red;*/
+        align-content: center;
+        text-align: center;
+    }
+
+    .swiper-slide {
+        text-align: center;
+        font-size: 18px;
+        /* background: #fff; */
+        /* Center slide text vertically */
+        display: -webkit-box;
+        display: -ms-flexbox;
+        display: -webkit-flex;
+        display: flex;
+        -webkit-box-pack: center;
+        -ms-flex-pack: center;
+        -webkit-justify-content: center;
+        justify-content: center;
+        -webkit-box-align: center;
+        -ms-flex-align: center;
+        -webkit-align-items: center;
+        align-items: center;
+    }
+
+    .swiper-container {
+        text-align: center;
+        font-size: 18px;
+        /* background: #fff; */
+        /* Center slide text vertically */
+        display: -webkit-box;
+        display: -ms-flexbox;
+        display: -webkit-flex;
+        display: flex;
+        -webkit-box-pack: center;
+        -ms-flex-pack: center;
+        -webkit-justify-content: center;
+        justify-content: center;
+        -webkit-box-align: center;
+        -ms-flex-align: center;
+        -webkit-align-items: center;
+        align-items: center;
+    }
+
+
+    html, body {
+        position: relative;
+        height: 100%;
+        overflow: hidden;
+    }
+
+/*
+    html, body, .container, .swiper-container {
+        margin-left: 0px;
+        margin-right: 0px;
+        padding-left: 0px;
+        padding-right: 0px;
+    }
+*/
+
+</style>
+
+
+<div class="buttonHandler"  ></div>
+<div class="swiper-container" style="height: 577px;">
+<div class="swiper-wrapper">
+</div>
+</div>
+
+<script>
+    var swiper = new Swiper('.swiper-container',
+        {
+            slidesPerView: 'auto',
+            spaceBetween: 20,
+            mousewheel: true,
+            keyboard: {
+                enabled: true,
+            },
+            height: 702,
+            autoHeight: false,
+        });
+
+    $(".buttonHandler").hide();
+</script>
+
+<script>
+    // Mobile Safari in standalone mode
+    if (('standalone' in window.navigator) && window.navigator.standalone) {
+
+        window.addEventListener('load', function () {
+
+            var links = document.links,
+                link,
+                i;
+
+            for (i = 0; i < links.length; i++) {
+                // Don't do this for javascript: links
+                if (~(link = links[i]).href.toLowerCase().indexOf('javascript')) {
+                    link.addEventListener('click', function (event) {
+                        top.location.href = this.href;
+                        event.returnValue = false;
+                    }, false);
+                }
+            }
+
+        }, false);
+
+    }
+
+    function MyOnClick(argClass, button) {
+        // var centerButton = $(button).position().left + $(button).width() / 2;
+        var centerButton = $(button).offset().left + $(button).width() / 2;
+        var h = 224;
+        var left = $(button).position().left - 30;
+        var swiperWidth = $(".swiper-container").width();
+        var marginLeft = centerButton - swiperWidth / 2;
+        console.log("button.offset " + $(button).offset().left +  ", swiperWidth " + swiperWidth + ", marginLeft " + marginLeft + ", button.left = " + $(button).position().left + ", width=" + $(button).width());
+        $('.buttonHandler').html('<i class="fa ' + argClass + ' photo-button" aria-hidden="true"></i>');
+        $('.buttonHandler').show();
+        $('.buttonHandler').css({
+            opacity: 1,
+            "margin-left": (marginLeft-36) + 'px',
+            height: '505.6px'
+        });
+
+        var onFinish = function (arg) {
+            $('.buttonHandler').hide();
+        }
+
+        $('.buttonHandler')
+            .transition({ scale: [4.0, 4.0] }, 1)
+            .transition({ opacity: 1, scale: [4.0, 4.0] }, 600)
+            .transition({ opacity: 0 }, 300, onFinish);
+    }
+
+    $('.photo-button').hover(
+        function () { $(this).addClass('photo-button-hover') },
+        function () { $(this).removeClass('photo-button-hover') }
+    );
+
+</script>

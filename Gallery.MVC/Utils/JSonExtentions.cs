@@ -93,6 +93,21 @@ namespace Gallery.MVC.Utils
                 jwr.Indentation = 6;
             }
 
+            JsonSerializerSettings settings = new JsonSerializerSettings()
+            {
+                Formatting = isIntended ? Formatting.Indented : Formatting.None,
+                DefaultValueHandling = DefaultValueHandling.Ignore,
+                NullValueHandling = NullValueHandling.Ignore,
+                ReferenceLoopHandling = ReferenceLoopHandling.Ignore,
+                ObjectCreationHandling = ObjectCreationHandling.Replace,
+                PreserveReferencesHandling = PreserveReferencesHandling.None,
+                /*ConstructorHandling = ConstructorHandling.AllowNonPublicDefaultConstructor,*/
+            };
+
+
+            var ret2 = JsonConvert.SerializeObject(arg, isIntended ? Formatting.Indented : Formatting.None, settings);
+            return ret2;
+
             JsonSerializer ser = new JsonSerializer();
             ser.Formatting = isIntended ? Formatting.Indented : Formatting.None;
             ser.Serialize(jwr, arg);

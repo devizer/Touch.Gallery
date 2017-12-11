@@ -1,6 +1,10 @@
 ﻿@using Gallery.MVC.Models
 @model Gallery.MVC.Models.PartialGalleryModel
 
+<script>
+  var galleryModel = @Html.Raw(Model.AngularModel);
+</script>
+
 <style>
 
     .my-badge {

@@ -16,6 +16,7 @@ using Microsoft.AspNetCore.Authentication;
 using Microsoft.AspNetCore.Authentication.Cookies;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Http.Features;
+using Microsoft.CodeAnalysis;
 using Microsoft.Extensions.Logging;
 
 namespace Gallery.MVC.Controllers
@@ -94,6 +95,35 @@ namespace Gallery.MVC.Controllers
             var userAgent = HttpContext.Request.Headers["User-Agent"];
             var uaInfo = new UserAgentInfo(userAgent);
 
+            List<JsPhotoModel> jsPhotos =
+                galleryCopy.Blobs.Select(x => new JsPhotoModel()
+                {
+                    Id = x.IdContent,
+                    Url = x.Id,
+                    Height = x.Height,
+                    Width = x.Width
+                }).ToList();
+
+            if (jsPhotos.Any())
+            {
+                jsPhotos[0].TotalLikes = 42;
+                jsPhotos[0].TotalDislikes = 1;
+                jsPhotos[0].TotalShares = 2;
+                jsPhotos[0].TotalStars = 7777;
+                jsPhotos[0].MyLikes = true;
+                jsPhotos[0].MyDislikes = true;
+                jsPhotos[0].MyStars = true;
+                jsPhotos[0].MyShares = true;
+            }
+
+            var angularModel = new
+            {
+                Gallery = galleryCopy.Title,
+                Ratio = ratioParsed,
+                Limits = limitsParsed,
+                IsMobile = uaInfo.IsMobile,
+                Photos = jsPhotos,
+            };
 
             return PartialView("GalleryPartial", new PartialGalleryModel()
             {
@@ -101,6 +131,7 @@ namespace Gallery.MVC.Controllers
                 Topic = galleryCopy,
                 Ratio = ratioParsed,
                 IsMobile = uaInfo.IsMobile,
+                AngularModel = angularModel.ToNewtonJSon(TheAppContext.IsDebug)
             });
         }
 
