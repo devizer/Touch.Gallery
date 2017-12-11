@@ -55,7 +55,9 @@ if [ ! -f "$target/.done" ]; then
     echo $ver > $target/.done
 else
   echo "App already built. Build skipped at $(date)" >> $HOME/RESTART.log
+  cd $target/ver*
 fi; 
+sync
 
 sudo kill $(sudo cat /var/run/touch-galleries.pid) 2>/dev/null || true
 cd $target/$ver
