@@ -3,13 +3,17 @@ using System.Collections.Generic;
 using System.Diagnostics;
 using System.Globalization;
 using System.Linq;
+using System.Security.Claims;
 using System.Threading.Tasks;
 using Gallery.MVC.API;
 using Gallery.MVC.GalleryResources;
+using Gallery.MVC.Links;
 using Microsoft.AspNetCore.Mvc;
 using Gallery.MVC.Models;
 using Gallery.MVC.Utils;
 using Gallery.Prepare;
+using Microsoft.AspNetCore.Authentication;
+using Microsoft.AspNetCore.Authentication.Cookies;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Http.Features;
 using Microsoft.Extensions.Logging;
@@ -31,8 +35,9 @@ namespace Gallery.MVC.Controllers
 
 
         [Route("/")]
-        public IActionResult Index()
+        public async Task<IActionResult> Index()
         {
+            AssingIdToBrowser();
             return View(new HomePageModel()
             {
                 Topic = DefaultTopic,
@@ -42,6 +47,7 @@ namespace Gallery.MVC.Controllers
         [Route("/{topic}")]
         public IActionResult Index(string topic)
         {
+            AssingIdToBrowser();
             var titles = _ContentManager.GetMetadata().SelectMany(x => x.Topics).Select(x => x.Title).Distinct();
             if (string.IsNullOrEmpty(topic)) topic = DefaultTopic;
 
@@ -56,6 +62,11 @@ namespace Gallery.MVC.Controllers
         [HttpPost]
         public IActionResult GetSliderHtml([FromForm] string galleryTitle, [FromForm] string limits, [FromForm] string ratio)
         {
+            _Logger.LogDebug("User1: " + HttpContext.User?.Identity?.Name
+                             + Environment.NewLine + "User2: " + User.Identity.Name
+                             
+                );
+
 
             PublicLimits limitsParsed = PublicLimits.Parse(limits);
             List<PublicModel> meta = _ContentManager.GetMetadata();
@@ -166,6 +177,30 @@ namespace Gallery.MVC.Controllers
         public IActionResult Error()
         {
             return View(new ErrorViewModel { RequestId = Activity.Current?.Id ?? HttpContext.TraceIdentifier });
+        }
+
+        async void AssingIdToBrowser()
+        {
+            var user = User?.Identity?.Name;
+            if (!string.IsNullOrEmpty(user))
+                return;
+
+            var claims = new List<Claim>
+            {
+                new Claim(ClaimTypes.Name, "Browser-" + Guid.NewGuid().ToShortString()),
+            };
+
+            var claimsIdentity = new ClaimsIdentity(
+                claims,
+                CookieAuthenticationDefaults.AuthenticationScheme);
+
+            HttpContext.SignInAsync(
+                CookieAuthenticationDefaults.AuthenticationScheme,
+                new ClaimsPrincipal(claimsIdentity),
+                new AuthenticationProperties
+                {
+                    IsPersistent = true,
+                }).Wait();
         }
     }
 

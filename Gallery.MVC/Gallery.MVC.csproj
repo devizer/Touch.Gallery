@@ -187,7 +187,6 @@
   </ItemGroup>
 
   <ItemGroup>
-    <Folder Include="Links\" />
     <Folder Include="Pages\Home\" />
   </ItemGroup>
 

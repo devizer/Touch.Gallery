@@ -101,8 +101,10 @@ namespace Gallery.MVC.DataAccess
         public void AddUserAction(string topic, string idUser, string idContent, UserAction action)
         {
             // User 'Tester' on [Liked-content] topic 'One Topic'
+/*
             if (Debugger.IsAttached && topic == "One Topic" && idUser == "Tester" && idContent == "Liked-content")
                 Debugger.Break();
+*/
 
             Stopwatch sw = Stopwatch.StartNew();
             String debug = $"{action,-7} by User '{idUser}' on [{idContent}] topic '{topic}'";

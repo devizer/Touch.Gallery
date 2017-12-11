@@ -1,0 +1,12 @@
+---
+address: 35.196.19.138
+creationTimestamp: '2017-12-09T04:38:38.100-08:00'
+description: touch-galleries.xyz
+id: '800530903461160865'
+kind: compute#address
+name: touch-galleries
+region: https://www.googleapis.com/compute/v1/projects/touch-galleries/regions/us-east1
+selfLink: https://www.googleapis.com/compute/v1/projects/touch-galleries/regions/us-east1/addresses/touch-galleries
+status: IN_USE
+users:
+- https://www.googleapis.com/compute/v1/projects/touch-galleries/zones/us-east1-b/instances/touch-galleries-vm-next-2017-12-11-05-52-53

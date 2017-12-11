@@ -2,11 +2,13 @@
 using System.Collections.Generic;
 using System.Linq;
 using Gallery.MVC.Models;
+using Microsoft.AspNetCore.Authentication.Cookies;
 
 namespace Gallery.MVC
 {
     public class TheAppContext
     {
+        public static readonly string AuthCookieScheme = CookieAuthenticationDefaults.AuthenticationScheme;
 
         public static bool IsDebug
         {
@@ -19,6 +21,7 @@ namespace Gallery.MVC
 #endif
             }
         }
+
 
         public static bool IsTravisCI
         {

@@ -1,0 +1,64 @@
+---
+canIpForward: false
+cpuPlatform: Intel Haswell
+creationTimestamp: '2017-12-10T19:30:30.105-08:00'
+deletionProtection: false
+disks:
+- autoDelete: true
+  boot: true
+  deviceName: touch-galleries-vm-next-2017-12-11-06-30-04
+  index: 0
+  interface: SCSI
+  kind: compute#attachedDisk
+  licenses:
+  - https://www.googleapis.com/compute/beta/projects/ubuntu-os-cloud/global/licenses/ubuntu-1604-xenial
+  mode: READ_WRITE
+  source: https://www.googleapis.com/compute/beta/projects/touch-galleries/zones/us-east1-b/disks/touch-galleries-vm-next-2017-12-11-06-30-04
+  type: PERSISTENT
+id: '2940652367630058810'
+kind: compute#instance
+labelFingerprint: 42WmSpB8rSM=
+machineType: https://www.googleapis.com/compute/beta/projects/touch-galleries/zones/us-east1-b/machineTypes/f1-micro
+metadata:
+  fingerprint: GaUYiGjKFWc=
+  items:
+  - key: startup-script
+    value: export HOME=/root; sudo mkdir -p /root; wget --no-check-certificate -O
+      publish-on-COMPUTE-Engine.sh-tmp https://github.com/devizer/Touch.Gallery/raw/master/Gallery.MVC/publish-on-COMPUTE-Engine.sh
+      | tee wget.log 2>&1; sudo bash publish-on-COMPUTE-Engine.sh-tmp
+  kind: compute#metadata
+name: touch-galleries-vm-next-2017-12-11-06-30-04
+networkInterfaces:
+- accessConfigs:
+  - kind: compute#accessConfig
+    name: external-nat
+    natIP: 35.227.103.114
+    type: ONE_TO_ONE_NAT
+  fingerprint: vSxzQ5PLzYc=
+  kind: compute#networkInterface
+  name: nic0
+  network: https://www.googleapis.com/compute/beta/projects/touch-galleries/global/networks/default
+  networkIP: 10.142.0.3
+  subnetwork: https://www.googleapis.com/compute/beta/projects/touch-galleries/regions/us-east1/subnetworks/default
+scheduling:
+  automaticRestart: true
+  onHostMaintenance: MIGRATE
+  preemptible: false
+selfLink: https://www.googleapis.com/compute/beta/projects/touch-galleries/zones/us-east1-b/instances/touch-galleries-vm-next-2017-12-11-06-30-04
+serviceAccounts:
+- email: 123571025325-compute@developer.gserviceaccount.com
+  scopes:
+  - https://www.googleapis.com/auth/datastore
+  - https://www.googleapis.com/auth/devstorage.read_only
+  - https://www.googleapis.com/auth/logging.write
+  - https://www.googleapis.com/auth/monitoring.write
+  - https://www.googleapis.com/auth/service.management.readonly
+  - https://www.googleapis.com/auth/servicecontrol
+  - https://www.googleapis.com/auth/trace.append
+startRestricted: false
+status: RUNNING
+tags:
+  fingerprint: FYLDgkTKlA4=
+  items:
+  - http-server
+zone: https://www.googleapis.com/compute/beta/projects/touch-galleries/zones/us-east1-b

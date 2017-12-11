@@ -22,22 +22,25 @@ namespace Gallery.MVC
         // This method gets called by the runtime. Use this method to add services to the container.
         public void ConfigureServices(IServiceCollection services)
         {
+            services
+                .AddAuthentication(TheAppContext.AuthCookieScheme)
+                .AddCookie(options =>
+                {
+                    options.ExpireTimeSpan = TimeSpan.FromDays(10 * 365);
+                });
+
             services.AddMvc();
             services.AddLogging();
             services.AddSingleton<Custom_PreJit_On_Startup>();
             services.AddSingleton<ContentManager>();
 
-            services
-                .AddAuthentication(CookieAuthenticationDefaults.AuthenticationScheme)
-                .AddCookie(options =>
-                {
-                    options.ExpireTimeSpan = TimeSpan.FromDays(10 * 365);
-                });
         }
 
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.
         public void Configure(IApplicationBuilder app, IHostingEnvironment env)
         {
+            app.UseAuthentication();
+
             if (env.IsDevelopment())
             {
                 app.UseDeveloperExceptionPage();
@@ -62,7 +65,6 @@ namespace Gallery.MVC
 
             });
 
-            app.UseAuthentication();
 
             var preJit = app.ApplicationServices.GetRequiredService<Custom_PreJit_On_Startup>();
             preJit.Perform();
