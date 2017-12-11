@@ -1,5 +1,5 @@
 #!/bin/bash
-set -e 
+# set -e 
 if [[ -z "$HOME" ]]; then export HOME=/root; fi; mkdir -p "$HOME"
 echo "Booted at $(date)" >> $HOME/RESTART.log
 
@@ -55,11 +55,14 @@ if [ ! -f "$target/.done" ]; then
     echo $ver > $target/.done
 else
   echo "App already built. Build skipped at $(date)" >> $HOME/RESTART.log
-  cd $target/ver*
+  cd $target
+  ver=$(ls -1 | grep 'ver-' | sort -r | head -n 1)
 fi; 
 sync
 
-sudo kill $(sudo cat /var/run/touch-galleries.pid) 2>/dev/null || true
+echo "Try to kill running process"
+sudo kill $(sudo cat /var/run/touch-galleries.pid) || true
+echo Starting APP from folder $target/$ver
 cd $target/$ver
 echo 3 | sudo tee /proc/sys/vm/drop_caches > /dev/null
 echo "Starting the App at $(date)" >> $HOME/RESTART.log

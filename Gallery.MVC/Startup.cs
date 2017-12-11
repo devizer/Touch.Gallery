@@ -1,6 +1,8 @@
-﻿using System.Collections.Generic;
+﻿using System;
+using System.Collections.Generic;
 using System.Threading.Tasks;
 using Gallery.MVC.GalleryResources;
+using Microsoft.AspNetCore.Authentication.Cookies;
 using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Hosting;
 using Microsoft.Extensions.Configuration;
@@ -24,6 +26,13 @@ namespace Gallery.MVC
             services.AddLogging();
             services.AddSingleton<Custom_PreJit_On_Startup>();
             services.AddSingleton<ContentManager>();
+
+            services
+                .AddAuthentication(CookieAuthenticationDefaults.AuthenticationScheme)
+                .AddCookie(options =>
+                {
+                    options.ExpireTimeSpan = TimeSpan.FromDays(10 * 365);
+                });
         }
 
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.
@@ -52,6 +61,8 @@ namespace Gallery.MVC
                     template: "{controller=Gallery}/{action=Index}/{id?}");
 
             });
+
+            app.UseAuthentication();
 
             var preJit = app.ApplicationServices.GetRequiredService<Custom_PreJit_On_Startup>();
             preJit.Perform();
