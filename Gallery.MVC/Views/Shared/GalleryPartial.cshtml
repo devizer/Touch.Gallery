@@ -2,7 +2,7 @@
 @model Gallery.MVC.Models.PartialGalleryModel
 
 <script>
-  var galleryModel = @Html.Raw(Model.AngularModel);
+  var galleryModel = @Html.Raw(Model.AngularModel ?? "null");
 </script>
 
 <style>
