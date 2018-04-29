@@ -1,8 +1,11 @@
 ﻿@using Gallery.MVC.Models
 @model Gallery.MVC.Models.PartialGalleryModel
 
+@{
+    const Int32 VisualsSize = 280;
+}
 <script>
-  var galleryModel = @Html.Raw(Model.AngularModel ?? "null");
+    var galleryModel = @Html.Raw(Model.AngularModel ?? "null");
 </script>
 
 <style>
@@ -11,7 +14,56 @@
         margin-left: 3px;
     }
 
-     .buttonHandler {
+    #ClickVisuals {
+        width: @(VisualsSize)px;
+        height: @(VisualsSize)px;
+        position: absolute;
+        z-index: 10001;
+        left: 50px;
+        margin-top: @((Model.Limits.LimitValue-40)/Model.Ratio/2 - VisualsSize/2)px
+    }
+
+    .AniFront {
+        width: @(VisualsSize)px;
+        height: @(VisualsSize)px;
+        color: white;
+        position: absolute;
+        font-size: @(VisualsSize*5/10)px;
+
+        display: -webkit-box;
+        display: -ms-flexbox;
+        display: -webkit-flex;
+        display: flex;
+        -webkit-box-pack: center;
+        -ms-flex-pack: center;
+        -webkit-justify-content: center;
+        justify-content: center;
+        -webkit-box-align: center;
+        -ms-flex-align: center;
+        -webkit-align-items: center;
+        align-items: center;
+
+        text-shadow:0px 0px 9px rgba(15,15,15,1);
+
+    }
+
+    .AniBack img {
+        border: 1 solid green;
+        position: absolute;
+        z-index: 10002;
+        width: @(VisualsSize)px;
+        height: @(VisualsSize)px;
+        left: 0px;
+        top: 0px;
+    }
+
+    .AniBack {
+        position: absolute;
+        z-index: 10002;
+    }
+
+
+    .buttonHandler {
          width: 100%;
          height: @(Model.Limits.LimitValue/2)px;
          background-color: transparent;
@@ -143,6 +195,11 @@
 
 
 <div class="buttonHandler"  ></div>
+<div id="ClickVisuals">
+    <div class="AniBack"><img src="images/AnimationBackground.svg" id="back-ani-img"/></div>
+    <div class="AniFront"><i id="AniIcon" class="fa fa-share-square-o"></i>@* <sup><small>&nbsp;&nbsp;</small>+1</sup>*@</div>
+</div>
+
 <div class="swiper-container" style="height: @(40+(int)(Model.Limits.LimitValue / Model.Ratio))px;">
 <div class="swiper-wrapper">
 @foreach (var photo in Model.Topic.Blobs)
@@ -217,6 +274,8 @@
 
     }
 
+    $("#ClickVisuals").hide();
+
     function MyOnClick(argClass, button) {
         // var centerButton = $(button).position().left + $(button).width() / 2;
         var centerButton = $(button).offset().left + $(button).width() / 2;
@@ -224,23 +283,62 @@
         var left = $(button).position().left - 30;
         var swiperWidth = $(".swiper-container").width();
         var marginLeft = centerButton - swiperWidth / 2;
-        console.log("button.offset " + $(button).offset().left +  ", swiperWidth " + swiperWidth + ", marginLeft " + marginLeft + ", button.left = " + $(button).position().left + ", width=" + $(button).width());
-        $('.buttonHandler').html('<i class="fa ' + argClass + ' photo-button" aria-hidden="true"></i>');
-        $('.buttonHandler').show();
-        $('.buttonHandler').css({
-            opacity: 1,
-            "margin-left": (marginLeft-36) + 'px',
-            height: '@((Model.Limits.LimitValue-40)/Model.Ratio)px'
-        });
+        console.log("button.offset " + $(button).offset().left + ", swiperWidth " + swiperWidth + ", marginLeft " + marginLeft + ", button.left = " + $(button).position().left + ", width=" + $(button).width());
 
+        $("#AniIcon").removeClass().addClass("fa").addClass(argClass);
+
+        $('#ClickVisuals').show();
         var onFinish = function (arg) {
-            $('.buttonHandler').hide();
+            $('#ClickVisuals').hide();
         }
 
-        $('.buttonHandler')
-            .transition({ scale: [4.0, 4.0] }, 1)
-            .transition({ opacity: 1, scale: [4.0, 4.0] }, 600)
+        var leftContainer = $(".swiper-container").offset().left;
+        var widthContainer = $(".swiper-container").width();
+
+        var parentSlide = $(button).closest(".swiper-slide")[0];
+        var leftSlide = $(parentSlide).offset().left;
+        var widthSlide = $(parentSlide).width();
+
+        var maxVisibleWidth = widthContainer - (leftSlide - leftContainer);
+        var visibleWidth = widthSlide < maxVisibleWidth ? widthSlide : maxVisibleWidth;
+
+
+        console.log("parent: " +
+            $(parentSlide).getPath() +
+            "\r\n slide.left: " +
+            leftSlide +
+            "\r\n slide.width: " +
+            widthSlide +
+            "\r\n container.left: " +
+            leftContainer +
+            "\r\n container.width: " +
+            widthContainer + 
+            "\r\n slide.visibleWidth: " +
+            visibleWidth
+        );
+
+        // $(parentSlide).css({ border: '2px solid red' });
+        $("#ClickVisuals").css({ left: (leftSlide -(@(VisualsSize)/2)+ visibleWidth/2) + 'px' });
+
+
+
+
+
+        var modeBack = 'ease';
+        var halfScale = 0.04;
+        $('.AniFront')
+            .transition({ scale: [1.0, 1.0] }, 1)
+            .transition({ opacity: 1, scale: [1.0, 1.0] }, 1100)
             .transition({ opacity: 0 }, 300, onFinish);
+
+        $('#back-ani-img')
+            .transition({ scale: [1.0, 1.0], rotate: '0deg', opacity: 0.3 }, 1)
+            .transition({ opacity: 1.0, rotate: '359deg', scale: [1 / (1 + halfScale), 1 / (1 + halfScale)] },
+                900,
+                modeBack)
+            .transition({ opacity: 0.2 }, 300, 'ease')
+            .transition({ opacity: 0 }, 1, modeBack);
+
     }
 
     $('.photo-button').hover(

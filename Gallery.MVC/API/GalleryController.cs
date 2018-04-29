@@ -42,16 +42,17 @@ namespace Gallery.MVC.API
 
 
         [Route("{id}")]
+        [ResponseCache(Location = ResponseCacheLocation.Any, Duration = 24*3600*365)]
         public IActionResult GetBlob(string id)
         {
             var stream = _ContentManager.GetBlobAsStream(id);
             var tag = HashExtentions.GetSHA1AsString(id + _ContentManager.LastModified);
-            HttpContext.Response.Headers.Add("Cache-control", "max-age=1314000");
+            // HttpContext.Response.Headers.Add("Cache-control", "public, max-age=1314000");
             return File(
-                stream, 
-                "image/jpeg", 
-                _ContentManager.LastModified, 
-                new EntityTagHeaderValue('"' + tag + '"'));
+                stream,
+                "image/jpeg"
+                );
+                // new EntityTagHeaderValue('"' + tag + '"'));
         }
 
     }
