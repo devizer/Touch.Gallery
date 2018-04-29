@@ -33,15 +33,11 @@ namespace Gallery.MVC.API
         public IActionResult Get()
         {
             var file = @"V:\Gallery\src\History\BE050386.jpg";
-
             HttpResponseMessage result = new HttpResponseMessage(HttpStatusCode.OK);
             var stream = new FileStream(file, FileMode.Open, FileAccess.Read);
             result.Content = new StreamContent(stream);
             result.Content.Headers.ContentType = new MediaTypeHeaderValue("application/octec-stream");
-
             return File(stream, "image/jpeg");
-
-            // return result;
         }
 
 
@@ -51,25 +47,12 @@ namespace Gallery.MVC.API
             var stream = _ContentManager.GetBlobAsStream(id);
             var tag = HashExtentions.GetSHA1AsString(id + _ContentManager.LastModified);
             HttpContext.Response.Headers.Add("Cache-control", "max-age=1314000");
-            return File(stream, "image/jpeg", _ContentManager.LastModified, new EntityTagHeaderValue('"' + tag + '"'));
+            return File(
+                stream, 
+                "image/jpeg", 
+                _ContentManager.LastModified, 
+                new EntityTagHeaderValue('"' + tag + '"'));
         }
 
-        // POST api/values
-        [HttpPost]
-        public void Post([FromBody]string value)
-        {
-        }
-
-        // PUT api/values/5
-        [HttpPut("{id}")]
-        public void Put(int id, [FromBody]string value)
-        {
-        }
-
-        // DELETE api/values/5
-        [HttpDelete("{id}")]
-        public void Delete(int id)
-        {
-        }
     }
 }

@@ -87,7 +87,6 @@ namespace Gallery.MVC.DataAccess
             return userPhoto;
         }
 
-
         public Content GetContent(string topic, string idContent)
         {
             var content = Db.Lookup(DataModelExtensions.ToContentKey(topic, idContent)).ToContent();

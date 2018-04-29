@@ -42,7 +42,7 @@
 
     .photo-button {
         color: white;
-        @(!Model.IsMobile ? "text-shadow:0px 0px 9px rgba(15,15,15,1);" : "")
+        @(true || !Model.IsMobile ? "text-shadow:0px 0px 9px rgba(15,15,15,1);" : "")
         font-weight:normal;color:#FCFCFC;
         letter-spacing:1pt;
         word-spacing:4pt;
@@ -249,3 +249,4 @@
     );
 
 </script>
+

@@ -10,8 +10,8 @@
     <meta charset="utf-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <title>Touch Gallery @(TheAppContext.IsDebug ? "(DEBUG)" : "")</title>
-    
-    <link rel="shortcut icon" type="image/x-icon" href="/favicon.ico" >
+
+    <link rel="shortcut icon" type="image/x-icon" href="/favicon.ico">
     <link rel="apple-touch-icon" sizes="57x57" href="/Icon-57.png" />
     <link rel="apple-touch-icon" sizes="72x72" href="/Icon-72.png" />
     <link rel="apple-touch-icon" sizes="114x114" href="/Icon-114.png" />
@@ -36,7 +36,8 @@
     <script>
         var theAppContext = {
             IsDebug: @TheAppContext.IsDebug.ToString().ToLower(),
-            Limits: @Html.Raw(TheAppContext.Limits.AsJSon())
+            Limits: @Html.Raw(TheAppContext.Limits.AsJSon()),
+            IsMobile: @Html.Raw(ViewBag?.IsMobile?.ToString()?.ToLower() ?? "null")
         };
     </script>
 
@@ -52,8 +53,8 @@
         <link rel="stylesheet" href="~/css/site.min.css" asp-append-version="true" />
         <link rel="stylesheet" href="~/css/font-awesome.css" asp-append-version="true" />
     </environment>
-    
-    
+
+
     <environment include="Development">
         <script src="~/lib/jquery/dist/jquery.js"></script>
         <script src="~/lib/bootstrap/dist/js/bootstrap.js"></script>
@@ -84,43 +85,81 @@
 
 </head>
 <body>
-<div id="debug-info" style="display: none"></div>
-<nav class="navbar navbar-inverse navbar-fixed-top">
-    <div class="container22">
-        <div class="navbar-header">
-            <button type="button" class="navbar-toggle" data-toggle="collapse" data-target=".navbar-collapse">
-                <span class="sr-only">Toggle navigation</span>
-                <span class="icon-bar"></span>
-                <span class="icon-bar"></span>
-                <span class="icon-bar"></span>
-            </button>
-            <a asp-area="" asp-controller="Home" asp-action="Index" class="navbar-brand">6 Photo Galleries
-                <span id="height-log" style="font-size: 8px; display: @(TheAppContext.IsDebug ? "inline" : "none" )"></span>
-            </a>
+    <div id="debug-info" style="display: none"></div>
+    <nav class="navbar navbar-inverse navbar-fixed-top">
+        <div class="container22">
+            <div class="navbar-header">
+                <button type="button" class="navbar-toggle" data-toggle="collapse" data-target=".navbar-collapse" id="collapse-expand">
+                    <span class="sr-only">Toggle navigation</span>
+                    <span class="icon-bar"></span>
+                    <span class="icon-bar"></span>
+                    <span class="icon-bar"></span>
+                </button>
+                <a href="#" type="button" class="btn btn-default navbar-btn pull-right navbar-right" 
+                   id="Layout-Refresh" 
+                   style="display:none" 
+                   onclick="location.reload(); return false;">
+                    <i class="fa fa-refresh"></i>
+                </a>
+                <a asp-area="" asp-controller="Home" asp-action="Index" class="navbar-brand">
+                    6 Galleries
+                    <span id="height-log" style="font-size: 8px; display: @(TheAppContext.IsDebug ? "inline" : "none")"></span>
+                </a>
+            </div>
+            <div class="navbar-collapse collapse">
+                <ul class="nav navbar-nav">
+                    <li><a href="/Kitty">Kitty</a></li>
+                    <li><a href="/History">History</a></li>
+                    <li><a href="/Space">Space</a></li>
+                    <li><a href="/People">People</a></li>
+                    <li><a href="/Trucks">Trucks</a></li>
+                    <li><a href="/Artificial">Artificial</a></li>
+                    @if (TheAppContext.IsDebug)
+                    {
+                        <li><a asp-area="" asp-controller="Home" asp-action="Debug">Debug</a></li>
+                    }
+                </ul>
+            </div>
         </div>
-        <div class="navbar-collapse collapse">
-            <ul class="nav navbar-nav">
-                <li><a href="/Kitty">Kitty</a></li>
-                <li><a href="/History">History</a></li>
-                <li><a href="/Space">Space</a></li>
-                <li><a href="/People">People</a></li>
-                <li><a href="/Trucks">Trucks</a></li>
-                <li><a href="/Artificial">Artificial</a></li>
-                @if (TheAppContext.IsDebug)
-                {
-                    <li><a asp-area="" asp-controller="Home" asp-action="Debug">Debug</a></li>
-                }
-            </ul>
-        </div>
+    </nav>
+
+    <div class="container body-content">
+        @RenderBody()
     </div>
-</nav>
-
-<div class="container body-content">
-    @RenderBody()
-</div>
-
-
-    
-    
 </body>
 </html>
+
+<script>
+    $(document).ready(function () {
+
+        theAppContext.isCollapseExpandVisible = function () {
+            return $("#collapse-expand").is(":visible");
+        }
+
+        theAppContext.getHeightInfo = function () {
+            return $(window).innerHeight() + "*" + window.devicePixelRatio;
+        }
+
+
+        var _origHeightInfo = theAppContext.getHeightInfo();
+        var onLoad = function () {
+            var heightInfo = theAppContext.getHeightInfo();
+            $("#height-log").html(heightInfo);
+
+            var needRefresh = theAppContext.isCollapseExpandVisible() && _origHeightInfo !== heightInfo;
+            if (needRefresh)
+                $("#Layout-Refresh").show();
+            else
+                $("#Layout-Refresh").hide();
+
+        }
+
+        onLoad();
+        $(window).resize(function () {
+            onLoad();
+        });
+
+    });
+
+</script>
+

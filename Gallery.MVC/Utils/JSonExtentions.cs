@@ -82,7 +82,7 @@ namespace Gallery.MVC.Utils
 
         public static string ToNewtonJSon(this object arg, bool isIntended = false)
         {
-            if (arg == null) return "<null>";
+            if (arg == null) return "null";
             StringBuilder b = new StringBuilder();
             StringWriter wr = new StringWriter(b);
             JsonTextWriter jwr = new JsonTextWriter(wr);
@@ -119,6 +119,11 @@ namespace Gallery.MVC.Utils
         public static string AsJSon(this object arg)
         {
             return ToNewtonJSon(arg, TheAppContext.IsDebug);
+        }
+
+        public static string AsJSon(this bool arg)
+        {
+            return arg ? "true" : "false";
         }
     }
 

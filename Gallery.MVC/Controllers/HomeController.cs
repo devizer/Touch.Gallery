@@ -21,6 +21,7 @@ using Microsoft.Extensions.Logging;
 
 namespace Gallery.MVC.Controllers
 {
+    [UserAgentInfoFilter]
     public class HomeController : Controller
     {
         private ILogger<GalleryController> _Logger;
