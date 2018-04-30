@@ -113,7 +113,7 @@
         align-content: center !important;
         text-align: center !important;
 
-        /*
+/*
         display: -webkit-box;
         display: -ms-flexbox;
         display: -webkit-flex;
@@ -197,7 +197,7 @@
 <div class="buttonHandler"  ></div>
 <div id="ClickVisuals">
     <div class="AniBack"><img src="images/AnimationBackground.svg" id="back-ani-img"/></div>
-    <div class="AniFront"><i id="AniIcon" class="fa fa-share-square-o"></i>@* <sup><small>&nbsp;&nbsp;</small>+1</sup>*@</div>
+    <div class="AniFront"><i id="AniIcon" class="fa fa-share-square-o"></i></div>
 </div>
 
 <div class="swiper-container" style="height: @(40+(int)(Model.Limits.LimitValue / Model.Ratio))px;">
@@ -302,7 +302,6 @@
         var maxVisibleWidth = widthContainer - (leftSlide - leftContainer);
         var visibleWidth = widthSlide < maxVisibleWidth ? widthSlide : maxVisibleWidth;
 
-
         console.log("parent: " +
             $(parentSlide).getPath() +
             "\r\n slide.left: " +
@@ -320,16 +319,13 @@
         // $(parentSlide).css({ border: '2px solid red' });
         $("#ClickVisuals").css({ left: (leftSlide -(@(VisualsSize)/2)+ visibleWidth/2) + 'px' });
 
-
-
-
-
         var modeBack = 'ease';
         var halfScale = 0.04;
         $('.AniFront')
             .transition({ scale: [1.0, 1.0] }, 1)
             .transition({ opacity: 1, scale: [1.0, 1.0] }, 1100)
-            .transition({ opacity: 0 }, 300, onFinish);
+            .transition({ opacity: 0.4, scale: [5.0, 5.0] }, 500, onFinish);
+            // .transition({ opacity: 0 }, 300, onFinish);
 
         $('#back-ani-img')
             .transition({ scale: [1.0, 1.0], rotate: '0deg', opacity: 0.3 }, 1)
