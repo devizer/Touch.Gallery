@@ -33,8 +33,6 @@ namespace Gallery.MVC.Controllers
             _ContentManager = contentManager;
         }
 
-        private const string DefaultTopic = "Kitty";
-
 
         [Route("/")]
         public async Task<IActionResult> Index()
@@ -42,7 +40,7 @@ namespace Gallery.MVC.Controllers
             AssingIdToBrowser();
             return View(new HomePageModel()
             {
-                Topic = DefaultTopic,
+                Topic = HomePageModel.DefaultTopic,
             });
         }
 
@@ -51,7 +49,7 @@ namespace Gallery.MVC.Controllers
         {
             AssingIdToBrowser();
             var titles = _ContentManager.GetMetadata().SelectMany(x => x.Topics).Select(x => x.Title).Distinct();
-            if (string.IsNullOrEmpty(topic)) topic = DefaultTopic;
+            if (string.IsNullOrEmpty(topic)) topic = HomePageModel.DefaultTopic;
 
             return View(new HomePageModel()
             {
@@ -65,9 +63,8 @@ namespace Gallery.MVC.Controllers
         public IActionResult GetSliderHtml([FromForm] string galleryTitle, [FromForm] string limits, [FromForm] string ratio)
         {
             _Logger.LogDebug("User1: " + HttpContext.User?.Identity?.Name
-                             + Environment.NewLine + "User2: " + User.Identity.Name
-                             
-                );
+                + Environment.NewLine + "User2: " + User.Identity.Name
+            );
 
 
             PublicLimits limitsParsed = PublicLimits.Parse(limits);
@@ -91,7 +88,8 @@ namespace Gallery.MVC.Controllers
                 Title = foundGallery.Title,
                 Blobs = new List<PublicBlob>(foundGallery.Blobs)
             };
-            galleryCopy.Blobs.Shuffle(HashExtentions.GetSHA1AsSeed(HttpContext.Connection.RemoteIpAddress.ToString()));
+            var seedByIp = HashExtentions.GetSHA1AsSeed(HttpContext.Connection.RemoteIpAddress.ToString());
+            galleryCopy.Blobs.Shuffle(seedByIp);
 
             var userAgent = HttpContext.Request.Headers["User-Agent"];
             var uaInfo = new UserAgentInfo(userAgent);
@@ -165,17 +163,17 @@ namespace Gallery.MVC.Controllers
 
             targetRatio = argRatio;
             var pixels = argHeight * argRatio;
-            var found = reveredLimits.FirstOrDefault(x => x.Kind == LimitKind.Height && x.LimitValue <= pixels);
-            var found0 = found; 
-            if (found == null)
+            PublicLimits foundLimits = reveredLimits.FirstOrDefault(x => x.Kind == LimitKind.Height && x.LimitValue <= pixels);
+            var found0 = foundLimits; 
+            if (foundLimits == null)
             {
                 if (!uaInfo.IsMobile)
                 {
-                    found = new PublicLimits(LimitKind.Height, 672);
+                    foundLimits = new PublicLimits(LimitKind.Height, 672);
                 }
                 else
                 {
-                    found = new PublicLimits(LimitKind.Height, 288);
+                    foundLimits = new PublicLimits(LimitKind.Height, 288);
                 }
             }
 
@@ -187,14 +185,13 @@ namespace Gallery.MVC.Controllers
                 argHeight,
                 argRatio,
                 found0 + " / " + targetRatio,
-                found, targetRatio,
+                foundLimits, targetRatio,
                 HttpContext.Connection.RemoteIpAddress
             ));
 
-
             return GetSliderHtml(
                 galleryTitle,
-                found.Serialize(),
+                foundLimits.Serialize(),
                 targetRatio.ToString("f3", enUs)
             );
 

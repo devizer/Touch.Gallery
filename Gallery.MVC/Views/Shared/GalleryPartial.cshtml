@@ -2,7 +2,7 @@
 @model Gallery.MVC.Models.PartialGalleryModel
 
 @{
-    const Int32 VisualsSize = 280;
+    const Int32 AnimationSize = 280;
 }
 <script>
     var galleryModel = @Html.Raw(Model.AngularModel ?? "null");
@@ -15,20 +15,20 @@
     }
 
     #ClickVisuals {
-        width: @(VisualsSize)px;
-        height: @(VisualsSize)px;
+        width: @(AnimationSize)px;
+        height: @(AnimationSize)px;
         position: absolute;
         z-index: 10001;
         left: 50px;
-        margin-top: @((Model.Limits.LimitValue-40)/Model.Ratio/2 - VisualsSize/2)px
+        margin-top: @((Model.Limits.LimitValue-40)/Model.Ratio/2 - AnimationSize/2)px
     }
 
     .AniFront {
-        width: @(VisualsSize)px;
-        height: @(VisualsSize)px;
+        width: @(AnimationSize)px;
+        height: @(AnimationSize)px;
         color: white;
         position: absolute;
-        font-size: @(VisualsSize*5/10)px;
+        font-size: @(AnimationSize*5/10)px;
 
         display: -webkit-box;
         display: -ms-flexbox;
@@ -48,11 +48,11 @@
     }
 
     .AniBack img {
-        border: 1 solid green;
+        border: none;
         position: absolute;
         z-index: 10002;
-        width: @(VisualsSize)px;
-        height: @(VisualsSize)px;
+        width: @(AnimationSize)px;
+        height: @(AnimationSize)px;
         left: 0px;
         top: 0px;
     }
@@ -317,7 +317,7 @@
         );
 
         // $(parentSlide).css({ border: '2px solid red' });
-        $("#ClickVisuals").css({ left: (leftSlide -(@(VisualsSize)/2)+ visibleWidth/2) + 'px' });
+        $("#ClickVisuals").css({ left: (leftSlide -(@(AnimationSize)/2)+ visibleWidth/2) + 'px' });
 
         var modeBack = 'ease';
         var halfScale = 0.04;
