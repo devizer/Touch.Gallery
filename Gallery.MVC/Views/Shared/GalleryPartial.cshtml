@@ -195,7 +195,7 @@
 
 
 <div class="buttonHandler"  ></div>
-<div id="ClickVisuals">
+<div id="ClickVisuals" class="hidden">
     <div class="AniBack"><img src="images/AnimationBackground.svg" id="back-ani-img"/></div>
     <div class="AniFront"><i id="AniIcon" class="fa fa-share-square-o"></i></div>
 </div>
@@ -223,10 +223,10 @@
         @if (true || !Model.IsMobile)
         {
             <div id="buttons" style="width: @(w)px; position: absolute; top: @(h + (Model.IsMobile ? 0 : 4))px; font-size: 30px; color: white; height: 30px; border: none; left: 10px; text-align: @(Model.IsMobile ? "left" : "center")">
-                <i class="fa fa-star-o photo-button" aria-hidden="true" onclick="MyOnClick('fa-star-o', this)"></i><span class="badge badge-secondary my-badge">146</span>&nbsp;&nbsp;
-                <i class="fa fa-thumbs-o-up photo-button" aria-hidden="true" onclick="MyOnClick('fa-thumbs-o-up', this)"></i><span class="badge badge-secondary my-badge">234.5 K</span>&nbsp;&nbsp;
-                <i class="fa fa-thumbs-o-down photo-button" aria-hidden="true" onclick="MyOnClick('fa-thumbs-o-down', this)"></i><span class="badge badge-secondary my-badge" style="display: none">&nbsp;&nbsp;&nbsp;</span>&nbsp;&nbsp;
-                <i class="fa fa-share-square-o photo-button" aria-hidden="true" onclick="MyOnClick('fa-share-square-o', this)"></i><span class="badge badge-secondary my-badge">34.5 M</span>
+                <i id-action="Star" class="fa fa-star-o photo-button" aria-hidden="true" onclick="MyOnClick('fa-star-o', this)"></i><span class="badge badge-secondary my-badge">146</span>&nbsp;&nbsp;
+                <i id-action="Like" class="fa fa-thumbs-o-up photo-button" aria-hidden="true" onclick="MyOnClick('fa-thumbs-o-up', this)"></i><span class="badge badge-secondary my-badge">234.5 K</span>&nbsp;&nbsp;
+                <i id-action="Dislike" class="fa fa-thumbs-o-down photo-button" aria-hidden="true" onclick="MyOnClick('fa-thumbs-o-down', this)"></i><span class="badge badge-secondary my-badge" style="display: none">&nbsp;&nbsp;&nbsp;</span>&nbsp;&nbsp;
+                <i id-action="Share" class="fa fa-share-square-o photo-button" aria-hidden="true" onclick="MyOnClick('fa-share-square-o', this)"></i><span class="badge badge-secondary my-badge">34.5 M</span>
             </div>
         }
     </div>
@@ -274,7 +274,7 @@
 
     }
 
-    $("#ClickVisuals").hide();
+    // $("#ClickVisuals").setVisibility(false);
 
     function MyOnClick(argClass, button) {
         // var centerButton = $(button).position().left + $(button).width() / 2;
@@ -287,9 +287,9 @@
 
         $("#AniIcon").removeClass().addClass("fa").addClass(argClass);
 
-        $('#ClickVisuals').show();
+        $('#ClickVisuals').setVisibility(true);
         var onFinish = function (arg) {
-            $('#ClickVisuals').hide();
+            $('#ClickVisuals').setVisibility(false);
         }
 
         var leftContainer = $(".swiper-container").offset().left;
@@ -335,6 +335,8 @@
                 modeBack)
             .transition({ opacity: 0.2 }, 300, 'ease')
             .transition({ opacity: 0 }, 1, modeBack);
+
+        theAppContext.ApplyAction(button);
 
     }
 

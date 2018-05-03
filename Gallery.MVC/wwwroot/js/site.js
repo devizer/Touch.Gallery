@@ -47,8 +47,18 @@ $(document).ready(function() {
     
 });
 
+jQuery.fn.setVisibility = function(visible)
+{
+    if (visible) {
+        $(this).removeClass("hidden");
+        $(this).show();
+    } else {
+        $(this).hide();
+    }
+}
+
 jQuery.fn.getPath = function () {
-    if (this.length != 1) throw 'Requires one element.';
+    if (this.length !== 1) throw 'Requires one element.';
 
     var path, node = this;
     while (node.length) {

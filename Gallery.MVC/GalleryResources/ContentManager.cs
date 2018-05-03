@@ -105,7 +105,7 @@ namespace Gallery.MVC.GalleryResources
             }
 
             _Logger.LogInformation("Base Blob Path: {blobBasePath}", _BlobBasePath);
-            _Logger.LogInformation($"Galleries (paths): {Environment.NewLine}{{names}}", Environment.NewLine,
+            _Logger.LogInformation($"Galleries (paths): {Environment.NewLine}{{names}}", 
                 string.Join(Environment.NewLine, jsonNames.Select(x => $"  * [{x}]")));
 
             foreach (var jsonName in jsonNames)

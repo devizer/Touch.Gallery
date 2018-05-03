@@ -6,9 +6,9 @@ namespace Gallery.MVC.Utils
     public static class MyListExtenstions
     {
         private static Random rng = new Random();
-        public static void Shuffle<T>(this IList<T> array, int seed)
+        public static void Shuffle<T>(this IList<T> array, int? seed = null)
         {
-            rng = new Random(seed);
+            rng = seed.HasValue ? new Random(seed.Value) : new Random();
             int n = array.Count;
             while (n > 1)
             {
