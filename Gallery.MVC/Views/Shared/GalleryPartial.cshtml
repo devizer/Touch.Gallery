@@ -223,10 +223,10 @@
         @if (true || !Model.IsMobile)
         {
             <div id="buttons" style="width: @(w)px; position: absolute; top: @(h + (Model.IsMobile ? 0 : 4))px; font-size: 30px; color: white; height: 30px; border: none; left: 10px; text-align: @(Model.IsMobile ? "left" : "center")">
-                <i id-action="Star" class="fa fa-star-o photo-button" aria-hidden="true" onclick="MyOnClick('fa-star-o', this)"></i><span class="badge badge-secondary my-badge">146</span>&nbsp;&nbsp;
-                <i id-action="Like" class="fa fa-thumbs-o-up photo-button" aria-hidden="true" onclick="MyOnClick('fa-thumbs-o-up', this)"></i><span class="badge badge-secondary my-badge">234.5 K</span>&nbsp;&nbsp;
-                <i id-action="Dislike" class="fa fa-thumbs-o-down photo-button" aria-hidden="true" onclick="MyOnClick('fa-thumbs-o-down', this)"></i><span class="badge badge-secondary my-badge" style="display: none">&nbsp;&nbsp;&nbsp;</span>&nbsp;&nbsp;
-                <i id-action="Share" class="fa fa-share-square-o photo-button" aria-hidden="true" onclick="MyOnClick('fa-share-square-o', this)"></i><span class="badge badge-secondary my-badge">34.5 M</span>
+                <i id-action="Star" class="fa fa-star-o photo-button" aria-hidden="true" onclick="MyOnClick('fa-star-o', this)"></i><span id="count-Star" class="badge badge-secondary my-badge">146</span>&nbsp;&nbsp;
+                <i id-action="Like" class="fa fa-thumbs-o-up photo-button" aria-hidden="true" onclick="MyOnClick('fa-thumbs-o-up', this)"></i><span id="count-Like" class="badge badge-secondary my-badge">234.5 K</span>&nbsp;&nbsp;
+                <i id-action="Dislike" class="fa fa-thumbs-o-down photo-button" aria-hidden="true" onclick="MyOnClick('fa-thumbs-o-down', this)"></i><span id="count-Dislike" class="badge badge-secondary my-badge"></span>&nbsp;&nbsp;
+                <i id-action="Share" class="fa fa-share-square-o photo-button" aria-hidden="true" onclick="MyOnClick('fa-share-square-o', this)"></i><span id="count-Share" class="badge badge-secondary my-badge">34.5 M</span>
             </div>
         }
     </div>
