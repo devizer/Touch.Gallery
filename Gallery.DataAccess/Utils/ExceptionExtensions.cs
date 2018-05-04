@@ -3,7 +3,7 @@ using System.Collections.Generic;
 
 namespace Gallery.MVC.Utils
 {
-    public static class ExMessage
+    public static class ExceptionExtensions
     {
         public static string GetExceptionDigest(this Exception ex)
         {

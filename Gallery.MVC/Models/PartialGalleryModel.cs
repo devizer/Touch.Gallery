@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using Gallery.Logic.Model;
 
 namespace Gallery.MVC.Models
 {

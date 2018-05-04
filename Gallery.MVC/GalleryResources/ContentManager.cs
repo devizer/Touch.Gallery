@@ -5,6 +5,7 @@ using System.IO;
 using System.Linq;
 using System.Reflection;
 using System.Text;
+using Gallery.Logic.Model;
 using Gallery.MVC.Models;
 using Microsoft.Extensions.Logging;
 using Newtonsoft.Json;

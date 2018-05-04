@@ -2,12 +2,10 @@
 using System.Collections.Generic;
 using System.Diagnostics;
 using System.Linq;
-using System.Threading.Tasks;
 using Gallery.MVC.Utils;
 using Google.Cloud.Datastore.V1;
-using Microsoft.Extensions.FileProviders;
 
-namespace Gallery.MVC.DataAccess
+namespace Gallery.Logic.DataAccess
 {
     public class PhotosRepository
     {

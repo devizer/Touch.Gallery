@@ -1,44 +1,7 @@
 ﻿using System;
-using System.Collections.Generic;
 
-namespace Gallery.MVC.Models
+namespace Gallery.Logic.Model
 {
-    public class PublicModel
-    {
-        public LimitKind Kind;
-        public int LimitValue;
-        public List<PublicTopic> Topics = new List<PublicTopic>();
-    }
-
-    public class PublicTopic
-    {
-        public string Title;
-        public List<PublicBlob> Blobs = new List<PublicBlob>();
-    }
-
-    public class PublicBlob
-    {
-        public string Id;
-        public int Width;
-        public int Height;
-        public int File;
-        public int Position;
-        public int Length;
-        public string IdContent;
-
-        public override string ToString()
-        {
-            return $"{nameof(Id)}: {Id}, {nameof(Width)}: {Width}, {nameof(Height)}: {Height}, {nameof(File)}: {File}, {nameof(Position)}: {Position}, {nameof(Length)}: {Length}, {nameof(IdContent)}: {IdContent}";
-        }
-    }
-
-    public enum LimitKind
-    {
-        Width = 1,
-        Height = 2,
-    }
-
-
     public class PublicLimits
     {
         public LimitKind Kind;
@@ -102,6 +65,4 @@ namespace Gallery.MVC.Models
             }
         }
     }
-
-
 }

@@ -1,4 +1,4 @@
-﻿namespace Gallery.MVC.DataAccess
+﻿namespace Gallery.Logic.DataAccess
 {
     public class UserPhoto
     {

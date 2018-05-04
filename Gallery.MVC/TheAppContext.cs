@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Linq;
+using Gallery.Logic.Model;
 using Gallery.MVC.Models;
 using Microsoft.AspNetCore.Authentication.Cookies;
 

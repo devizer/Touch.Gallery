@@ -5,6 +5,7 @@ using System.Globalization;
 using System.Linq;
 using System.Security.Claims;
 using System.Threading.Tasks;
+using Gallery.Logic.Model;
 using Gallery.MVC.API;
 using Gallery.MVC.GalleryResources;
 using Gallery.MVC.Links;
@@ -85,7 +86,10 @@ namespace Gallery.MVC.Controllers
                 Title = foundGallery.Title,
                 Blobs = new List<PublicBlob>(foundGallery.Blobs)
             };
-            var seedByIp = HashExtentions.GetSHA1AsSeed(HttpContext.Connection.RemoteIpAddress.ToString());
+            var idUser = User?.Identity?.Name;
+            if (string.IsNullOrEmpty(idUser))
+                idUser = HttpContext.Connection.RemoteIpAddress.ToString();
+            var seedByIp = HashExtentions.GetSHA1AsSeed(idUser);
             galleryCopy.Blobs.Shuffle(seedByIp);
 
             var userAgent = HttpContext.Request.Headers["User-Agent"];

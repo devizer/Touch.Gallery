@@ -1,7 +1,7 @@
 ﻿using System.Text;
 using Google.Cloud.Datastore.V1;
 
-namespace Gallery.MVC.DataAccess
+namespace Gallery.Logic.DataAccess
 {
     public static class DataModelExtensions
     {
