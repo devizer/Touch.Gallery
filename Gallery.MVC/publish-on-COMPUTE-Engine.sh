@@ -7,11 +7,13 @@ export DOTNET_SKIP_FIRST_TIME_EXPERIENCE=1
 export DOTNET_CLI_TELEMETRY_OPTOUT=1
 dotnet --info >/dev/null 2>&1 && hasDotNet=true
 if [ -z "$hasDotNet" ]; then
-  # sudo sh -c 'echo "deb [arch=amd64] https://packages.microsoft.com/repos/microsoft-ubuntu-xenial-prod xenial main" > /etc/apt/sources.list.d/dotnetdev.list'
-  echo "deb [arch=amd64] https://packages.microsoft.com/repos/microsoft-ubuntu-$(lsb_release -c -s)-prod $(lsb_release -c -s) main" > tee /etc/apt/sources.list.d/dotnetdev.list >/dev/null
+  curl https://packages.microsoft.com/keys/microsoft.asc | gpg --dearmor > microsoft.gpg
+  sudo mv microsoft.gpg /etc/apt/trusted.gpg.d/microsoft.gpg
+  echo deb [arch=amd64] https://packages.microsoft.com/repos/microsoft-ubuntu-$(lsb_release -c -s)-prod $(lsb_release -c -s) main | sudo tee /etc/apt/sources.list.d/dotnetdev.list > /dev/null
+  export DOTNET_CLI_TELEMETRY_OPTOUT=1
   time (sudo apt-get update && sudo apt-get install -y --allow-unauthenticated iotop mc git htop lsof \
-    && sudo apt-get install dotnet-sdk-2.0.3 -y --allow-unauthenticated)
-  echo "Dotnet 2.0.3 installed $(date)" >> $HOME/RESTART.log
+    && sudo apt-get install dotnet-sdk-2.1.105 -y --allow-unauthenticated)
+  echo "Dotnet 2.1.105 installed $(date)" >> $HOME/RESTART.log
 fi
 sudo sync
 
