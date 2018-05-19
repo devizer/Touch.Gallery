@@ -107,11 +107,11 @@ namespace Gallery.MVC.Controllers
             if (jsPhotos.Any())
             {
                 jsPhotos[0].TotalLikes = 42;
-                jsPhotos[0].TotalDislikes = 1;
-                jsPhotos[0].TotalShares = 2;
+                jsPhotos[0].TotalDislikes = 7;
+                jsPhotos[0].TotalShares = 1234567;
                 jsPhotos[0].TotalStars = 7777;
                 jsPhotos[0].MyLikes = true;
-                jsPhotos[0].MyDislikes = true;
+                jsPhotos[0].MyDislikes = false;
                 jsPhotos[0].MyStars = true;
                 jsPhotos[0].MyShares = true;
             }

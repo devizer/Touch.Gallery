@@ -11,6 +11,13 @@ namespace Gallery.Logic.DataAccess
     {
         DatastoreDb Db = DatastoreDb.Create("touch-galleries");
 
+        static PhotosRepository()
+        {
+            var creds = Environment.GetEnvironmentVariable("TOUCH_GALLERIES_CREDENTIALS");
+            if (!string.IsNullOrEmpty(creds))
+                Environment.SetEnvironmentVariable("GOOGLE_APPLICATION_CREDENTIALS", creds);
+        }
+
         public IDictionary<string, UserPhoto> GetUserPhotosByTopic(string topic, string idUser)
         {
             // select All UserPhoto, where 
@@ -33,13 +40,6 @@ namespace Gallery.Logic.DataAccess
             DatastoreQueryResults results = Db.RunQuery(query, ReadOptions.Types.ReadConsistency.Strong);
             var userPhotos = results.Entities.Select(x => x.ToUserPhoto());
             return userPhotos.ToDictionary(x => x.IdContent, x => x);
-        }
-
-        static PhotosRepository()
-        {
-            var creds = Environment.GetEnvironmentVariable("TOUCH_GALLERIES_CREDENTIALS");
-            if (!string.IsNullOrEmpty(creds))
-                Environment.SetEnvironmentVariable("GOOGLE_APPLICATION_CREDENTIALS", creds);
         }
 
         [Obsolete("Topic is not used in a storage")]

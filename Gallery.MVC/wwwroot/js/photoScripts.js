@@ -31,7 +31,7 @@ theAppContext.BindPhotoInfo = function(idContent, photoInfo) {
     else
         el.removeClass("fa-thumbs-down").addClass("fa-thumbs-o-down");
 
-    var asCount = function(a) { return a === undefined || a == null || a <= 0 ? "" : ("" + a); };
+    var asCount = function(a) { return a === undefined || a == null || a <= 0 ? "" : theAppContext.FormatCounter(a); };
     photoContainer.find("#count-Star").text(asCount(photoInfo.TotalStars));
     photoContainer.find("#count-Like").text(asCount(photoInfo.TotalLikes));
     photoContainer.find("#count-Dislike").text(asCount(photoInfo.TotalDislikes));
@@ -85,4 +85,15 @@ theAppContext.ApplyAction = function(button) {
     console.log("AFTER [" + action + "] ID: " + idContent + "\r\n" + JSON.stringify(photoInfo));
 
     theAppContext.BindPhotoInfo(idContent, photoInfo);
+}
+
+theAppContext.FormatCounter = function(arg) {
+
+    if (arg < 1000)
+        return '' + arg;
+
+    else if (arg < 1000000)
+        return (arg / 1000.).toFixed(1) + " K";
+
+    return (arg / 10000000.).toFixed(1) + " M";
 }
