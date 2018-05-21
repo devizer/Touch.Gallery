@@ -1,12 +1,16 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Reflection;
 using System.Threading.Tasks;
+using Gallery.Logic.DataAccess;
 using Gallery.MVC.GalleryResources;
 using Microsoft.AspNetCore.Authentication.Cookies;
 using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Hosting;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
+using NJsonSchema;
+using NSwag.AspNetCore;
 
 namespace Gallery.MVC
 {
@@ -33,6 +37,7 @@ namespace Gallery.MVC
             services.AddLogging();
             services.AddSingleton<Custom_PreJit_On_Startup>();
             services.AddSingleton<ContentManager>();
+            services.AddTransient<PhotosRepository>();
 
         }
 
@@ -52,6 +57,12 @@ namespace Gallery.MVC
             }
 
             app.UseStaticFiles();
+
+            app.UseSwaggerUi(typeof(Startup).GetTypeInfo().Assembly, settings =>
+            {
+                settings.GeneratorSettings.DefaultPropertyNameHandling =
+                    PropertyNameHandling.CamelCase;
+            });
 
             app.UseMvc(routes =>
             {

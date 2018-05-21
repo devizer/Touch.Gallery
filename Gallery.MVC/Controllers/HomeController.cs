@@ -35,7 +35,7 @@ namespace Gallery.MVC.Controllers
         [Route("/")]
         public async Task<IActionResult> Index()
         {
-            AssingIdToBrowser();
+            await AssignIdToBrowser();
             return View(new HomePageModel()
             {
                 Topic = HomePageModel.DefaultTopic,
@@ -43,10 +43,10 @@ namespace Gallery.MVC.Controllers
         }
 
         [Route("/{topic}")]
-        public IActionResult Index(string topic)
+        public async Task<IActionResult> Index(string topic)
         {
-            AssingIdToBrowser();
-            var titles = _ContentManager.GetMetadata().SelectMany(x => x.Topics).Select(x => x.Title).Distinct();
+            await AssignIdToBrowser();
+            // var titles = _ContentManager.GetMetadata().SelectMany(x => x.Topics).Select(x => x.Title).Distinct();
             if (string.IsNullOrEmpty(topic)) topic = HomePageModel.DefaultTopic;
 
             return View(new HomePageModel()
@@ -209,28 +209,31 @@ namespace Gallery.MVC.Controllers
             return View(new ErrorViewModel { RequestId = Activity.Current?.Id ?? HttpContext.TraceIdentifier });
         }
 
-        async void AssingIdToBrowser()
+        async Task<string> AssignIdToBrowser()
         {
             var user = User?.Identity?.Name;
             if (!string.IsNullOrEmpty(user))
-                return;
+                return user;
 
+            var newId = "Browser-" + Guid.NewGuid().ToShortString();
             var claims = new List<Claim>
             {
-                new Claim(ClaimTypes.Name, "Browser-" + Guid.NewGuid().ToShortString()),
+                new Claim(ClaimTypes.Name, newId),
             };
 
             var claimsIdentity = new ClaimsIdentity(
                 claims,
                 CookieAuthenticationDefaults.AuthenticationScheme);
 
-            HttpContext.SignInAsync(
+            await HttpContext.SignInAsync(
                 CookieAuthenticationDefaults.AuthenticationScheme,
                 new ClaimsPrincipal(claimsIdentity),
                 new AuthenticationProperties
                 {
                     IsPersistent = true,
-                }).Wait();
+                });
+
+            return newId;
         }
     }
 
