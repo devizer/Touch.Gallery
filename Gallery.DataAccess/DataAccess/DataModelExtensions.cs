@@ -7,8 +7,8 @@ namespace Gallery.Logic.DataAccess
     {
         public static Key ToContentKey(string topic, string idContent)
         {
-            var keyContent = new Key().WithElement("Topic", topic);
-            var key = new KeyFactory(keyContent, "Content").CreateKey(idContent);
+            var keyContent = new Key().WithElement("TopicTotals", topic);
+            var key = new KeyFactory(keyContent, "ContentTotals").CreateKey(idContent);
             return key;
         }
 

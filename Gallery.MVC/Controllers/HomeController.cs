@@ -5,6 +5,7 @@ using System.Globalization;
 using System.Linq;
 using System.Security.Claims;
 using System.Threading.Tasks;
+using Gallery.Logic.DataAccess;
 using Gallery.Logic.Model;
 using Gallery.MVC.API;
 using Gallery.MVC.GalleryResources;
@@ -16,6 +17,7 @@ using Gallery.Prepare;
 using Microsoft.AspNetCore.Authentication;
 using Microsoft.AspNetCore.Authentication.Cookies;
 using Microsoft.Extensions.Logging;
+using NJsonSchema.Infrastructure;
 
 namespace Gallery.MVC.Controllers
 {
@@ -24,13 +26,14 @@ namespace Gallery.MVC.Controllers
     {
         private ILogger<GalleryController> _Logger;
         private ContentManager _ContentManager;
+        private PhotosRepository _PhotosRepository;
 
-        public HomeController(ILogger<GalleryController> logger, ContentManager contentManager)
+        public HomeController(ILogger<GalleryController> logger, ContentManager contentManager, PhotosRepository photosRepository)
         {
             _Logger = logger;
             _ContentManager = contentManager;
+            _PhotosRepository = photosRepository;
         }
-
 
         [Route("/")]
         public async Task<IActionResult> Index()
@@ -95,7 +98,10 @@ namespace Gallery.MVC.Controllers
             var userAgent = HttpContext.Request.Headers["User-Agent"];
             var uaInfo = new UserAgentInfo(userAgent);
 
-            List<JsPhotoModel> jsPhotos =
+            IDictionary<string, UserPhoto> userPhotosByTopic = _PhotosRepository.GetUserPhotosByTopic(galleryCopy.Title, idUser);
+            var photoTotals = _PhotosRepository.GetPhotoTotalsByTopic(galleryCopy.Title);
+
+            List <JsPhotoModel> jsPhotos =
                 galleryCopy.Blobs.Select(x => new JsPhotoModel()
                 {
                     Id = x.IdContent,
@@ -104,7 +110,28 @@ namespace Gallery.MVC.Controllers
                     Width = x.Width
                 }).ToList();
 
-            if (jsPhotos.Any())
+            foreach (var jsPhoto in jsPhotos)
+            {
+                userPhotosByTopic.TryGetValue(jsPhoto.Id, out var myFlags);
+                photoTotals.TryGetValue(jsPhoto.Id, out var totals);
+                if (myFlags != null)
+                {
+                    jsPhoto.MyDislikes = myFlags.Dislikes;
+                    jsPhoto.MyLikes = myFlags.Likes;
+                    jsPhoto.MyShares = myFlags.Shares;
+                    jsPhoto.MyStars = myFlags.Stars;
+                }
+
+                if (totals != null)
+                {
+                    jsPhoto.TotalDislikes = totals.Dislikes;
+                    jsPhoto.TotalLikes = totals.Likes;
+                    jsPhoto.TotalShares = totals.Shares;
+                    jsPhoto.TotalStars = totals.Stars;
+                }
+            }
+
+            if (jsPhotos.Any() && false)
             {
                 jsPhotos[0].TotalLikes = 42;
                 jsPhotos[0].TotalDislikes = 7;

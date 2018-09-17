@@ -18,6 +18,24 @@ namespace Gallery.Logic.DataAccess
                 Environment.SetEnvironmentVariable("GOOGLE_APPLICATION_CREDENTIALS", creds);
         }
 
+        // Key - idContent
+        // Value - Totals
+        public IDictionary<string, Content> GetPhotoTotalsByTopic(string topic)
+        {
+            // select All UserPhoto, where 
+            var keyTopic = new Key().WithElement("TopicTotals", topic);
+            Query query = new Query("ContentTotals")
+            {
+                Filter = Filter.HasAncestor(keyTopic),
+            };
+
+            DatastoreQueryResults results = Db.RunQuery(query, ReadOptions.Types.ReadConsistency.Strong);
+            var userPhotos = results.Entities.Select(x => x.ToContent());
+            return userPhotos.ToDictionary(x => x.IdContent, x => x);
+        }
+
+        // Key - idContent
+        // Value - My flags
         public IDictionary<string, UserPhoto> GetUserPhotosByTopic(string topic, string idUser)
         {
             // select All UserPhoto, where 
@@ -26,15 +44,6 @@ namespace Gallery.Logic.DataAccess
             Query query = new Query("UserPhoto")
             {
                 Filter = Filter.HasAncestor(keyTopicAndUser),
-/*
-                Projection =
-                {
-                    "Stars",
-                    "Likes",
-                    "Dislikes",
-                    "Shares",
-                }
-*/
             };
 
             DatastoreQueryResults results = Db.RunQuery(query, ReadOptions.Types.ReadConsistency.Strong);
@@ -134,8 +143,8 @@ namespace Gallery.Logic.DataAccess
                     return;
                 }
 
-                var entityContent = content.ToEntity();
-                var entityUserPhoto = userPhoto.ToEntity();
+                Entity entityContent = content.ToEntity();
+                Entity entityUserPhoto = userPhoto.ToEntity();
                 Db.Upsert(entityContent, entityUserPhoto);
                 Console.WriteLine($"DONE: {debug} in {sw.Elapsed}");
             }
