@@ -4,6 +4,7 @@ using System.Reflection;
 using System.Threading.Tasks;
 using Gallery.Logic.DataAccess;
 using Gallery.MVC.GalleryResources;
+using Google.Apis.Json;
 using Microsoft.AspNetCore.Authentication.Cookies;
 using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Hosting;
@@ -33,7 +34,11 @@ namespace Gallery.MVC
                     options.ExpireTimeSpan = TimeSpan.FromDays(10 * 365);
                 });
 
-            services.AddMvc();
+            services
+                .AddMvc()
+                .AddJsonOptions(options =>
+                    options.SerializerSettings.ContractResolver = new NewtonsoftJsonContractResolver());
+
             services.AddLogging();
             services.AddSingleton<Custom_PreJit_On_Startup>();
             services.AddSingleton<ContentManager>();

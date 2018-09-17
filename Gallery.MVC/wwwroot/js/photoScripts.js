@@ -31,7 +31,7 @@ theAppContext.BindPhotoInfo = function(idContent, photoInfo) {
     else
         el.removeClass("fa-thumbs-down").addClass("fa-thumbs-o-down");
 
-    var asCount = function(a) { return a === undefined || a == null || a <= 0 ? "" : theAppContext.FormatCounter(a); };
+    var asCount = function(a) { return a === undefined || a === null || a <= 0 ? "" : theAppContext.FormatCounter(a); };
     photoContainer.find("#count-Star").text(asCount(photoInfo.TotalStars));
     photoContainer.find("#count-Like").text(asCount(photoInfo.TotalLikes));
     photoContainer.find("#count-Dislike").text(asCount(photoInfo.TotalDislikes));
@@ -85,6 +85,28 @@ theAppContext.ApplyAction = function(button) {
     console.log("AFTER [" + action + "] ID: " + idContent + "\r\n" + JSON.stringify(photoInfo));
 
     theAppContext.BindPhotoInfo(idContent, photoInfo);
+
+    theAppContext.FetchPhotoStatus(action, idContent);
+}
+
+theAppContext.FetchPhotoStatus = function(idAction, idContent) {
+    $.ajax({
+        url: "/api/v1/action/" + idAction + "/" + idContent,
+        type: "POST",
+        complete: function () {
+        },
+
+        success: function (ret) {
+            var photoInfo = ret;
+            console.log("Recieved [" + idAction + "] ID: " + idContent + "\r\n" + JSON.stringify(photoInfo));
+            theAppContext.BindPhotoInfo(idContent, photoInfo);
+        },
+
+        error: function (error) {
+            console.error("Unable to apply action '" + idAction + "' for photo '" + idContent + "'. Error is " + error);
+        }
+    });
+
 }
 
 theAppContext.FormatCounter = function(arg) {
