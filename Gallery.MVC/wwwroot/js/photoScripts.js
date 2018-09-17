@@ -86,10 +86,10 @@ theAppContext.ApplyAction = function(button) {
 
     theAppContext.BindPhotoInfo(idContent, photoInfo);
 
-    theAppContext.FetchPhotoStatus(action, idContent);
+    theAppContext.ApplyActionRemotely(action, idContent);
 }
 
-theAppContext.FetchPhotoStatus = function(idAction, idContent) {
+theAppContext.ApplyActionRemotely = function(idAction, idContent) {
     $.ajax({
         url: "/api/v1/action/" + idAction + "/" + idContent,
         type: "POST",

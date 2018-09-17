@@ -223,7 +223,8 @@ namespace Gallery.MVC.Controllers
 
             var claimsIdentity = new ClaimsIdentity(
                 claims,
-                CookieAuthenticationDefaults.AuthenticationScheme);
+                CookieAuthenticationDefaults.AuthenticationScheme
+            );
 
             await HttpContext.SignInAsync(
                 CookieAuthenticationDefaults.AuthenticationScheme,
