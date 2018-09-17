@@ -69,7 +69,7 @@ theAppContext.ApplyAction = function(button) {
                 photoInfo.TotalLikes = asNum(photoInfo.TotalLikes) - 1;
             }
 
-            if (photoInfo.MyStars) {
+            if (photoInfo.MyStars && false) {
                 photoInfo.MyStars = false;
                 photoInfo.TotalStars = asNum(photoInfo.TotalStars) - 1;
             }
@@ -100,10 +100,23 @@ theAppContext.ApplyActionRemotely = function(idAction, idContent) {
             var photoInfo = ret;
             console.log("Recieved [" + idAction + "] ID: " + idContent + "\r\n" + JSON.stringify(photoInfo));
             theAppContext.BindPhotoInfo(idContent, photoInfo);
+
+            // copy numbers to local photo info
+            var found = theAppContext.GetPhotoById(idContent);
+            if (found !== null) {
+                found.MyDislikes = photoInfo.MyDislikes;
+                found.MyLikes = photoInfo.MyLikes;
+                found.MyShares = photoInfo.MyShares;
+                found.MyStars = photoInfo.MyStars;
+                found.TotalDislikes = photoInfo.TotalDislikes;
+                found.TotalLikes = photoInfo.TotalLikes;
+                found.TotalShares = photoInfo.TotalShares;
+                found.TotalStars = photoInfo.TotalStars;
+            }
         },
 
         error: function (error) {
-            console.error("Unable to apply action '" + idAction + "' for photo '" + idContent + "'. Error is " + error);
+            console.error("Unable to apply action '" + idAction + "' for photo '" + idContent + "'. Error is " + error + "\r\n" + JSON.stringify(error));
         }
     });
 
