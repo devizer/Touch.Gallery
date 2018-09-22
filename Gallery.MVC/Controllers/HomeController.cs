@@ -98,18 +98,8 @@ namespace Gallery.MVC.Controllers
             var userAgent = HttpContext.Request.Headers["User-Agent"];
             var uaInfo = new UserAgentInfo(userAgent);
 
-            Task<IDictionary<string, UserPhoto>> userPhotosByTopicTask = _PhotosRepository.GetUserPhotosByTopic(galleryCopy.Title, idUser);
-            Task<IDictionary<string, Content>> photoTotalsTask = _PhotosRepository.GetPhotoTotalsByTopic(galleryCopy.Title);
-
-
-            // Task.WaitAll(userPhotosByTopicTask, photoTotalsTask);
-            // userPhotosByTopicTask.Wait();
-            // photoTotalsTask.Wait();
-            // var userPhotosByTopic = userPhotosByTopicTask.Result;
-            // var photoTotals = photoTotalsTask.Result;
-            var userPhotosByTopic = await userPhotosByTopicTask;
-            var photoTotals = await photoTotalsTask;
-
+            var userPhotosByTopic = await _PhotosRepository.GetUserPhotosByTopic(galleryCopy.Title, idUser);
+            var photoTotals = await _PhotosRepository.GetPhotoTotalsByTopic(galleryCopy.Title);
 
             List<JsPhotoModel> jsPhotos =
                 galleryCopy.Blobs.Select(x => new JsPhotoModel()
@@ -139,18 +129,6 @@ namespace Gallery.MVC.Controllers
                     jsPhoto.TotalShares = totals.Shares;
                     jsPhoto.TotalStars = totals.Stars;
                 }
-            }
-
-            if (jsPhotos.Any() && false)
-            {
-                jsPhotos[0].TotalLikes = 42;
-                jsPhotos[0].TotalDislikes = 7;
-                jsPhotos[0].TotalShares = 1234567;
-                jsPhotos[0].TotalStars = 7777;
-                jsPhotos[0].MyLikes = true;
-                jsPhotos[0].MyDislikes = false;
-                jsPhotos[0].MyStars = true;
-                jsPhotos[0].MyShares = true;
             }
 
             var angularModel = new
