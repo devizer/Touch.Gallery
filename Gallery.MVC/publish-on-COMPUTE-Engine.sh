@@ -15,7 +15,7 @@ if [ -z "$hasDotNet" ]; then
   # echo deb [arch=amd64] https://packages.microsoft.com/repos/microsoft-ubuntu-$(lsb_release -c -s)-prod $(lsb_release -c -s) main | sudo tee /etc/apt/sources.list.d/dotnetdev.list > /dev/null
   # sudo apt-get install dotnet-sdk-2.1.105 -y --allow-unauthenticated
   # new
-  wget -q -O packages-microsoft-prod.deb https://packages.microsoft.com/config/ubuntu/18.04/packages-microsoft-prod.deb
+  wget -q -O packages-microsoft-prod.deb https://packages.microsoft.com/config/ubuntu/$(lsb_release -s -r)/packages-microsoft-prod.deb
   sudo dpkg -i packages-microsoft-prod.deb
   time (sudo apt-get update && sudo apt-get install -y --allow-unauthenticated dotnet-sdk-2.1)
   echo "Dotnet 2.1 installed $(date)" >> $HOME/RESTART.log
