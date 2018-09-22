@@ -34,6 +34,12 @@ namespace Gallery.MVC
                     options.ExpireTimeSpan = TimeSpan.FromDays(10 * 365);
                 });
 
+            services.AddAuthentication().AddGoogle(googleOptions =>
+            {
+                googleOptions.ClientId = "123571025325-316vc9seun2na81gjc9lsomtr2ebs0mr.apps.googleusercontent.com";
+                googleOptions.ClientSecret = "qJMndAte3xV5GK4DDMIUXBjy";
+            });
+
             services
                 .AddMvc()
                 .AddJsonOptions(options =>

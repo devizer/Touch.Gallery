@@ -7,13 +7,18 @@ export DOTNET_SKIP_FIRST_TIME_EXPERIENCE=1
 export DOTNET_CLI_TELEMETRY_OPTOUT=1
 dotnet --info >/dev/null 2>&1 && hasDotNet=true
 if [ -z "$hasDotNet" ]; then
-  curl https://packages.microsoft.com/keys/microsoft.asc | gpg --dearmor > microsoft.gpg
-  sudo mv microsoft.gpg /etc/apt/trusted.gpg.d/microsoft.gpg
-  echo deb [arch=amd64] https://packages.microsoft.com/repos/microsoft-ubuntu-$(lsb_release -c -s)-prod $(lsb_release -c -s) main | sudo tee /etc/apt/sources.list.d/dotnetdev.list > /dev/null
   export DOTNET_CLI_TELEMETRY_OPTOUT=1
-  time (sudo apt-get update && sudo apt-get install -y --allow-unauthenticated iotop mc git htop lsof \
-    && sudo apt-get install dotnet-sdk-2.1.105 -y --allow-unauthenticated)
-  echo "Dotnet 2.1.105 installed $(date)" >> $HOME/RESTART.log
+  time (sudo apt-get update && sudo apt-get install -y --allow-unauthenticated iotop mc git htop lsof apt-transport-https)
+  # old
+  # curl https://packages.microsoft.com/keys/microsoft.asc | gpg --dearmor > microsoft.gpg
+  # sudo mv microsoft.gpg /etc/apt/trusted.gpg.d/microsoft.gpg
+  # echo deb [arch=amd64] https://packages.microsoft.com/repos/microsoft-ubuntu-$(lsb_release -c -s)-prod $(lsb_release -c -s) main | sudo tee /etc/apt/sources.list.d/dotnetdev.list > /dev/null
+  # sudo apt-get install dotnet-sdk-2.1.105 -y --allow-unauthenticated
+  # new
+  wget -q -O packages-microsoft-prod.deb https://packages.microsoft.com/config/ubuntu/18.04/packages-microsoft-prod.deb
+  sudo dpkg -i packages-microsoft-prod.deb
+  time (sudo apt-get update && sudo apt-get install -y --allow-unauthenticated dotnet-sdk-2.1)
+  echo "Dotnet 2.1 installed $(date)" >> $HOME/RESTART.log
 fi
 sudo sync
 
