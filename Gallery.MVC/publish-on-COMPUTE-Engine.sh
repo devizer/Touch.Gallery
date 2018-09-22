@@ -12,7 +12,7 @@ if [ -z "$hasDotNet" ]; then
   echo deb [arch=amd64] https://packages.microsoft.com/repos/microsoft-ubuntu-$(lsb_release -c -s)-prod $(lsb_release -c -s) main | sudo tee /etc/apt/sources.list.d/dotnetdev.list > /dev/null
   export DOTNET_CLI_TELEMETRY_OPTOUT=1
   time (sudo apt-get update && sudo apt-get install -y --allow-unauthenticated iotop mc git htop lsof \
-    && sudo apt-get install dotnet-sdk-2.1.202 -y --allow-unauthenticated)
+    && sudo apt-get install dotnet-sdk-2.1.105 -y --allow-unauthenticated)
   echo "Dotnet 2.1.105 installed $(date)" >> $HOME/RESTART.log
 fi
 sudo sync
