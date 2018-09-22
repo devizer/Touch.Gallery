@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using System.Diagnostics;
 using System.Linq;
+using System.Threading.Tasks;
 using Gallery.MVC.Utils;
 using Google.Cloud.Datastore.V1;
 
@@ -20,7 +21,7 @@ namespace Gallery.Logic.DataAccess
 
         // Key - idContent
         // Value - Totals
-        public IDictionary<string, Content> GetPhotoTotalsByTopic(string topic)
+        public async Task<IDictionary<string, Content>> GetPhotoTotalsByTopic(string topic)
         {
             // select All UserPhoto, where 
             var keyTopic = new Key().WithElement("TopicTotals", topic);
@@ -29,14 +30,14 @@ namespace Gallery.Logic.DataAccess
                 Filter = Filter.HasAncestor(keyTopic),
             };
 
-            DatastoreQueryResults results = Db.RunQuery(query, ReadOptions.Types.ReadConsistency.Strong);
+            DatastoreQueryResults results = await Db.RunQueryAsync(query, ReadOptions.Types.ReadConsistency.Strong);
             var userPhotos = results.Entities.Select(x => x.ToContent());
             return userPhotos.ToDictionary(x => x.IdContent, x => x);
         }
 
         // Key - idContent
         // Value - My flags
-        public IDictionary<string, UserPhoto> GetUserPhotosByTopic(string topic, string idUser)
+        public async Task<IDictionary<string, UserPhoto>> GetUserPhotosByTopic(string topic, string idUser)
         {
             // select All UserPhoto, where 
             var keyTopic = new Key().WithElement("Topic", topic);
@@ -46,7 +47,7 @@ namespace Gallery.Logic.DataAccess
                 Filter = Filter.HasAncestor(keyTopicAndUser),
             };
 
-            DatastoreQueryResults results = Db.RunQuery(query, ReadOptions.Types.ReadConsistency.Strong);
+            DatastoreQueryResults results = await Db.RunQueryAsync(query, ReadOptions.Types.ReadConsistency.Strong);
             var userPhotos = results.Entities.Select(x => x.ToUserPhoto());
             return userPhotos.ToDictionary(x => x.IdContent, x => x);
         }

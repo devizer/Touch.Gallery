@@ -88,7 +88,7 @@ namespace Gallery.MVC
 
         }
 
-        private static void BuiltInStorageTests(List<PublicTopic> firstTopics)
+        private static async void BuiltInStorageTests(List<PublicTopic> firstTopics)
         {
             PhotosRepository repo = new PhotosRepository();
 
@@ -161,7 +161,7 @@ namespace Gallery.MVC
             {
                 repo.GetUserPhotosByTopic("One Topic", "Tester");
                 Stopwatch sw = Stopwatch.StartNew();
-                var byUser = repo.GetUserPhotosByTopic("One Topic", "Tester");
+                var byUser = await repo.GetUserPhotosByTopic("One Topic", "Tester");
                 Console.WriteLine($"Marks retrieved in {sw.Elapsed}:");
                 foreach (var userPhoto in byUser)
                 {

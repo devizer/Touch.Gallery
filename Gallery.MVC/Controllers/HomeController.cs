@@ -61,7 +61,7 @@ namespace Gallery.MVC.Controllers
 
 
         [HttpPost]
-        public IActionResult GetSliderHtml([FromForm] string galleryTitle, [FromForm] string limits, [FromForm] string ratio)
+        public async Task<IActionResult> GetSliderHtml([FromForm] string galleryTitle, [FromForm] string limits, [FromForm] string ratio)
         {
             _Logger.LogDebug("User1: " + HttpContext.User?.Identity?.Name
                 + Environment.NewLine + "User2: " + User.Identity.Name
@@ -98,10 +98,20 @@ namespace Gallery.MVC.Controllers
             var userAgent = HttpContext.Request.Headers["User-Agent"];
             var uaInfo = new UserAgentInfo(userAgent);
 
-            IDictionary<string, UserPhoto> userPhotosByTopic = _PhotosRepository.GetUserPhotosByTopic(galleryCopy.Title, idUser);
-            var photoTotals = _PhotosRepository.GetPhotoTotalsByTopic(galleryCopy.Title);
+            Task<IDictionary<string, UserPhoto>> userPhotosByTopicTask = _PhotosRepository.GetUserPhotosByTopic(galleryCopy.Title, idUser);
+            Task<IDictionary<string, Content>> photoTotalsTask = _PhotosRepository.GetPhotoTotalsByTopic(galleryCopy.Title);
 
-            List <JsPhotoModel> jsPhotos =
+
+            // Task.WaitAll(userPhotosByTopicTask, photoTotalsTask);
+            // userPhotosByTopicTask.Wait();
+            // photoTotalsTask.Wait();
+            // var userPhotosByTopic = userPhotosByTopicTask.Result;
+            // var photoTotals = photoTotalsTask.Result;
+            var userPhotosByTopic = await userPhotosByTopicTask;
+            var photoTotals = await photoTotalsTask;
+
+
+            List<JsPhotoModel> jsPhotos =
                 galleryCopy.Blobs.Select(x => new JsPhotoModel()
                 {
                     Id = x.IdContent,
@@ -164,7 +174,7 @@ namespace Gallery.MVC.Controllers
 
 
         [HttpPost]
-        public IActionResult GetSmartSliderHtml([FromForm] string galleryTitle, [FromForm] string windowHeight, [FromForm] string devicePixelRatio)
+        public async Task<IActionResult> GetSmartSliderHtml([FromForm] string galleryTitle, [FromForm] string windowHeight, [FromForm] string devicePixelRatio)
         {
             var enUs = new CultureInfo("en-US");
 
@@ -217,7 +227,7 @@ namespace Gallery.MVC.Controllers
                 HttpContext.Connection.RemoteIpAddress
             ));
 
-            return GetSliderHtml(
+            return await GetSliderHtml(
                 galleryTitle,
                 foundLimits.Serialize(),
                 targetRatio.ToString("f3", enUs)
