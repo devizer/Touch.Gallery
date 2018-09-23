@@ -17,10 +17,10 @@ namespace Gallery.Logic.DataAccess
             return new Entity
             {
                 Key = ToContentKey(content.Topic, content.IdContent),
-                ["Stars"] = content.Stars,
-                ["Likes"] = content.Likes,
-                ["Dislikes"] = content.Dislikes,
-                ["Shares"] = content.Shares,
+                ["Stars"] = new Value() {IntegerValue = content.Stars, ExcludeFromIndexes = false},
+                ["Likes"] = new Value() { IntegerValue = content.Likes, ExcludeFromIndexes = false },
+                ["Dislikes"] = new Value() { IntegerValue = content.Dislikes, ExcludeFromIndexes = false },
+                ["Shares"] = new Value() { IntegerValue = content.Shares, ExcludeFromIndexes = false },
             };
         }
 
@@ -53,10 +53,10 @@ namespace Gallery.Logic.DataAccess
             return new Entity
             {
                 Key = ToUserPhotoKey(userPhoto.Topic, userPhoto.IdUser, userPhoto.IdContent),
-                ["Stars"] = userPhoto.Stars,
-                ["Likes"] = userPhoto.Likes,
-                ["Dislikes"] = userPhoto.Dislikes,
-                ["Shares"] = userPhoto.Shares,
+                ["Stars"] = new Value() { BooleanValue = userPhoto.Stars, ExcludeFromIndexes = true },
+                ["Likes"] = new Value() { BooleanValue = userPhoto.Likes, ExcludeFromIndexes = true },
+                ["Dislikes"] = new Value() { BooleanValue = userPhoto.Dislikes, ExcludeFromIndexes = true },
+                ["Shares"] = new Value() { BooleanValue = userPhoto.Shares, ExcludeFromIndexes = true },
             };
         }
 
