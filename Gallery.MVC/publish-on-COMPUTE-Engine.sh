@@ -71,7 +71,7 @@ fi;
 sync
 
 echo "Try to kill running process"
-sudo kill $(sudo cat /var/run/touch-galleries.pid) || true
+sudo kill $(sudo cat /var/run/touch-galleries.pid 2>/dev/null) 2>/dev/null || true
 echo Starting APP from folder $target/$ver
 cd $target/$ver
 echo 3 | sudo tee /proc/sys/vm/drop_caches > /dev/null
