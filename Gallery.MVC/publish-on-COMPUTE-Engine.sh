@@ -3,6 +3,8 @@
 if [[ -z "$HOME" ]]; then export HOME=/root; fi; mkdir -p "$HOME"
 echo "Booted at $(date)" >> $HOME/RESTART.log
 
+if [[ -z "$DOTNET_SDK_VER" ]]; then DOTNET_SDK_VER=2.2; fi
+
 export DOTNET_SKIP_FIRST_TIME_EXPERIENCE=1
 export DOTNET_CLI_TELEMETRY_OPTOUT=1
 dotnet --info >/dev/null 2>&1 && hasDotNet=true
@@ -17,8 +19,8 @@ if [ -z "$hasDotNet" ]; then
   # new
   wget -q -O packages-microsoft-prod.deb https://packages.microsoft.com/config/ubuntu/$(lsb_release -s -r)/packages-microsoft-prod.deb
   sudo dpkg -i packages-microsoft-prod.deb
-  time (sudo apt-get update && sudo apt-get install -y --allow-unauthenticated dotnet-sdk-2.1)
-  echo "Dotnet 2.1 installed $(date)" >> $HOME/RESTART.log
+  time (sudo apt-get update && sudo apt-get install -y --allow-unauthenticated dotnet-sdk-$DOTNET_SDK_VER)
+  echo "Dotnet $DOTNET_SDK_VER installed $(date)" >> $HOME/RESTART.log
 fi
 sudo sync
 
