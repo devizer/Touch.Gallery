@@ -10,7 +10,8 @@ namespace Gallery.Logic.DataAccess
 {
     public class PhotosRepository
     {
-        DatastoreDb Db = DatastoreDb.Create("touch-galleries");
+        // DatastoreDb Db = DatastoreDb.Create("touch-galleries");
+        DatastoreDb Db = DatastoreDb.Create("My First Project");
 
         static PhotosRepository()
         {
