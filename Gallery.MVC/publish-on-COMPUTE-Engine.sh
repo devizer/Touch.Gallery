@@ -76,7 +76,7 @@ echo Starting APP from folder $target/$ver
 cd $target/$ver
 echo 3 | sudo tee /proc/sys/vm/drop_caches > /dev/null
 echo "Starting the App at $(date)" 
-# sudo bash -c 'ASPNETCORE_URLS=http://0.0.0.0:80\;http://0.0.0.0:8080\;http://0.0.0.0:5000 dotnet Gallery.MVC.dll' | tee $HOME/RUN-Touch.Gallery.log 2>&1
-(sudo nohup bash -c 'ASPNETCORE_URLS=http://0.0.0.0:80\;http://0.0.0.0:8080\;http://0.0.0.0:5000 dotnet Gallery.MVC.dll' | sudo tee $HOME/RUN-Touch.Gallery.log 2>&1) &
+# (sudo nohup bash -c 'ASPNETCORE_URLS=http://0.0.0.0:80\;http://0.0.0.0:8080\;http://0.0.0.0:5000 dotnet Gallery.MVC.dll' | sudo tee $HOME/RUN-Touch.Gallery.log 2>&1) &
+(sudo nohup bash -c 'dotnet Gallery.MVC.dll' | sudo tee $HOME/RUN-Touch.Gallery.log 2>&1) &
 
 echo "Upgrade finished $(date)"
