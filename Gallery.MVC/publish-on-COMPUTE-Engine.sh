@@ -1,7 +1,7 @@
 #!/bin/bash
 # set -e 
 if [[ -z "$HOME" ]]; then export HOME=/root; fi; mkdir -p "$HOME"
-echo "Booted at $(date)" >> $HOME/RESTART.log
+echo "Booted at $(date)" 
 
 if [[ -z "$DOTNET_SDK_VER" ]]; then DOTNET_SDK_VER=2.2; fi
 
@@ -20,13 +20,13 @@ if [ -z "$hasDotNet" ]; then
   wget -q -O packages-microsoft-prod.deb https://packages.microsoft.com/config/ubuntu/$(lsb_release -s -r)/packages-microsoft-prod.deb
   sudo dpkg -i packages-microsoft-prod.deb
   time (sudo apt-get update && sudo apt-get install -y --allow-unauthenticated dotnet-sdk-$DOTNET_SDK_VER)
-  echo "Dotnet $DOTNET_SDK_VER installed $(date)" >> $HOME/RESTART.log
+  echo "Dotnet $DOTNET_SDK_VER installed $(date)" 
 fi
 sudo sync
 
 if [ ! -f "/swap" ]; then
   sudo bash -c 'dd if=/dev/zero of=/swap bs=1M count=1700 && mkswap /swap && swapon /swap'
-  echo "Swap Created $(date)" >> $HOME/RESTART.log
+  echo "Swap Created $(date)" 
 fi
 sudo mkswap /swap >/dev/null 2>&1 || true
 sudo swapon /swap >/dev/null 2>&1 || true
@@ -42,14 +42,14 @@ if [ ! -f "$target/.done" ]; then
     cd $work
     git clone https://github.com/devizer/Touch.Gallery Touch.Gallery
     echo 3 | sudo tee /proc/sys/vm/drop_caches > /dev/null
-    echo "Src downloaded $(date)" >> $HOME/RESTART.log
+    echo "Src downloaded $(date)" 
     pushd Touch.Gallery
     rm -rf .git
     cd Gallery.MVC
     dotnet publish -c Release -r linux-x64 -o ../../Touch.Gallery-bin | tee $HOME/BUILD-Touch.Gallery.log
     popd
     rm -rf Touch.Gallery
-    echo "Src builded $(date)" >> $HOME/RESTART.log
+    echo "Src builded $(date)" 
 
 
     target=/Touch-Galleries.App
@@ -64,7 +64,7 @@ if [ ! -f "$target/.done" ]; then
 
     echo $ver > $target/.done
 else
-  echo "App already built. Build skipped at $(date)" >> $HOME/RESTART.log
+  echo "App already built. Build skipped at $(date)" 
   cd $target
   ver=$(ls -1 | grep 'ver-' | sort -r | head -n 1)
 fi; 
@@ -75,8 +75,8 @@ sudo kill $(sudo cat /var/run/touch-galleries.pid 2>/dev/null) 2>/dev/null || tr
 echo Starting APP from folder $target/$ver
 cd $target/$ver
 echo 3 | sudo tee /proc/sys/vm/drop_caches > /dev/null
-echo "Starting the App at $(date)" >> $HOME/RESTART.log
+echo "Starting the App at $(date)" 
 # sudo bash -c 'ASPNETCORE_URLS=http://0.0.0.0:80\;http://0.0.0.0:8080\;http://0.0.0.0:5000 dotnet Gallery.MVC.dll' | tee $HOME/RUN-Touch.Gallery.log 2>&1
 (sudo nohup bash -c 'ASPNETCORE_URLS=http://0.0.0.0:80\;http://0.0.0.0:8080\;http://0.0.0.0:5000 dotnet Gallery.MVC.dll' | sudo tee $HOME/RUN-Touch.Gallery.log 2>&1) &
 
-echo "Upgrade finished $(date)" >> $HOME/RESTART.log
+echo "Upgrade finished $(date)"
