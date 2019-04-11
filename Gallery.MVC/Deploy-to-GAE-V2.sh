@@ -2,6 +2,7 @@
 set -e 
 REPO=https://github.com/devizer/Touch.Gallery
 
+
 function clear_cache () { echo 3 | sudo tee /proc/sys/vm/drop_caches > /dev/null; }
 dir=$(basename $REPO)
 work=$HOME/transient-builds
