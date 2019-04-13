@@ -2,6 +2,13 @@
 
   <PropertyGroup>
     <TargetFramework>netcoreapp2.2</TargetFramework>
+
+  <ServerGarbageCollection>false</ServerGarbageCollection>
+  <ConcurrentGarbageCollection>true</ConcurrentGarbageCollection>
+  <RetainVMGarbageCollection>false</RetainVMGarbageCollection>
+  <ThreadPoolMinThreads>8</ThreadPoolMinThreads>
+  <ThreadPoolMaxThreads>50</ThreadPoolMaxThreads>
+
   </PropertyGroup>
 
   <ItemGroup>
