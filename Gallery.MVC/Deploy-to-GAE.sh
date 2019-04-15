@@ -24,7 +24,7 @@ echo "Src downloaded $(date)"
 cd Gallery.MVC
 dotnet publish -c Release -r linux-x64 --self-contained -o ./bin/Touch.Gallery
 cd bin
-time sudo bash -c 'tar cf - Touch.Gallery | pv | gzip -9 > Touch.Gallery.tar.gz'; ls -la Touch.Gallery.tar.gz
+time sudo bash -c 'tar cf - Touch.Gallery | pv | gzip -3 > Touch.Gallery.tar.gz'; ls -la Touch.Gallery.tar.gz
 rm -rf Touch.Gallery
 gsutil cp Touch.Gallery.tar.gz gs://$Bucket/
 popd

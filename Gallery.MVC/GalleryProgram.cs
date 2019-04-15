@@ -6,6 +6,7 @@ using System.Linq;
 using System.Runtime.InteropServices;
 using System.Text;
 using System.Threading.Tasks;
+using Gallery.Logic.DataAccess;
 using Gallery.MVC.Utils;
 using Microsoft.AspNetCore;
 using Microsoft.AspNetCore.Hosting;
@@ -23,6 +24,7 @@ namespace Gallery.MVC
         public static void Main(string[] args)
         {
             CreatePidFile(GetDefaultPidFileFullPath());
+            new PhotosRepository().ToString();
             var host = BuildWebHost(args);
             try
             {
