@@ -10,14 +10,23 @@ namespace Gallery.Logic.DataAccess
 {
     public class PhotosRepository
     {
+        
         // DatastoreDb Db = DatastoreDb.Create("touch-galleries");
-        DatastoreDb Db = DatastoreDb.Create("noted-terra-234718");
+        DatastoreDb Db = DatastoreDb.Create(TOUCH_GALLERIES_PROJECT);
+
+        private static string TOUCH_GALLERIES_PROJECT = "noted-terra-234718";
 
         static PhotosRepository()
         {
             var creds = Environment.GetEnvironmentVariable("TOUCH_GALLERIES_CREDENTIALS");
             if (!string.IsNullOrEmpty(creds))
                 Environment.SetEnvironmentVariable("GOOGLE_APPLICATION_CREDENTIALS", creds);
+
+            var proj = Environment.GetEnvironmentVariable("TOUCH_GALLERIES_PROJECT");
+            if (!string.IsNullOrEmpty(proj))
+                TOUCH_GALLERIES_PROJECT = proj;
+
+            Console.WriteLine($"TOUCH_GALLERIES_PROJECT: [{TOUCH_GALLERIES_PROJECT}]");
         }
 
         // Key - idContent

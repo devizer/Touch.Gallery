@@ -1,6 +1,9 @@
 #!/bin/bash
-# set -e 
+# wget -q -nv --no-check-certificate -O - https://github.com/devizer/Touch.Gallery/raw/master/Gallery.MVC/Deploy-to-GAE.sh | bash
+
+set -e 
 REPO=https://github.com/devizer/Touch.Gallery
+Bucket=pet-projects-europe
 
 function clear_cache () { echo 3 | sudo tee /proc/sys/vm/drop_caches > /dev/null; }
 dir=$(basename $REPO)
@@ -16,9 +19,9 @@ echo "Src downloaded $(date)"
 cd Gallery.MVC
 dotnet publish -c Release -r linux-x64 --self-contained -o ./bin/Touch.Gallery
 cd bin
-time sudo bash -c 'tar cf - Touch.Gallery | pv | xz -f -0 > Touch.Gallery.tar.xz'; ls -la Touch.Gallery.tar.xz
+time sudo bash -c 'tar cf - Touch.Gallery | pv | gzip -9 > Touch.Gallery.tar.gz'; ls -la Touch.Gallery.tar.gz
 rm -rf Touch.Gallery
-gsutil cp Touch.Gallery.tar.xz gs://pet-projects-binaries/
+gsutil cp Touch.Gallery.tar.gz gs://pet-projects-europe/
 popd
 rm -rf $dir
 echo "Src builded $(date)" 
