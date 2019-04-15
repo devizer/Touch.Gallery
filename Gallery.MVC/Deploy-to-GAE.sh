@@ -2,6 +2,7 @@
 # wget -q -nv --no-check-certificate -O - https://github.com/devizer/Touch.Gallery/raw/master/Gallery.MVC/Deploy-to-GAE.sh | bash
 
 set -e 
+set -u
 REPO=https://github.com/devizer/Touch.Gallery
 Bucket=pet-projects-europe
 echo "SOURCE' REPO: [$REPO]"
