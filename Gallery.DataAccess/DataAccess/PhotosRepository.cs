@@ -10,11 +10,13 @@ namespace Gallery.Logic.DataAccess
 {
     public class PhotosRepository
     {
-        
+
         // DatastoreDb Db = DatastoreDb.Create("touch-galleries");
+
+
         DatastoreDb Db = DatastoreDb.Create(TOUCH_GALLERIES_PROJECT);
 
-        private static string TOUCH_GALLERIES_PROJECT = "noted-terra-234718";
+        public static readonly string TOUCH_GALLERIES_PROJECT = "noted-terra-234718";
 
         static PhotosRepository()
         {
@@ -26,7 +28,6 @@ namespace Gallery.Logic.DataAccess
             if (!string.IsNullOrEmpty(proj))
                 TOUCH_GALLERIES_PROJECT = proj;
 
-            Console.WriteLine($"TOUCH_GALLERIES_PROJECT: [{TOUCH_GALLERIES_PROJECT}]");
         }
 
         // Key - idContent

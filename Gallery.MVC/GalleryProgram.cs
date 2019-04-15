@@ -24,7 +24,8 @@ namespace Gallery.MVC
         public static void Main(string[] args)
         {
             CreatePidFile(GetDefaultPidFileFullPath());
-            new PhotosRepository().ToString();
+            Console.WriteLine($"TOUCH_GALLERIES_PROJECT: [{PhotosRepository.TOUCH_GALLERIES_PROJECT}]");
+
             var host = BuildWebHost(args);
             try
             {
