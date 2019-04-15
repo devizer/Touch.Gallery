@@ -9,6 +9,7 @@ function clear_cache () { echo 3 | sudo tee /proc/sys/vm/drop_caches > /dev/null
 dir=$(basename $REPO)
 work=$HOME/transient-builds
 if [[ -d "/transient-builds" ]]; then work=/transient-builds; fi
+echo "WORK/BUILD DIRECTORY: [$work/$dir]"
 mkdir -p $work; cd $work
 rm -rf $dir
 git clone $REPO $dir
