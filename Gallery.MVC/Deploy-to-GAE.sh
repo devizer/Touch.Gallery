@@ -4,6 +4,9 @@
 set -e 
 REPO=https://github.com/devizer/Touch.Gallery
 Bucket=pet-projects-europe
+echo "SOURCE' REPO: [$REPO]"
+echo "TARGET BUCKET: [$Bucket]"
+
 
 function clear_cache () { echo 3 | sudo tee /proc/sys/vm/drop_caches > /dev/null; }
 dir=$(basename $REPO)
@@ -22,7 +25,7 @@ dotnet publish -c Release -r linux-x64 --self-contained -o ./bin/Touch.Gallery
 cd bin
 time sudo bash -c 'tar cf - Touch.Gallery | pv | gzip -9 > Touch.Gallery.tar.gz'; ls -la Touch.Gallery.tar.gz
 rm -rf Touch.Gallery
-gsutil cp Touch.Gallery.tar.gz gs://pet-projects-europe/
+gsutil cp Touch.Gallery.tar.gz gs://$Bucket/
 popd
 rm -rf $dir
 echo "Src builded $(date)" 
