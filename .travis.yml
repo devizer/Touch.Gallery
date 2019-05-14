@@ -1,10 +1,8 @@
 language: csharp
 mono: none
-dotnet: 2.0.3
-dist: trusty
-
-os:
-  - linux
+dotnet: 2.2
+dist: xenial
+os: linux
 
 install:
   - export OS_KEY_NAME="$(lsb_release -c -s)"
