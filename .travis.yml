@@ -14,8 +14,8 @@ script:
     - dotnet --version
     - cd Gallery.MVC
     - dotnet restore
-    - dotnet publish -c Release
-    - cd bin/Release/netcoreapp2.0/publish 
+    - dotnet publish -c Release -o bin/travis
+    - cd bin/travis
     - dotnet Gallery.MVC.dll > my.log &
     - sleep 30
     - killall dotnet
